@@ -1,12 +1,17 @@
-const express = require("express");
-const app = express();
-const port = 5000;
-const cors = require("cors");
-app.use(cors({ origin: "http://localhost:3000" }));
-app.use(express.json());
-app.get("/home", (req, res) => {
-  res.send("hello express");
-});
+const express = require('express')
+const app = express()
+const userRouter = require('./routers/userRouter')
+
+const cors = require('cors')
+app.use(cors({ origin: 'http://localhost:3000' }))
+
+app.use(express.json())
+
+const port = process.env.PORT || 5000;
+app.use('/user', userRouter)
+app.get('/', (req, res) => {
+    res.send('response from userRouter')
+})
 app.listen(port, () => {
-  console.log("the server has been started");
-});
+    console.log('server started')
+})
