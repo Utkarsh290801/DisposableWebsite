@@ -13,6 +13,7 @@ import ManageUser from './components/admin/ManageUser';
 import Profile from './components/admin/Profile';
 import User from './components/user';
 import UserProfile from './components/user/UserProfile';
+import Plans from './components/main/Plans';
 function App() {
   return (
     <div>
@@ -24,6 +25,7 @@ function App() {
           <Route path='contactus' element={<ContactUs/>}/>
           <Route path='reset' element={<ResetPassword/>}/>
           <Route path='home' element={<Home/>}/>
+          <Route path='plan' element={<Plans></Plans>}/>
         </Route>
         <Route element={<Admin/>} path="admin">
           <Route path='dashboard' element={<Dashboard/>}/>
