@@ -53,7 +53,7 @@ const Login = () => {
             className="card-body"
             style={{borderRadius:"8px solid black" }}
           >
-            <h1>Sign In</h1>
+            <h1 style={{ textAlign: "center"}}>Sign In</h1>
             <hr className="mb-4" />
 
             <Formik initialValues={loginForm} onSubmit={loginSubmit}>
@@ -100,7 +100,7 @@ const Login = () => {
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <FormControlLabel
                       value="end"
-                      control={<Checkbox color="secondary" />}
+                      control={<Checkbox/>}
                       label="Remember me"
                       labelPlacement="end"
                     />
@@ -131,5 +131,4 @@ const Login = () => {
     </div>
   )
 }
-
 export default Login
