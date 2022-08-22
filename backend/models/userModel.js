@@ -7,6 +7,6 @@ const myschema = new Schema({
   password: String,
   confirmPassword:String,
   avatar: String,
-//   createdAt: { type: Date, default: new Date() },
+  createdAt: { type: Date, default: new Date() },
 });
 module.exports = model('usercollection', myschema);
