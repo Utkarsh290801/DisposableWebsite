@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter,Route,Link, Routes}from 'react-router-dom'
+import {BrowserRouter,Route,Link, Routes, Navigate}from 'react-router-dom'
 import Main from './components/main';
 import Login from './components/main/Login';
 import Signup from './components/main/Signup';
@@ -14,6 +14,7 @@ import Profile from './components/admin/Profile';
 import User from './components/user';
 import UserProfile from './components/user/UserProfile';
 import Plans from './components/main/Plans';
+import NotFound from './components/main/NotFound';
 function App() {
   return (
     <div>
@@ -25,7 +26,10 @@ function App() {
           <Route path='contactus' element={<ContactUs/>}/>
           <Route path='reset' element={<ResetPassword/>}/>
           <Route path='home' element={<Home/>}/>
-          <Route path='plan' element={<Plans/>}/>
+
+          <Route path='plan' element={<Plans></Plans>}/>
+          <Route element={<NotFound></NotFound>} path="notfound" />
+
         </Route>
         <Route element={<Admin/>} path="admin">
           <Route path='dashboard' element={<Dashboard/>}/>
@@ -34,7 +38,9 @@ function App() {
         </Route>
         <Route element={<User/>} path="user">
           <Route path='userprofile' element={<UserProfile/>}/>
+          
         </Route>
+          <Route element={<Navigate to="/main/notfound" />} path="*" />
         
       </Routes>
 
