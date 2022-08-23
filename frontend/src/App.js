@@ -25,7 +25,7 @@ function App() {
           <Route path='contactus' element={<ContactUs/>}/>
           <Route path='reset' element={<ResetPassword/>}/>
           <Route path='home' element={<Home/>}/>
-          <Route path='plan' element={<Plans></Plans>}/>
+          <Route path='plan' element={<Plans/>}/>
         </Route>
         <Route element={<Admin/>} path="admin">
           <Route path='dashboard' element={<Dashboard/>}/>

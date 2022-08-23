@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { Formik } from "formik";
 import {
   Button,
+  Card,
+  CardContent,
   Checkbox,
   FormControlLabel,
   IconButton,
@@ -48,9 +50,8 @@ const Login = () => {
         className="container col-md-4 col-sm-6"
         style={{ minHeight: "100vh", paddingTop: "5%" }}
       >
-        <div className="card">
-          <div
-            className="card-body"
+        <Card>
+          <CardContent
             style={{borderRadius:"8px solid black" }}
           >
             <h1 style={{ textAlign: "center"}}>Sign In</h1>
@@ -119,14 +120,14 @@ const Login = () => {
                   </Button>
                   <center>
                     <p style={{ paddingTop: "5%" }}>
-                      Don't have an account? <a href="/signup">SIGN UP</a>
+                      Don't have an account? <a href="/main/signup">SIGN UP</a>
                     </p>
                   </center>
                 </form>
               )}
             </Formik>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
