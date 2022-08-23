@@ -27,7 +27,7 @@ function App() {
           <Route path='reset' element={<ResetPassword/>}/>
           <Route path='home' element={<Home/>}/>
 
-          <Route path='plan' element={<Plans></Plans>}/>
+          <Route path='plan' element={<Plans/>}/>
           <Route element={<NotFound></NotFound>} path="notfound" />
 
         </Route>
