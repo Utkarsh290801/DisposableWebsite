@@ -34,4 +34,35 @@ router.get("/getall", (req, res) => {
       res.json(err)
     })
 })
+router.get("/getbyid/:webid", (req, res) => {
+    Model.findById(req.params.webid)
+      .then((result) => {
+        res.json(result)
+      })
+      .catch((err) => {
+        console.error(err)
+        res.json(err)
+      })
+  })
+  
+  router.delete("/delete/:webid", (req, res) => {
+    Model.findByIdAndDelete(req.params.webid)
+      .then((result) => {
+        res.json(result)
+      })
+      .catch((err) => {
+        console.error(err)
+        res.json(err)
+      })
+  })
+  router.put("/update/:webid", (req, res) => {
+    Model.findByIdAndUpdate(req.params.webid, req.body, { new: true })
+      .then((result) => {
+        res.json(result)
+      })
+      .catch((err) => {
+        console.error(err)
+        res.json(err)
+      })
+  })
 module.exports = router

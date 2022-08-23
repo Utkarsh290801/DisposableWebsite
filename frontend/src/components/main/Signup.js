@@ -65,12 +65,12 @@ const Signup = () => {
   return (
     <div className="signup">
       <div
-        className="container col-8"
+        className="container col-md-4 col-sm-6"
         style={{ minHeight: "100vh", paddingTop: "3%" }}>
         <div className="row">
           <div className="card">
             <div className="card-body">
-            <h1 style={{ textAlign: "center" }}>
+            <h1 style={{ textAlign: "center"}}>
                     Signup Here
                   </h1>
               <hr className="mb-3" />
@@ -194,7 +194,7 @@ const Signup = () => {
 
                         <div className="d-flex justify-content-center">
                           <a
-                            className="btn btn-outline-light btn-floating m-1"
+                            className="btn btn-outline-info btn-floating m-1"
                             href="#!"
                             role="button"
                           >
@@ -205,7 +205,7 @@ const Signup = () => {
                           </a>
 
                           <a
-                            className="btn btn-outline-light btn-floating m-1"
+                            className="btn btn-outline-secondary btn-floating m-1"
                             href="#!"
                             role="button"
                           >
@@ -216,7 +216,7 @@ const Signup = () => {
                           </a>
 
                           <a
-                            className="btn btn-outline-light btn-floating m-1"
+                            className="btn btn-outline-primary btn-floating m-1"
                             href="#!"
                             role="button"
                           >
