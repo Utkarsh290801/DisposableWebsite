@@ -119,7 +119,7 @@ const Login = () => {
                   </Button>
                   <center>
                     <p style={{ paddingTop: "5%" }}>
-                      Don't have an account? <a href="/signup">SIGN UP</a>
+                      Don't have an account? <a href="/main/signup">SIGN UP</a>
                     </p>
                   </center>
                 </form>
