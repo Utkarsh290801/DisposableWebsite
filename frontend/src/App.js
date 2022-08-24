@@ -15,6 +15,7 @@ import User from './components/user';
 import UserProfile from './components/user/UserProfile';
 import Plans from './components/main/Plans';
 import NotFound from './components/main/NotFound';
+import AddWebpage from './components/user/AddWebpage';
 function App() {
   return (
     <div>
@@ -38,6 +39,7 @@ function App() {
         </Route>
         <Route element={<User/>} path="user">
           <Route path='userprofile' element={<UserProfile/>}/>
+          <Route path='addwebpage' element={<AddWebpage/>}/>
           
         </Route>
           <Route element={<Navigate to="/main/notfound" />} path="*" />
