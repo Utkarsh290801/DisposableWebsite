@@ -47,7 +47,7 @@ const ManageUser = () => {
           <td>{password}</td>
           <td>
             <button className="btn btn-danger" onClick={(e) => deleteUser(_id)}>
-              <i class="fas fa-trash   "></i>
+              <i class="fas fa-trash"></i>
             </button>
           </td>
         </tr>

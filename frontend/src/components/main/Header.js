@@ -1,8 +1,23 @@
+import { Button } from '@mui/material';
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink ,useNavigate } from 'react-router-dom'
+
+
+import { UserContext } from '../user/UserContext';
 
 const Header = () => {
+  const { loggedIn, setLoggedIn } = React.useContext(UserContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    //1.destroy session value
+    sessionStorage.removeItem("user");
+    //2. set the current user to null
+    setLoggedIn(false);
+    //3.navigate to login page
+    navigate("/main/login");
+  };
   return (
+    
     <div>
       {/* <!-- Navbar --> */}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -66,12 +81,22 @@ const Header = () => {
     {/* <!-- Right elements --> */}
     <div class="d-flex align-items-center">
       {/* <!-- Icon --> */}
-      <a class="text-reset me-3" href="#">
-        <i class="fas fa-shopping-cart"></i>
-      </a>
+      
+      {!loggedIn ? (
+              <li className="nav">
+                <NavLink className="btn btn-primary" to="/main/login">
+                  Login Now
+                </NavLink>
+              </li>
+            ) : (
+              <NavLink onClick={logout} className="btn btn-danger"to="/main">
+                Logout
+              </NavLink>
+            )}
+   
 
       {/* <!-- Notifications --> */}
-      <div class="dropdown">
+            <div class="dropdown">
         <a
           class="text-reset me-3 dropdown-toggle hidden-arrow"
           href="#"

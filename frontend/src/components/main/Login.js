@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from 'react'
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Formik } from "formik";
 import {
@@ -13,8 +13,11 @@ import {
   TextField,
 } from "@mui/material";
 import { EmailOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
+import { UserContext } from '../user/UserContext';
 
 const Login = () => {
+const {setLoggedIn}=useContext(UserContext)
+
   const [showPassword, setShowPassword] = useState(false);
   const loginForm = {
     email: "",
@@ -35,6 +38,10 @@ const Login = () => {
         title: "Success",
         text: "Login success!!👍",
       });
+      const data=await response.json()
+      setLoggedIn(true);
+      sessionStorage.setItem('user', JSON.stringify(data))
+      Navigate('/main')
     } else if (response.status === 400) {
       Swal.fire({
         icon: "error",

@@ -13,11 +13,19 @@ import ManageUser from './components/admin/ManageUser';
 import Profile from './components/admin/Profile';
 import User from './components/user';
 import UserProfile from './components/user/UserProfile';
+import UserrProfile from './components/user/UserrProfile';
 import Plans from './components/main/Plans';
 import NotFound from './components/main/NotFound';
+import { UserProvider } from './components/user/UserContext';
+import { useState } from 'react';
 function App() {
+  
+    const [currentUser, setcurrentUser] = useState(
+      JSON.parse(sessionStorage.getItem("user"))
+    );
   return (
     <div>
+      <UserProvider currentUser={currentUser}>
       <BrowserRouter>
       <Routes>
         <Route element={<Main/>} path="main">
@@ -27,7 +35,7 @@ function App() {
           <Route path='reset' element={<ResetPassword/>}/>
           <Route path='home' element={<Home/>}/>
 
-          <Route path='plan' element={<Plans/>}/>
+          <Route path='plans' element={<Plans></Plans>}/>
           <Route element={<NotFound></NotFound>} path="notfound" />
 
         </Route>
@@ -35,16 +43,20 @@ function App() {
           <Route path='dashboard' element={<Dashboard/>}/>
           <Route path='manageuser' element={<ManageUser/>}/>
           <Route path='profile' element={<Profile/>}/>
-        </Route>
+          </Route>
+          
         <Route element={<User/>} path="user">
           <Route path='userprofile' element={<UserProfile/>}/>
+            <Route path='userrprofile' element={<UserrProfile />} />
+            
           
         </Route>
           <Route element={<Navigate to="/main/notfound" />} path="*" />
         
       </Routes>
 
-      </BrowserRouter>
+        </BrowserRouter>
+        </UserProvider>
     </div>
   );
 }
