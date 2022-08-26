@@ -15,6 +15,7 @@ import {
 import { EmailOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const loginForm = {
     email: "",
@@ -35,6 +36,10 @@ const Login = () => {
         title: "Success",
         text: "Login success!!👍",
       });
+      response.json().then(data => {
+        sessionStorage.setItem('user', JSON.stringify(data));
+        navigate('/user/addwebpage');
+      })
     } else if (response.status === 400) {
       Swal.fire({
         icon: "error",
