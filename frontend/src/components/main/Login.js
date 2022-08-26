@@ -16,8 +16,7 @@ import { EmailOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 import { UserContext } from '../user/UserContext';
 
 const Login = () => {
-const {setLoggedIn}=useContext(UserContext)
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const loginForm = {
     email: "",
@@ -38,10 +37,10 @@ const {setLoggedIn}=useContext(UserContext)
         title: "Success",
         text: "Login success!!👍",
       });
-      const data=await response.json()
-      setLoggedIn(true);
-      sessionStorage.setItem('user', JSON.stringify(data))
-      Navigate('/main')
+      response.json().then(data => {
+        sessionStorage.setItem('user', JSON.stringify(data));
+        navigate('/user/addwebpage');
+      })
     } else if (response.status === 400) {
       Swal.fire({
         icon: "error",
