@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Route, Link, Routes, Navigate } from "react-router-dom";
 import Main from "./components/main";
@@ -17,6 +16,8 @@ import Plans from "./components/main/Plans";
 import NotFound from "./components/main/NotFound";
 import AddWebpage from "./components/user/AddWebpage";
 import Authorisor from "./components/user/AuthUser";
+import { UserProvider } from "./components/user/UserContext";
+import { useState } from "react";
 function App() {
   
     const [currentUser, setcurrentUser] = useState(
@@ -57,7 +58,8 @@ function App() {
           <Route element={<Navigate to="/main/notfound" />} path="*" />
           <Route element={<Navigate to="/main/home" />} path="/" />
         </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
+        </UserProvider>
     </div>
   );
 }
