@@ -67,8 +67,8 @@ const Login = () => {
               {({ values, handleChange, handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
                   <TextField
-                    label="Email"
-                    variant="standard"
+                    label="Email*"
+                    variant="outlined"
                     
                     className="w-100 mb-4"
                     id="email"
@@ -84,7 +84,7 @@ const Login = () => {
                   />
 
                   <TextField
-                    label="Password"
+                    label="Password*"
                     
                     variant="outlined"
                     className="w-100 mb-3"
@@ -111,9 +111,9 @@ const Login = () => {
                       label="Remember me"
                       labelPlacement="end"
                     />
-                    <NavLink to="" className="text-body">
+                    <a href ="">
                       Forgot password?
-                    </NavLink>
+                    </a>
                   </div>
 
                   <Button

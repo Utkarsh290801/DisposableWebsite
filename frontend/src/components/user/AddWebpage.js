@@ -172,7 +172,7 @@ const AddWebpage = () => {
                             /> */}
 
                             <button className="btn btn-primary model w-100 mt-5">
-                              <h3> Submit</h3>
+                              Submit
                             </button>
                           </fieldset>
                         </form>

@@ -89,7 +89,7 @@ const Signup = () => {
                       <form onSubmit={handleSubmit}>
                         <TextField
                           label="Username"
-                          variant="standard"
+                          variant="outlined"
                           className="w-100 mb-3"
                           id="username"
                           InputProps={{
@@ -107,7 +107,7 @@ const Signup = () => {
 
                         <TextField
                           label="Email"
-                          variant="standard"
+                          variant="outlined"
                           className="w-100 mb-3"
                           id="email"
                           InputProps={{
@@ -124,7 +124,7 @@ const Signup = () => {
                         />
                         <TextField
                           label="Password"
-                          variant="standard"
+                          variant="outlined"
                           className="w-100 mb-3"
                           id="password"
                           type={showPassword ? "text" : "password"}
@@ -155,7 +155,7 @@ const Signup = () => {
                           placeholder="Re-enterPassword"
                           label="Confirm Password"
                           type="password"
-                          variant="standard"
+                          variant="outlined"
                           id="confirmPassword"
                           onChange={handleChange}
                           value={values.confirmPassword}
