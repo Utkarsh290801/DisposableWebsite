@@ -7,6 +7,22 @@ const UserProfile = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
+  
+  const [selFile, setSelFile] = useState("");
+  const uploadFile = (e) => {
+    const file = e.target.files[0]
+    setSelFile(file.name)
+    const fd = new FormData()
+    fd.append("myfile", file)
+    fetch("http://localhost:5000/util/uploadfile", {
+      method: "POST",
+      body: fd,
+    }).then((res) => {
+      if (res.status === 200) {
+        console.log("uploaded")
+      }
+    })
+  }
 
   const onFormSubmit = (value) => {
     fetch("http://localhost:5000/user/update" + currentUser._id, {
@@ -35,15 +51,15 @@ const UserProfile = () => {
       <Card>
         <CardContent>
           <div className="row">
-            <p className="my-4 h2">Manage Profile</p>
+            <p className="my-4 h2">Edit Profile</p>
             <hr />
-            <div className="col-md-4">
-              <img src="" className="img-fluid" alt="" />
-              <br />
+            <div className="col-md-5">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHgwL4r2DN1qg91OOqIViiv0Uxw-9yqo-PiQ&usqp=CAU" className="avatar img-circle img-thumbnail" alt="avatar" />
+              <br/>
               <label className="mt-3">Change Image</label>
               <input className="form-control" type="file" />
             </div>
-            <div className="col-md-8">
+            <div className="col-md-7">
               <Formik
                 // initialValues={currentUser}
                 initialValues={{

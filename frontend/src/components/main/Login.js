@@ -13,9 +13,11 @@ import {
   TextField,
 } from "@mui/material";
 import { EmailOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
-import { UserContext } from '../user/UserContext';
+
+import app_config from '../../config';
 
 const Login = () => {
+ const url= app_config.backend_url
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const loginForm = {
@@ -24,7 +26,7 @@ const Login = () => {
   };
   const loginSubmit = async (formdata) => {
     console.log(formdata);
-    const response = await fetch("http://localhost:5000/user/authenticate", {
+    const response = await fetch(url+"/user/authenticate", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: { "Content-Type": "application/json" },
