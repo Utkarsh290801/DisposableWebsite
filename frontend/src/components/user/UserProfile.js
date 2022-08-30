@@ -7,7 +7,7 @@ const UserProfile = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
-  
+
   const [selFile, setSelFile] = useState("");
   const uploadFile = (e) => {
     const file = e.target.files[0]
@@ -54,7 +54,7 @@ const UserProfile = () => {
             <p className="my-4 h2">Edit Profile</p>
             <hr />
             <div className="col-md-5">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHgwL4r2DN1qg91OOqIViiv0Uxw-9yqo-PiQ&usqp=CAU" className="avatar img-circle img-thumbnail" alt="avatar" />
+              <img src="http://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHgwL4r2DN1qg91OOqIViiv0Uxw-9yqo-PiQ&usqp=CAU" className="avatar img-circle img-thumbnail" alt="avatar" />
               <br/>
               <label className="mt-3">Change Image</label>
               <input className="form-control" type="file" />
