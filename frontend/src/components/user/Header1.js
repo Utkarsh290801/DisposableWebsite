@@ -13,7 +13,7 @@ const Header1 = () => {
 // mobile_nav.addEventListener("click", () => toggleNavbar());
   return (
     <div>
-         <header class="header">
+         <header class="header active">
       <img
         src="logo.png"
         alt="Web Build"
@@ -29,7 +29,7 @@ const Header1 = () => {
           <li>
             <a
               class="navbar-link"
-              href="https://www.instagram.com/thapatechnical/"
+              href=""
               target="_blank"
               >Contact</a
             >
