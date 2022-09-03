@@ -1,0 +1,24 @@
+body{
+    position: relative;
+    overflow: hidden;
+}
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 270px;
+    background: #11101d;
+    padding: 6px 14px;
+}
+.sidebar .logo_content .logodashboard{
+    color: #fff;
+    display: flex;
+    height: 50%;
+    width: 100%;
+    align-items: center;
+
+}
+/* .logo_content .logodashboard .icons{
+
+} */
