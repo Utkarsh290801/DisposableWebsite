@@ -1,7 +1,4 @@
-body{
-    position: relative;
-    overflow: hidden;
-}
+
 .sidebar{
     position: fixed;
     top: 0;
