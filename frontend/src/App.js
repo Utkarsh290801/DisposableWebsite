@@ -18,6 +18,7 @@ import AddWebpage from "./components/user/AddWebpage";
 import Authorisor from "./components/user/AuthUser";
 import { UserProvider } from "./components/user/UserContext";
 import { useState } from "react";
+import UserrProfile from "./components/user/UserrProfile";
 function App() {
   
     const [currentUser, setcurrentUser] = useState(
@@ -45,6 +46,7 @@ function App() {
           </Route>
           <Route element={<User />} path="user">
             <Route path="userprofile" element={<UserProfile />} />
+            <Route path="userrprofile" element={<UserrProfile />} />
             {/* <Route path='addwebpage' element={<AddWebpage/>}/> */}
             <Route
               element={
