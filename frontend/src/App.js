@@ -19,6 +19,8 @@ import Authorisor from "./components/user/AuthUser";
 import { UserProvider } from "./components/user/UserContext";
 import { useState } from "react";
 import UserrProfile from "./components/user/UserrProfile";
+import SignIn from "./components/main/SignIn";
+import Sign from "./components/main/Sign";
 function App() {
   
     const [currentUser, setcurrentUser] = useState(
@@ -32,6 +34,8 @@ function App() {
           <Route element={<Main />} path="main">
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="sign" element={<SignIn />} />
+            <Route path="signin" element={<Sign />} />
             <Route path="contactus" element={<ContactUs />} />
             <Route path="reset" element={<ResetPassword />} />
             <Route path="home" element={<Home />} />
