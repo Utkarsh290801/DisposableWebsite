@@ -1,169 +1,94 @@
-import { Button } from '@mui/material';
-import React from 'react'
-import { NavLink ,useNavigate } from 'react-router-dom'
-
-
-import { UserContext } from '../user/UserContext';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
-  const { loggedIn, setLoggedIn } = React.useContext(UserContext);
-  const navigate = useNavigate();
-  const logout = () => {
-    //1.destroy session value
-    sessionStorage.removeItem("user");
-    //2. set the current user to null
-    setLoggedIn(false);
-    //3.navigate to login page
-    navigate("/main/login");
-  };
+  const [showBar, setShowBar] = useState(false);
   return (
-    
     <div>
       {/* <!-- Navbar --> */}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  {/* <!-- Container wrapper --> */}
-  <div class="container-fluid">
-    {/* <!-- Toggle button --> */}
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        {/* <!-- Container wrapper --> */}
+        <div class="container-fluid">
+          {/* <!-- Toggle button --> */}
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
 
-    {/* <!-- Collapsible wrapper --> */}
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      {/* <!-- Navbar brand --> */}
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
-        <img
-          src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-          height="15"
-          alt="MDB Logo"
-          loading="lazy"
+          {/* <!-- Collapsible wrapper --> */}
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {/* <!-- Navbar brand --> */}
+            <a class="navbar-brand mt-2 mt-lg-0" href="#">
+              <img
+                src="https://blogs.articulate.com/rapid-elearning/wp-content/uploads/sites/7/2016/07/drag-drop-examples.png"
+                height="55"
+                alt=""
+                loading="lazy"
+              />
+            </a>
+            {/* <!-- Left links --> */}
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <NavLink className="nav-link" to="">
+                  HOME
+                </NavLink>
+              </li>
+              <li class="nav-item">
+                <NavLink className="nav-link" to="">
+                  PREVIEW
+                </NavLink>
+              </li>
+              <li class="nav-item">
+                <NavLink className="nav-link" to="">
+                  TEMPLATES
+                </NavLink>
+              </li>
+              <li class="nav-item">
+                <NavLink className="nav-link" to="">
+                  PRICING
+                </NavLink>
+              </li>
+            </ul>
+            {/* <!-- Left links --> */}
+          </div>
+          {/* <!-- Collapsible wrapper --> */}
+
+          {/* <!-- Right elements --> */}
+          <div class="d-flex align-items-center">
+            <a class="link-secondary" href="#">
+              <i
+                class="fas fa-search"
+                id="search-btn"
+                onClick={(e) => setShowBar(true)}
+              ></i>
+              <i class="fas fa-user" id="login-btn"></i>
+            </a>
+          </div>
+          {/* <!-- Right elements --> */}
+        </div>
+        {/* <!-- Container wrapper --> */}
+      </nav>
+      <form action="" class="search-bar">
+        <input
+          hidden={!showBar}
+          type="search"
+          id=""
+          className="form-control"
+          placeholder="search here..."
+          style={{ marginTop: "", border: "2px solid black" }}
         />
-      </a>
-      {/* <!-- Left links --> */}
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-                <NavLink className="nav-link" to="/main/login">
-                  Login
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/main/signup">
-                  Signup
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/main/plan">
-                  Plan
-                </NavLink>
-              </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Team</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Projects</a>
-        </li>
-      </ul>
-      {/* <!-- Left links --> */}
-    </div>
-    {/* <!-- Collapsible wrapper --> */}
+      </form>
 
-    {/* <!-- Right elements --> */}
-    <div class="d-flex align-items-center">
-      {/* <!-- Icon --> */}
-      
-      {!loggedIn ? (
-              <li className="nav">
-                <NavLink className="btn btn-primary" to="/main/login">
-                  Login Now
-                </NavLink>
-              </li>
-            ) : (
-              <NavLink onClick={logout} className="btn btn-danger"to="/main">
-                Logout
-              </NavLink>
-            )}
-   
-
-      {/* <!-- Notifications --> */}
-            <div class="dropdown">
-        <a
-          class="text-reset me-3 dropdown-toggle hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="fas fa-bell"></i>
-          <span class="badge rounded-pill badge-notification bg-danger">1</span>
-        </a>
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownMenuLink"
-        >
-          <li>
-            <a class="dropdown-item" href="#">Some news</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Another news</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </li>
-        </ul>
-      </div>
-      {/* <!-- Avatar --> */}
-      <div class="dropdown">
-        <a
-          class="dropdown-toggle d-flex align-items-center hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <img
-            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-            class="rounded-circle"
-            height="25"
-            alt="Black and White Portrait of a Man"
-            loading="lazy"
-          />
-        </a>
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownMenuAvatar"
-        >
-          <li>
-            <a class="dropdown-item" href="#">My profile</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Settings</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Logout</a>
-          </li>
-        </ul>
-      </div>
+      {/* <!-- Navbar --> */}
     </div>
-    {/* <!-- Right elements --> */}
-  </div>
-  {/* <!-- Container wrapper --> */}
-</nav>
-{/* <!-- Navbar --> */}
-    </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

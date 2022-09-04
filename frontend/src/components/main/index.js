@@ -5,10 +5,10 @@ import Header from './Header'
 const Main = () => {
   return (
     <div>
-        <Header></Header>
+        <Header/>
         <Outlet/>
     </div>
   )
 }
 
-export default Main
+export default Main 
