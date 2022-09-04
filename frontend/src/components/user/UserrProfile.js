@@ -1,4 +1,4 @@
-import { Button, IconButton, TextField } from "@mui/material";
+import { Avatar, Button, IconButton, TextField } from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
@@ -60,7 +60,10 @@ const UserrProfile = () => {
         </div>
       </div>
 
-      <div className="container-fluid py-4 bg-dark">
+      <div className="container-fluid py-4 "  style={{
+                backgroundImage:
+                  "url('https://www.creative-tim.com/assets/navbar/bg-purchases-5c9fc0930fe5ac15a960ddacd6224025e8eb0479f8f80ffa7e53804fba4b438a.jpg",
+              }}>
         <div className="row">
           <div className="col-md-6">
             <Formik
@@ -90,12 +93,7 @@ const UserrProfile = () => {
                           >
                             <div className="photo-container d-flex align-items-center">
                               
-                              <img
-                                className="photo avatar img-fluid"
-                                src="	https://s3.amazonaws.com/creativetim_bucket/anonymous_thumb.png"
-                                alt=""
-                              />
-                              
+                            <Avatar src="/broken-image.jpg"sx={{ width: 60, height: 60 }} />
                               <IconButton color="primary" aria-label="upload picture" component="label">
   <input hidden accept="image/*" type="file" />
   <PhotoCamera />
