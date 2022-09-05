@@ -58,9 +58,9 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="signin-bg" style={{}}>
-      <section class="vh-100" style={{ backgroundColor: "" }}>
-        <div class="container py-5 h-100">
+    <div className="signin-bg">
+      <section class="vh-100">
+        <div class="container  h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col col-xl-10">
               <div class="card" style={{ borderRadius: "1rem " }}>
@@ -145,7 +145,7 @@ const SignIn = () => {
                                 type="submit"
                                 variant="contained"
                                 className=" btn btn-primary btn-lg btn-block"
-                                style={{ width: "38%", marginTop: "" }}
+                                style={{ width: "38%"}}
                               >
                                 Sign In
                               </Button>

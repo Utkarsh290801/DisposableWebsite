@@ -77,7 +77,7 @@ const Sign = () => {
   return (
     <div className="signin-bg" >
       <section class="vh-100 ">
-        <div class="container py-5 h-100">
+        <div class="container h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col col-xl-10">
               <div class="card" style={{ borderRadius: "1rem " }}>
@@ -91,7 +91,7 @@ const Sign = () => {
                     />
                   </div>
                   <div class="col-md-6 col-lg-5 col-xl-6">
-                    <div class="card-body p-lg-5 text-black">
+                    <div class="card-body p-lg-4 text-black">
                       <h1 className="font-weight-bold ">Create Account</h1>
                       <Formik
                         initialValues={userForm}
@@ -224,7 +224,7 @@ const Sign = () => {
                                 type="submit"
                                 variant="contained"
                                 className=" btn btn-primary btn-lg btn-block"
-                                style={{ width: "", marginTop: "" }}
+                                
                               >
                                 Create Account
                               </Button>
