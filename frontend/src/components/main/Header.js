@@ -1,94 +1,230 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import WebhookIcon from '@mui/icons-material/Webhook';
+import { useNavigate } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+
+
+const pages = [{name:'Home',link:'/main'}, {name:'Why?',link:'/'}, {name:'Store-templates',link:'/'},{name:'Pricing',link:'/main/plan'},{name:'Contact Us',link:'/'}];
+const settings = [{name:'Profile',link:'/admin/profile'}, {name:'Logout',link:'/'}];
+
+//Search Bar
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
+
 
 const Header = () => {
-  const [showBar, setShowBar] = useState(false);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const navigate = useNavigate();
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  //----- hover effect for MenuItem------
+  const boxSX = {
+    "&:hover": {
+      color: 'black',
+      backgroundColor: '#b1b0b9'
+    },
+  };
   return (
-    <div>
-      {/* <!-- Navbar --> */}
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        {/* <!-- Container wrapper --> */}
-        <div class="container-fluid">
-          {/* <!-- Toggle button --> */}
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+    <AppBar position="static"  sx={{background:"#1d1b31"}}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <WebhookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
           >
-            <i class="fas fa-bars"></i>
-          </button>
+            Web-X
+          </Typography>
 
-          {/* <!-- Collapsible wrapper --> */}
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            {/* <!-- Navbar brand --> */}
-            <a class="navbar-brand mt-2 mt-lg-0" href="#">
-              <img
-                src="https://blogs.articulate.com/rapid-elearning/wp-content/uploads/sites/7/2016/07/drag-drop-examples.png"
-                height="55"
-                alt=""
-                loading="lazy"
-              />
-            </a>
-            {/* <!-- Left links --> */}
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <NavLink className="nav-link" to="">
-                  HOME
-                </NavLink>
-              </li>
-              <li class="nav-item">
-                <NavLink className="nav-link" to="">
-                  PREVIEW
-                </NavLink>
-              </li>
-              <li class="nav-item">
-                <NavLink className="nav-link" to="">
-                  TEMPLATES
-                </NavLink>
-              </li>
-              <li class="nav-item">
-                <NavLink className="nav-link" to="">
-                  PRICING
-                </NavLink>
-              </li>
-            </ul>
-            {/* <!-- Left links --> */}
-          </div>
-          {/* <!-- Collapsible wrapper --> */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map(({name,link}) => (
+                <MenuItem key={name} onClick={(e)=>navigate(link)} >
+                  <Typography textAlign="center">{name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <WebhookIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Web-X
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map(({name,link}) => (
+              <Button
+                key={name}
+                onClick={(e)=>navigate(link)}
+                sx={{ my: 2, color: 'white',mx:1, display: 'block',...boxSX }}
+              >
+                {name}
+              </Button>
+            ))}
+          </Box>
 
-          {/* <!-- Right elements --> */}
-          <div class="d-flex align-items-center">
-            <a class="link-secondary" href="#">
-              <i
-                class="fas fa-search"
-                id="search-btn"
-                onClick={(e) => setShowBar(true)}
-              ></i>
-              <i class="fas fa-user" id="login-btn"></i>
-            </a>
-          </div>
-          {/* <!-- Right elements --> */}
-        </div>
-        {/* <!-- Container wrapper --> */}
-      </nav>
-      <form action="" class="search-bar">
-        <input
-          hidden={!showBar}
-          type="search"
-          id=""
-          className="form-control"
-          placeholder="search here..."
-          style={{ marginTop: "", border: "2px solid black" }}
-        />
-      </form>
+          {/*------ SearchBar-------- */}
+          <Search sx={{ mr: '5px' }}>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
 
-      {/* <!-- Navbar --> */}
-    </div>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map(({name,link}) => (
+                <MenuItem key={name} onClick={(e)=>navigate(link)}>
+                  <Typography textAlign="center">{name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
-
 export default Header;
