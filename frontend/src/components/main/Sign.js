@@ -75,14 +75,14 @@ const Sign = () => {
       .required("Password Confirmation is Required"),
   });
   return (
-    <div className="signin-bg" style={{ backgroundImage: "" }}>
-      <section class="vh-100 " style={{ backgroundColor: "" }}>
+    <div className="signin-bg" >
+      <section class="vh-100 ">
         <div class="container py-5 h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col col-xl-10">
               <div class="card" style={{ borderRadius: "1rem " }}>
                 <div class="row g-0">
-                  <div class="col-md-8 col-lg-7 col-xl-6">
+                  <div class="col-md-6 col-lg-7 col-xl-6">
                     <img
                       src={Image2}
                       class="img-fluid"
@@ -90,8 +90,8 @@ const Sign = () => {
                       style={{ borderRadius: "1rem 0 0 1rem", height: "100%" }}
                     />
                   </div>
-                  <div class="col-md-7 col-lg-5 col-xl-5">
-                    <div class="card-body p-5 p-lg-5 text-black">
+                  <div class="col-md-6 col-lg-5 col-xl-6">
+                    <div class="card-body p-lg-5 text-black">
                       <h1 className="font-weight-bold ">Create Account</h1>
                       <Formik
                         initialValues={userForm}
@@ -233,14 +233,16 @@ const Sign = () => {
                                 class="mt-4"
                                 style={{ color: "#393f81", float: "right" }}
                               >
-                                I have an account{" "}
-                                <a
-                                  href="#!"
-                                  style={{ color: "#393f81", float: "right" }}
+                                I have an account
+                                
+                              </p>
+                              <p  class="mt-4"
+                                style={{ color: "#393f81", float: "right"}}><a
+                                  href="signin"
+                                  style={{ color: "#393f81"}}
                                 >
                                   Sign In
-                                </a>
-                              </p>
+                                </a></p>
                             </div>
                             <div className="d-flex justify-content-center align-items-center mb-1">
                               <h6>Or Signup with</h6>

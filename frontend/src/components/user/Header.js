@@ -211,7 +211,7 @@ const Header = () => {
 
           {!loggedIn ? (
               <li className="nav">
-                <NavLink className="btn btn-primary m-3" to="/main/sign" startIcon={<LoginIcon />}>
+                <NavLink className="btn btn-primary m-3" to="/main/signin" startIcon={<LoginIcon />}>
                   Login Now
                 </NavLink>
               </li>

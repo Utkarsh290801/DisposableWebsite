@@ -65,7 +65,7 @@ const SignIn = () => {
             <div class="col col-xl-10">
               <div class="card" style={{ borderRadius: "1rem " }}>
                 <div class="row g-0">
-                  <div class="col-md-8 col-lg-7 col-xl-6">
+                  <div class="col-md-6 col-lg-7 col-xl-6">
                     <img
                       src={Image2}
                       class="img-fluid"
@@ -73,8 +73,8 @@ const SignIn = () => {
                       style={{ borderRadius: "1rem 0 0 1rem", height: "100%" }}
                     />
                   </div>
-                  <div class="col-md-7 col-lg-5 col-xl-5">
-                    <div class="card-body p-5 p-lg-5 text-black">
+                  <div class="col-md-6 col-lg-5 col-xl-6">
+                    <div class="card-body p-lg-5 text-black">
                       <h1 className="font-weight-bold ">Sign In</h1>
                       <Formik initialValues={loginform} onSubmit={loginSubmit}>
                         {({ values, handleChange, handleSubmit }) => (
@@ -152,17 +152,20 @@ const SignIn = () => {
 
                               <p
                                 class="mt-4"
-                                style={{ color: "#393f81", float: "right" }}
+                                style={{ color: "#393f81", float: "right"}}
                               >
-                                I'm New User{" "}
-                                <a
-                                  href="#!"
-                                  style={{ color: "#393f81", float: "right" }}
-                                >
-                                  {" "}
-                                  Create Account
-                                </a>
+                                I'm New User
+                               
                               </p>
+                              <p class="mt-4"
+                                style={{ color: "#393f81"}}>
+                                <a
+                                  href="sign"
+                                  style={{ color: "#393f81",}}
+                                >
+                                  
+                                  Create Account
+                                </a></p>
                             </div>
                             <div className="d-flex justify-content-center align-items-center mb-1">
                               <h6>Or Signup with</h6>

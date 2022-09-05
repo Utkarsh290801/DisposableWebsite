@@ -184,7 +184,7 @@ const Signup = () => {
                         </Button>
                         <center>
                           <h6 className="m-3">
-                            Already have an account.{" "}
+                            Already have an account.
                             <a href="/main/login">Sign In</a>
                           </h6>
                         </center>
