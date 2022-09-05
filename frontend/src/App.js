@@ -19,6 +19,9 @@ import Authorisor from "./components/user/AuthUser";
 import { UserProvider } from "./components/user/UserContext";
 import { useState } from "react";
 import UserrProfile from "./components/user/UserrProfile";
+import Accounts from "./components/user/Accounts";
+import ManageSites from "./components/admin/ManageSites";
+import Sidebar from "./components/user/Sidebar";
 function App() {
   
     const [currentUser, setcurrentUser] = useState(
@@ -42,11 +45,14 @@ function App() {
           <Route element={<Admin />} path="admin">
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="manageuser" element={<ManageUser />} />
-            <Route path="profile" element={<Profile />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="managesites" element={<ManageSites/>}/>
           </Route>
-          <Route element={<User />} path="user">
+          <Route element={<User/>} path="user">
             <Route path="userprofile" element={<UserProfile />} />
-            <Route path="userrprofile" element={<UserrProfile />} />
+              <Route path="userrprofile" element={<UserrProfile />} />
+              <Route path="sidebar" element={<Sidebar />} />
+              <Route path="accounts" element={<Accounts/>}/>
             {/* <Route path='addwebpage' element={<AddWebpage/>}/> */}
             <Route
               element={
