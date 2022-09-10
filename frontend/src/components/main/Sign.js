@@ -12,6 +12,7 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
+import './Signup.css'
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -77,7 +78,7 @@ const Sign = () => {
       .required("Password Confirmation is Required"),
   });
   return (
-    <div className="signin-bg">
+    <div id="signup"  className="signin-bg animate__animated animate__backInDown">
       <section class="vh-100 ">
         <div class="container h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
