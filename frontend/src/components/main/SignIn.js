@@ -11,7 +11,7 @@ import { Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-// import { AppContext } from './../AppContext';
+import { UserContext } from './../user/UserContext';
 // import Image1 from './img/ab1.jpg'
 import Image2 from "../img/ab2.jpeg";
 import "./sign.css";
@@ -34,7 +34,7 @@ const SignIn = () => {
     document.getElementById("signInDiv").hidden = true;
   };
 
-  // const {setloggedIn} = useContext(AppContext)
+  const {setloggedIn} = useContext(UserContext)
   useEffect(() => {
     /*global google*/
     google.accounts.id.initialize({
