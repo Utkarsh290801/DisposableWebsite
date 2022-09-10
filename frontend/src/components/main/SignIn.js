@@ -56,8 +56,9 @@ const SignIn = () => {
     email: "",
     password: "",
   };
-  const loginSubmit = async (formdata) => {
+  const loginSubmit = async (formdata, { setSubmitting }) => {
     console.log(formdata);
+    setSubmitting(true);
     const response = await fetch("http://localhost:5000/user/authenticate", {
       method: "POST",
       body: JSON.stringify(formdata),
@@ -68,6 +69,7 @@ const SignIn = () => {
     if (response.status === 200) {
       console.log(response.status);
       console.log("success");
+
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -89,6 +91,7 @@ const SignIn = () => {
         text: "Invalid Credentials",
       });
     }
+    setSubmitting(false);
   };
   return (
     <div className="">
@@ -110,7 +113,12 @@ const SignIn = () => {
                     <div class="card-body p-lg-5 text-black">
                       <h1 className="font-weight-bold ">Sign In</h1>
                       <Formik initialValues={loginform} onSubmit={loginSubmit}>
-                        {({ values, handleChange, handleSubmit }) => (
+                        {({
+                          values,
+                          handleChange,
+                          handleSubmit,
+                          isSubmitting,
+                        }) => (
                           <form onSubmit={handleSubmit}>
                             <div class="form-outline">
                               <TextField
@@ -175,6 +183,7 @@ const SignIn = () => {
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-4 ">
                               <Button
+                                disabled={isSubmitting}
                                 type="submit"
                                 variant="contained"
                                 className=" btn btn-primary btn-lg btn-block"
