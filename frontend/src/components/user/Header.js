@@ -17,8 +17,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { UserContext } from "./UserContext";
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
 import Sidebar from "./Sidebar";
 
 const pages = [{name:'Home',link:'/user'}, {name:'Preview',link:'/preview'}, {name:'Pricing',link:'/main/plan'}];
@@ -211,12 +209,12 @@ const Header = () => {
 
           {!loggedIn ? (
               <li className="nav">
-                <NavLink className="btn btn-primary m-3" to="/main/signin" startIcon={<LoginIcon />}>
+                <NavLink className="btn btn-primary m-3" to="/main/signin">
                   Login Now
                 </NavLink>
               </li>
             ) : (
-              <NavLink onClick={logout} className="btn btn-danger m-3"to="/" endIcon={<LogoutIcon />}>
+              <NavLink onClick={logout} className="btn btn-danger m-3"to="/">
                 Logout
               </NavLink>
             )}

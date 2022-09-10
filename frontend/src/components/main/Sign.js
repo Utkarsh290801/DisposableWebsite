@@ -14,13 +14,15 @@ import {
 } from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import app_config from "../../config";
 import * as Yup from "yup";
 // import Image1 from '../img/ab1.jpg'
 import Image2 from "../img/ab2.jpeg";
 import "./sign.css";
+const url = app_config.backend_url;
 const Sign = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +35,7 @@ const Sign = () => {
   };
   const userSubmit = async (formdata) => {
     console.log(formdata);
-    const response = await fetch("http://localhost:5000/user/add", {
+    const response = await fetch(url+"/user/add", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: { "Content-Type": "application/json" },
@@ -75,7 +77,7 @@ const Sign = () => {
       .required("Password Confirmation is Required"),
   });
   return (
-    <div className="signin-bg" >
+    <div className="signin-bg">
       <section class="vh-100 ">
         <div class="container h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
@@ -224,25 +226,24 @@ const Sign = () => {
                                 type="submit"
                                 variant="contained"
                                 className=" btn btn-primary btn-lg btn-block"
-                                
                               >
                                 Create Account
                               </Button>
 
                               <p
                                 class="mt-4"
-                                style={{ color: "#393f81", float: "right" }}
+                                style={{ color: "#393f81"}}
                               >
                                 I have an account
-                                
                               </p>
-                              <p  class="mt-4"
-                                style={{ color: "#393f81", float: "right"}}><a
-                                  href="signin"
-                                  style={{ color: "#393f81"}}
-                                >
+                              <p
+                                class="mt-4"
+                                style={{ color: "#393f81", float: "right" }}
+                              >
+                                <Link to="/main/signin">
                                   Sign In
-                                </a></p>
+                                </Link>
+                              </p>
                             </div>
                             <div className="d-flex justify-content-center align-items-center mb-1">
                               <h6>Or Signup with</h6>

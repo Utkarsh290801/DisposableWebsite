@@ -1,7 +1,7 @@
 .signin-bg{
     background-image: url('../../../public/ab1.jpg');
     /* background-size: 100vh; */
-    background-attachment: fixed;
+    /* background-attachment: fixed; */
   background-size: cover;
   background-position: center;
 }

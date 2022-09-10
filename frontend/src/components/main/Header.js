@@ -1,71 +1,95 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import WebhookIcon from '@mui/icons-material/Webhook';
-import { useNavigate } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import WebhookIcon from "@mui/icons-material/Webhook";
+import { NavLink, useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled, alpha } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+import Swal from "sweetalert2";
+import { Modal } from "@mui/material";
+import SignIn from "./SignIn";
 
-
-const pages = [{name:'Home',link:'/main'}, {name:'Why?',link:'/'}, {name:'Store-templates',link:'/'},{name:'Pricing',link:'/main/plan'},{name:'Contact Us',link:'/'}];
-const settings = [{name:'Profile',link:'/admin/profile'}, {name:'Logout',link:'/'}];
+const pages = [
+  { name: "Home", link: "/main" },
+  { name: "Why?", link: "/" },
+  { name: "Store-templates", link: "/" },
+  { name: "Pricing", link: "/main/plan" },
+  { name: "Contact Us", link: "/" },
+];
+const settings = [
+  { name: "Profile", link: "/admin/profile" },
+  { name: "Logout", link: "/" },
+];
 
 //Search Bar
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
+  "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
+    width: "auto",
   },
 }));
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
 }));
 
-
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   const navigate = useNavigate();
 
@@ -86,15 +110,15 @@ const Header = () => {
   //----- hover effect for MenuItem------
   const boxSX = {
     "&:hover": {
-      color: 'black',
-      backgroundColor: '#b1b0b9'
+      color: "black",
+      backgroundColor: "#b1b0b9",
     },
   };
   return (
-    <AppBar position="static"  sx={{background:"#1d1b31"}}>
+    <AppBar position="static" sx={{ background: "#1d1b31" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <WebhookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <WebhookIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -102,18 +126,18 @@ const Header = () => {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             Web-X
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -128,28 +152,44 @@ const Header = () => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map(({name,link}) => (
-                <MenuItem key={name} onClick={(e)=>navigate(link)} >
+              {pages.map(({ name, link }) => (
+                <MenuItem key={name} onClick={(e) => navigate(link)}>
                   <Typography textAlign="center">{name}</Typography>
                 </MenuItem>
               ))}
+
+              <MenuItem
+                onClick={(e) => {
+                  // Swal.fire({
+                  //   title: "Custom animation with Animate.css",
+                  //   showClass: {
+                  //     popup: "animate__animated animate__fadeInDown",
+                  //   },
+                  //   hideClass: {
+                  //     popup: "animate__animated animate__fadeOutUp",
+                  //   },
+                  // });
+                }}
+              >
+                <Typography textAlign="center">Login</Typography>
+              </MenuItem>
             </Menu>
           </Box>
-          <WebhookIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <WebhookIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -157,40 +197,77 @@ const Header = () => {
             href=""
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             Web-X
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(({name,link}) => (
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {pages.map(({ name, link }) => (
               <Button
                 key={name}
-                onClick={(e)=>navigate(link)}
-                sx={{ my: 2, color: 'white',mx:1, display: 'block',...boxSX }}
+                onClick={(e) => navigate(link)}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  mx: 1,
+                  display: "block",
+                  ...boxSX,
+                }}
               >
                 {name}
               </Button>
             ))}
+            <Button
+              onClick={(e) => {
+                Swal.fire({
+                  title: "Custom animation with Animate.css",
+                  showClass: {
+                    popup: "animate__animated animate__fadeInDown",
+                  },
+                  hideClass: {
+                    popup: "animate__animated animate__fadeOutUp",
+                  },
+                });
+              }}
+              sx={{
+                my: 2,
+                color: "white",
+                mx: 1,
+                display: "block",
+                ...boxSX,
+              }}
+            >
+              Login
+            </Button>
+
+            <Button onClick={handleOpen}>Login Now</Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <SignIn sx={style} />
+            </Modal>
           </Box>
 
           {/*------ SearchBar-------- */}
-          <Search sx={{ mr: '5px' }}>
+          <Search sx={{ mr: "5px" }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ "aria-label": "search" }}
             />
           </Search>
-
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -199,29 +276,28 @@ const Header = () => {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map(({name,link}) => (
-                <MenuItem key={name} onClick={(e)=>navigate(link)}>
+              {settings.map(({ name, link }) => (
+                <MenuItem key={name} onClick={(e) => navigate(link)}>
                   <Typography textAlign="center">{name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          
         </Toolbar>
       </Container>
     </AppBar>

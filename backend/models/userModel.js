@@ -5,6 +5,7 @@ const myschema = new Schema({
   username: String,
   email: String,
   password: String,
+  newPassword:String,
   confirmPassword:String,
   avatar: String,
   createdAt: { type: Date, default: new Date() },

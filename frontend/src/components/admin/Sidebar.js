@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme,alpha } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -15,17 +15,14 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { NavLink, useNavigate } from "react-router-dom";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import { useNavigate } from "react-router-dom";
 import WebhookIcon from '@mui/icons-material/Webhook';
-import { Avatar, Button, Menu, MenuItem, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { Home } from "@mui/icons-material";
-import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
-import { UserContext } from "./UserContext";
-
 
 const drawerWidth = 240;
-const settings = [{name:'Profile',link:'/user/userrprofile'}, {name:'Account',link:'/user/accounts'}, {name:'Logout',link:'/'}];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -92,81 +89,22 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-//Search Bar
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
-
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
-
-
 // Change Here
 export default function Sidebar({ children, options, title }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   const navigate = useNavigate();
-  const { loggedIn, setLoggedIn } = React.useContext(UserContext);
-  const logout = () => {
-    //1.destroy session value
-    sessionStorage.removeItem("user");
-    //2. set the current user to null
-    setLoggedIn(false);
-    //3.navigate to login page
-    navigate("/main/login");
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  //----- hover effect for MenuItem------
-  const boxSX = {
+    };
+     //----- hover effect for MenuItem------
+   const boxSX = {
     "&:hover": {
       color: 'black',
       backgroundColor: '#b1b0b9'
@@ -176,7 +114,7 @@ export default function Sidebar({ children, options, title }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ background: "#1d1b31" }}>
+      <AppBar position="fixed" open={open} sx={{background:"#1d1b31"}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -206,89 +144,13 @@ export default function Sidebar({ children, options, title }) {
               </IconButton>
             </Tooltip>
           </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <Button
-              size="large"
-              sx={{ ml: 1,...boxSX }}
-              color="inherit"
-              onClick={(e) => navigate("/main/preview")}
-            >
-              Preview
-            </Button>
-          </Box>
-          <Box sx={{ flexGrow: 30}}>
-            <Button
-              size="large"
-              sx={{ ml: 1,...boxSX }}
-              color="inherit"
-              onClick={(e) => navigate("/main/plan")}
-            >
-              Plans
-            </Button>
-          </Box> 
-
- {/*------ SearchBar-------- */}
- <Search sx={{ mr: '5px' }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-
-          {/*--------- Login&Logout-------- */}
-
-          {!loggedIn ? (
-              <li className="nav">
-                <NavLink className="btn btn-primary m-3" to="/main/signin">
-                  Login Now
-                </NavLink>
-              </li>
-            ) : (
-              <NavLink onClick={logout} className="btn btn-danger m-3"to="/">
-                Logout
-              </NavLink>
-          )}
           
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map(({name,link}) => (
-                <MenuItem key={name} onClick={(e)=>navigate(link)}>
-                  <Typography textAlign="center">{name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open} >
         <DrawerHeader>
-          {/* logo and name of website */}
-          <WebhookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+      {/* logo and name of website */}
+        <WebhookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -316,7 +178,7 @@ export default function Sidebar({ children, options, title }) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List sx={{ background: '#1d1b31', color: 'white', height: '100%' }}>
+        <List  sx={{background:'#1d1b31',color:'white', height:'100%'}}>
           {options.map(({ name, icon, link }) => (
             <ListItemButton
               onClick={(e) => navigate(link)}
@@ -324,14 +186,14 @@ export default function Sidebar({ children, options, title }) {
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
-                px: 2.5, ...boxSX
+                px: 2.5,...boxSX
               }}
             >
               <ListItemIcon
                 sx={{
                   minWidth: 0,
                   mr: open ? 3 : "auto",
-                  justifyContent: "center", color: 'white'
+                  justifyContent: "center",color:'white'
                 }}
               >
                 {icon}
