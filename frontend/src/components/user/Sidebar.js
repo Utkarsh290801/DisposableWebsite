@@ -240,13 +240,16 @@ export default function Sidebar({ children, options, title }) {
 
           {/*--------- Login&Logout-------- */}
 
-          {!loggedIn ? (
+          {!loggedIn ?
+            (
               <li className="nav">
                 <NavLink className="btn btn-primary m-3" to="/main/signin">
                   Login Now
                 </NavLink>
               </li>
-            ) : (
+          )
+           :
+            (
               <NavLink onClick={logout} className="btn btn-danger m-3"to="/">
                 Logout
               </NavLink>
