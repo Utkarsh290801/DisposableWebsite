@@ -52,7 +52,7 @@ function App() {
               
           </Route>
             <Route path="manageuser" element={<ManageUser />} />
-          <Route element={<AdminAuthorisor><Admin /></AdminAuthorisor>} path="admin">
+          <Route element={<Admin />} path="admin">
               <Route path="profile" element={<Profile />} />
               <Route path="managesites" element={<ManageSites/>}/>
           </Route>
