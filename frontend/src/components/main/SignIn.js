@@ -94,7 +94,7 @@ const SignIn = () => {
     setSubmitting(false);
   };
   return (
-    <div className="">
+    <div className="animate__animated animate__backInDown">
       <section class="">
         <div class="container  h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
