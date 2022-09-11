@@ -102,7 +102,7 @@ const SignIn = () => {
                 sx={{float:"right"}}
                 
               >
-                <Cancel className="" sx={{color:"white", fontSize:60,backgroundClip: "text",backgroundImage:" -webkit-linear-gradient(top, rgb(72, 15, 15), rgb(255, 0, 0))",boxShadow: "rgb(255, 0, 0) -2px -0.9px 9.4px 5px", textShadow: "none",borderStyle: "groove",padding:"0px",borderRadius: "27%",borderWidth: "0.5px",backgroundColor: "rgb(0, 0, 0)"}}/>
+                <Cancel className="" sx={{color:"white", fontSize:60,backgroundClip: "text",backgroundImage:" -webkit-linear-gradient(top, rgb(72, 15, 15), rgb(255, 0, 0))", textShadow: "none",borderStyle: "groove",padding:"0px",borderRadius: "27%",borderWidth: "0.5px",backgroundColor: "rgb(0, 0, 0)"}}/>
               </IconButton>
             
       <section class="vh-100">

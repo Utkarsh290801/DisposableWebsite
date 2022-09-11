@@ -1,6 +1,5 @@
 import {
   AccountCircle,
-  Cancel,
   CancelPresentation,
   EmailOutlined,
   Visibility,
@@ -50,7 +49,7 @@ const Sign = () => {
         title: "Success",
         text: "Registered successfully!!",
       });
-      navigate("/main/sign");
+      navigate("/main/signin");
     } else if(response.status) {
       console.log(response.status);
       console.log("something went wrong");
@@ -85,9 +84,7 @@ const Sign = () => {
                 onClick={(e) => navigate("/main/home")}
                 sx={{float:"right"}}
               >
-                {/* <CancelPresentation  sx={{color:"white", fontSize:60}}/>
-                 */
-                <Cancel className="" sx={{color:"white", fontSize:60,backgroundClip: "text",backgroundImage:" -webkit-linear-gradient(top, rgb(72, 15, 15), rgb(255, 0, 0))",boxShadow: "rgb(255, 0, 0) -2px -0.9px 9.4px 5px", textShadow: "none",borderStyle: "groove",padding:"0px",borderRadius: "27%",borderWidth: "0.5px",backgroundColor: "rgb(0, 0, 0)"}}/>}
+                <CancelPresentation  sx={{color:"white", fontSize:60}}/>
               </IconButton>
       <section class="vh-100 ">
         <div class="container h-100">
