@@ -26,6 +26,7 @@ const pages = [
   { name: "Store-templates", link: "/" },
   { name: "Pricing", link: "/main/plan" },
   { name: "Contact Us", link: "/" },
+  { name: "Login", link: "/main/signin" },
 ];
 const settings = [
   { name: "Profile", link: "/admin/profile" },
@@ -172,21 +173,21 @@ const Header = () => {
                 </MenuItem>
               ))}
 
-              <MenuItem
+              {/* <MenuItem
                 onClick={(e) => {
-                  // Swal.fire({
-                  //   title: "Custom animation with Animate.css",
-                  //   showClass: {
-                  //     popup: "animate__animated animate__fadeInDown",
-                  //   },
-                  //   hideClass: {
-                  //     popup: "animate__animated animate__fadeOutUp",
-                  //   },
-                  // });
+                  Swal.fire({
+                    title: "Custom animation with Animate.css",
+                    showClass: {
+                      popup: "animate__animated animate__fadeInDown",
+                    },
+                    hideClass: {
+                      popup: "animate__animated animate__fadeOutUp",
+                    },
+                  });
                 }}
               >
                 <Typography textAlign="center">Login</Typography>
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </Box>
           <WebhookIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -224,38 +225,6 @@ const Header = () => {
                 {name}
               </Button>
             ))}
-            <Button
-              onClick={(e) => {
-                Swal.fire({
-                  title: "Custom animation with Animate.css",
-                  showClass: {
-                    popup: "animate__animated animate__fadeInDown",
-                  },
-                  hideClass: {
-                    popup: "animate__animated animate__fadeOutUp",
-                  },
-                });
-              }}
-              sx={{
-                my: 2,
-                color: "white",
-                mx: 1,
-                display: "block",
-                ...boxSX,
-              }}
-            >
-              Login
-            </Button>
-
-            <Button onClick={handleOpen}>Login Now</Button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <SignIn sx={style} />
-            </Modal>
           </Box>
 
           {/*------ SearchBar-------- */}

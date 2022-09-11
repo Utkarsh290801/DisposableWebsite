@@ -1,5 +1,6 @@
 import {
   AccountCircle,
+  CancelPresentation,
   EmailOutlined,
   Visibility,
   VisibilityOff,
@@ -12,7 +13,6 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import './Signup.css'
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -50,7 +50,7 @@ const Sign = () => {
         text: "Registered successfully!!",
       });
       navigate("/main/sign");
-    } else {
+    } else if(response.status) {
       console.log(response.status);
       console.log("something went wrong");
       Swal.error({
@@ -78,7 +78,14 @@ const Sign = () => {
       .required("Password Confirmation is Required"),
   });
   return (
-    <div id="signup"  className="signin-bg animate__animated animate__backInDown">
+    <div id="signup" className="signin-bg animate__animated animate__backInDown">
+      <IconButton
+                size="large"
+                onClick={(e) => navigate("/main/home")}
+                sx={{float:"right"}}
+              >
+                <CancelPresentation  sx={{color:"white", fontSize:60}}/>
+              </IconButton>
       <section class="vh-100 ">
         <div class="container h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">

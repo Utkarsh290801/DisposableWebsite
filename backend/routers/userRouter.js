@@ -16,7 +16,7 @@ router.post("/add", (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      res.json(err)
+      res.status.json(err)
     })
 })
 
@@ -94,7 +94,7 @@ router.post("/authenticate", (req, res) => {
       if (userdata) {
         res.status(200).json(userdata)
       } else {
-        res.status(400).json({ message: "Invalid Credentials" })
+        res.status(300).json({ message: "Invalid Credentials" })
       }
     })
     .catch((err) => {

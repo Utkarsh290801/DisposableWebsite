@@ -1,4 +1,4 @@
-import { EmailOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
+import { CancelPresentation, EmailOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   Checkbox,
@@ -78,7 +78,7 @@ const SignIn = () => {
       //  session m store krwa lenge jisse
       const data = await response.json();
       console.log(data);
-      //  setloggedIn(true);
+       setloggedIn(true);
       //  this will store user data in session
       sessionStorage.setItem("user", JSON.stringify(data));
       navigate("/user/webpagemanager");
@@ -94,8 +94,15 @@ const SignIn = () => {
     setSubmitting(false);
   };
   return (
-    <div className="animate__animated animate__backInDown">
-      <section class="">
+    <div id="signup" className="signin-bg animate__animated animate__backInDown">
+       <IconButton
+                size="large"
+                onClick={(e) => navigate("/main/home")}
+                sx={{float:"right"}}
+              >
+                <CancelPresentation  sx={{color:"white", fontSize:60}}/>
+              </IconButton>
+      <section class="vh-100">
         <div class="container  h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col col-xl-10">
@@ -228,7 +235,7 @@ const SignIn = () => {
                                   style={{ marginLeft: "6px" }}
                                 ></i>
                               </a>
-                              {Object.keys(user).length != 0 && (
+                              {Object.keys(user).length !== 0 && (
                                 <button onClick={(e) => handleSignOut(e)}>
                                   Signout
                                 </button>
@@ -236,7 +243,7 @@ const SignIn = () => {
 
                               {user && (
                                 <div>
-                                  <img src={user.picture} />
+                                  <img src={user.picture} alt=""/>
                                   <h3>{user.name}</h3>
                                 </div>
                               )}

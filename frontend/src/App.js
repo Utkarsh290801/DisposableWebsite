@@ -1,8 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Link, Routes, Navigate } from "react-router-dom";
 import Main from "./components/main";
-import Login from "./components/main/Login";
-import Signup from "./components/main/Signup";
 import ContactUs from "./components/main/ContactUs";
 import ResetPassword from "./components/main/ResetPassword";
 import Home from "./components/main/Home";
@@ -38,8 +36,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Main />} path="main">
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="sign" element={<Sign />} />
             <Route path="contactus" element={<ContactUs />} />
