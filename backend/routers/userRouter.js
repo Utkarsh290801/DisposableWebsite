@@ -34,9 +34,9 @@ router.get("/getall", (req, res) => {
       res.json(err)
     })
 })
-router.get("/checkemail/:useremail", (req, res) => {
+router.get("/checkemail/:email", (req, res) => {
   console.log(req.params.useremail)
-  Model.findOne({ email: req.params.useremail })
+  Model.findOne({ email: req.params.email })
     .then((result) => {
       console.log(result)
       res.json(result)

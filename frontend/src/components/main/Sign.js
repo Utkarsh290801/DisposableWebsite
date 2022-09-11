@@ -36,6 +36,16 @@ const Sign = () => {
   };
   const userSubmit = async (formdata) => {
     console.log(formdata);
+
+    // const userExists = await User.findOne({ where: { email: req.body.email } });
+
+    // if (userExists) {
+    //   return res.status(400).json({ error: 'User already exists.' });
+    // }
+
+
+
+
     const response = await fetch(url+"/user/add", {
       method: "POST",
       body: JSON.stringify(formdata),
@@ -60,14 +70,56 @@ const Sign = () => {
       });
     }
   };
+  
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
       .min(2, "Too Short!")
       .max(22, "Too Long!")
       .required("UserName is Required"),
-
-    email: Yup.string().email("Invalid email").required("Email is Required"),
-    password: Yup.string()
+      // =========================================First try==========================================
+email: Yup.string()
+  .email("Email should be valid and contain @")
+  .required("Email is required")
+ 
+    // .test({
+    //   message: () => "Email already exists",
+    //   test: async (values) => {
+    //     if (values) {
+    //       try {
+    //         const response = await fetch("http://localhost:5000/user/checkemail/:email"
+    //          )
+    //         if (response.ok) {
+    //           return true;
+    //         } else {
+    //           return false;
+    //         }
+    //       } catch (error) {
+    //         console.log(error);
+    //       }
+    //     }
+    //   }
+    // })
+    
+//   }),
+    //                  ---------------- SEcond try------------------------------
+ // email: Yup.string().email("Invalid email").required("Email is Required") ,    
+//     .test('Unique Email', 'Email already in use', // <- key, message
+//     function (value) {
+//         return new Promise((resolve, reject) => {
+           
+//            const response= router.get("http://localhost:5000/user/checkemail/:useremail")
+//                 .then((res) => {
+//                     resolve(true)
+//                 })
+//                 .catch((error) => {
+//                     if (error.response.data.content === "The email has already been taken.") {
+//                         resolve(false);
+//                     }
+//                 })
+//         })
+//     }
+// ),
+   , password: Yup.string()
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
