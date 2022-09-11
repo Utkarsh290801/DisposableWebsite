@@ -34,7 +34,7 @@ const SignIn = () => {
     document.getElementById("signInDiv").hidden = true;
   };
 
-  const {setloggedIn} = useContext(UserContext)
+  const {setLoggedIn} = useContext(UserContext)
   useEffect(() => {
     /*global google*/
     google.accounts.id.initialize({
@@ -75,13 +75,14 @@ const SignIn = () => {
         title: "Success",
         text: "Login Success!!👍",
       });
-      //  session m store krwa lenge jisse
-      const data = await response.json();
-      console.log(data);
-       setloggedIn(true);
-      //  this will store user data in session
-      sessionStorage.setItem("user", JSON.stringify(data));
-      navigate("/user/webpagemanager");
+      response.json().then((data) => {
+        console.log(data);
+
+        setLoggedIn(true);
+
+        navigate("/user/webpagemanager");
+        sessionStorage.setItem("user", JSON.stringify(data));
+      });
     } else if (response.status === 300) {
       console.log(response.status);
       console.log("something went wrong");
