@@ -60,6 +60,7 @@ const SignUp = () => {
       });
     }
   };
+  
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
       .min(2, "Too Short!")
