@@ -19,9 +19,9 @@ import InputBase from "@mui/material/InputBase";
 import { UserContext } from "../user/UserContext";
 import app_config from "../../config";
 import { ListItemIcon, ListItemText } from "@mui/material";
-import { AccountCircle, Campaign, FollowTheSigns,} from "@mui/icons-material";
-import LogoutIcon from '@mui/icons-material/Logout';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import { AccountCircle, Campaign, FollowTheSigns } from "@mui/icons-material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import { useEffect, useState } from "react";
 
 const url = app_config.backend_url;
@@ -33,7 +33,6 @@ const pages = [
   { name: "Contact Us", link: "/main/contactus" },
   { name: "Login", link: "/main/signin" },
 ];
-
 
 //Search Bar
 const Search = styled("div")(({ theme }) => ({
@@ -107,13 +106,13 @@ const Header = () => {
   };
 
   const userSetting = [
-    { name: "Profile",icon:<AccountCircle />, link: "/user/userrprofile" },
-    { name: "Logout",icon:<LogoutIcon/>, click: logout },
+    { name: "Profile", icon: <AccountCircle />, link: "/user/userrprofile" },
+    { name: "Logout", icon: <LogoutIcon />, click: logout },
   ];
   const adminSetting = [
-    { name: "Profile",icon:<AccountCircle />, link: "/admin/profile" },
-    { name: "Manage Users",icon:<GroupAddIcon />, link: "/admin/manageuser" },
-    { name: "Logout",icon:<LogoutIcon/>, click: adminLogout },
+    { name: "Profile", icon: <AccountCircle />, link: "/admin/profile" },
+    { name: "Manage Users", icon: <GroupAddIcon />, link: "/admin/manageuser" },
+    { name: "Logout", icon: <LogoutIcon />, click: adminLogout },
   ];
 
   const { avatar } = React.useContext(UserContext);
@@ -238,7 +237,7 @@ const Header = () => {
               </ListItemIcon>
               <ListItemText>Login</ListItemText>
             </MenuItem>
-            </Menu>
+          </Menu>
         </Box>
       );
     } else {
@@ -279,7 +278,7 @@ const Header = () => {
       );
     }
   };
-  
+
   return (
     <AppBar position="static" sx={{ background: "#1d1b31" }}>
       <Container maxWidth="xl">
@@ -405,8 +404,6 @@ const Header = () => {
 
           {UserOptions()}
           {adminOptions()}
-          
-          
 
           {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

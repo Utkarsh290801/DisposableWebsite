@@ -29,60 +29,68 @@ import Pricing from "./components/main/Pricing";
 import Pricing1 from "./components/main/Pricing1";
 import PlanManager from "./components/user/PlanManager";
 function App() {
-  
-    const [currentUser, setcurrentUser] = useState(
-      JSON.parse(sessionStorage.getItem("user"))
-    );
+  const [currentUser, setcurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  );
   return (
     <div>
       <UserProvider currentUser={currentUser}>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Main />} path="main">
-            <Route path="signin" element={<SignIn />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="contactus" element={<ContactUs />} />
-            <Route path="resetpswd" element={<ResetPassword />} />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Main />} path="main">
+              <Route path="signin" element={<SignIn />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="contactus" element={<ContactUs />} />
+              <Route path="resetpswd" element={<ResetPassword />} />
               <Route path="home" element={<Home />} />
               <Route path="updatepswd" element={<UpdatePassword />} />
-            <Route path="changepswd" element={<ChangePassword/>} />
-              <Route path="pricing" element={<Pricing/>} />
-              <Route path="pricing1" element={<Pricing1/>} />
-              
+              <Route path="changepswd" element={<ChangePassword />} />
+              <Route path="pricing" element={<Pricing />} />
+              <Route path="pricing1" element={<Pricing1 />} />
+
               <Route element={<NotFound></NotFound>} path="notfound" />
-              
-          </Route>
-            <Route element={
-              // <AdminAuthorisor>
-              <Admin />
-              //</AdminAuthorisor>
-            } path="admin">
-            <Route path="manageuser" element={<ManageUser />} />
+            </Route>
+            <Route
+              element={
+                // <AdminAuthorisor>
+                <Admin />
+                //</AdminAuthorisor>
+              }
+              path="admin"
+            >
+              <Route path="manageuser" element={<ManageUser />} />
               <Route path="profile" element={<Profile />} />
-              <Route path="managesites" element={<ManageSites/>}/>
-          </Route>
-          <Route element={<Authorisor><User/></Authorisor>} path="user">
-            <Route path="userprofile" element={<UserProfile />} />
-              <Route path="userrprofile" element={<UserrProfile />} />
-            <Route path="planManager" element={<PlanManager/>} />
-              
-              <Route path="sidebar" element={<Sidebar />} />
-              <Route path="accounts" element={<Accounts/>}/>
-            {/* <Route path='addwebpage' element={<AddWebpage/>}/> */}
+              <Route path="managesites" element={<ManageSites />} />
+            </Route>
             <Route
               element={
                 <Authorisor>
-                  <WebpageManager />
+                  <User />
                 </Authorisor>
               }
-              path="webpagemanager"
-            />
-          </Route>
-          <Route element={<Navigate to="/main/notfound" />} path="*" />
-          <Route element={<Navigate to="/main/home" />} path="/" />
-        </Routes>
+              path="user"
+            >
+              <Route path="userprofile" element={<UserProfile />} />
+              <Route path="userrprofile" element={<UserrProfile />} />
+              <Route path="planManager" element={<PlanManager />} />
+
+              <Route path="sidebar" element={<Sidebar />} />
+              <Route path="accounts" element={<Accounts />} />
+              {/* <Route path='addwebpage' element={<AddWebpage/>}/> */}
+              <Route
+                element={
+                  <Authorisor>
+                    <WebpageManager />
+                  </Authorisor>
+                }
+                path="webpagemanager"
+              />
+            </Route>
+            <Route element={<Navigate to="/main/notfound" />} path="*" />
+            <Route element={<Navigate to="/main/home" />} path="/" />
+          </Routes>
         </BrowserRouter>
-        </UserProvider>
+      </UserProvider>
     </div>
   );
 }

@@ -1,16 +1,31 @@
 import { Avatar, Button, IconButton, TextField } from "@mui/material";
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import app_config from "../../config";
+import toast from "react-hot-toast";
 const UserrProfile = () => {
+  
+  const [updateForm, setUpdateForm] = useState({});
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
-  const onFormSubmit = (value) => {
-    fetch("http://localhost:5000/user/update" + currentUser._id, {
+  const [selImage, setSelImage] = useState("");
+  const url = app_config.backend_url;
+
+  useEffect(() => {
+    fetch(url + "/user/getbyid/" + currentUser._id)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUpdateForm(data);
+      });
+    console.log(currentUser);
+  }, []);
+  const onFormSubmit = (value, { setSubmitting }) => {
+    fetch("http://localhost:5000/user/update/" + currentUser._id, {
       method: "PUT",
       body: JSON.stringify(value),
       headers: {
@@ -29,6 +44,47 @@ const UserrProfile = () => {
         title: "Welldone!",
         text: "You have successfully Updated",
       });
+    });
+  };
+  const uploadThumbnail = (e) => {
+    const file = e.target.files[0];
+    setSelImage(file.name);
+    const fd = new FormData();
+    fd.append("myfile", file);
+    fetch(url + "/util/uploadfile", {
+      method: "POST",
+      body: fd,
+    }).then((res) => {
+      if (res.status === 200) {
+        fetch(url + "/user/update/" + currentUser._id, {
+          method: "PUT",
+          body: JSON.stringify({ avatar: file.name }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((res) => {
+          console.log(res.status);
+          if (res.status == 200) {
+            res.json().then((data) => {
+              console.log(data);
+              setCurrentUser(data);
+              sessionStorage.setItem("user", JSON.stringify(data));
+            });
+          }
+          Swal.fire({
+            icon: "success",
+            title: "Welldone!",
+            text: "You have successfully Updated",
+          });
+        });
+        toast.success("Image Uploaded!!", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      }
     });
   };
   return (
@@ -67,15 +123,16 @@ const UserrProfile = () => {
         <div className="row">
           <div className="col-md-6">
             <Formik
-              // initialValues={currentUser}
-              initialValues={{
-                username: "Raju",
-                email: "raju@mail.com",
-                password: "1234",
-              }}
+             enableReinitialize={true}
+              initialValues={currentUser}
+              // initialValues={{
+              //   username: "Raju",
+              //   email: "raju@mail.com",
+              //   password: "1234",
+              // }}
               onSubmit={onFormSubmit}
             >
-              {({ values, handleChange, handleSubmit }) => (
+              {({ values, handleChange, handleSubmit ,isSubmitting}) => (
                 <form onSubmit={handleSubmit}>
                   <div className="card">
                     <div className="card-header">
@@ -95,7 +152,7 @@ const UserrProfile = () => {
                               
                             <Avatar src="/broken-image.jpg"sx={{ width: 60, height: 60 }} />
                               <IconButton color="primary" aria-label="upload picture" component="label">
-  <input hidden accept="image/*" type="file" />
+  <input hidden accept="image/*" type="file"  onChange={uploadThumbnail} />
   <PhotoCamera />
 </IconButton>
                               <Button variant="contained" color="error" startIcon={<DeleteIcon />} >
