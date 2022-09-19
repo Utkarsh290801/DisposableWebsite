@@ -1,4 +1,4 @@
-const Model = require("../models/planModel")
+const Model = require("../models/assetModel")
 const router = require("express").Router()
 
 
@@ -34,8 +34,8 @@ router.get("/getall", (req, res) => {
       res.json(err)
     })
 })
-router.get("/getbyid/:planid", (req, res) => {
-    Model.findById(req.params.planid)
+router.get("/getbyid/:assetid", (req, res) => {
+    Model.findById(req.params.assetid)
       .then((result) => {
         setTimeout(() => {
         res.json(result)
@@ -47,8 +47,8 @@ router.get("/getbyid/:planid", (req, res) => {
       })
   })
 
-router.get("/getbyuser/:userid", (req, res) => {
-    Model.findOne({user : req.params.userid})
+  router.delete("/delete/:assetid", (req, res) => {
+    Model.findByIdAndDelete(req.params.assetid)
       .then((result) => {
         res.json(result)
       })
@@ -57,19 +57,8 @@ router.get("/getbyuser/:userid", (req, res) => {
         res.json(err)
       })
   })
-
-  router.delete("/delete/:planid", (req, res) => {
-    Model.findByIdAndDelete(req.params.planid)
-      .then((result) => {
-        res.json(result)
-      })
-      .catch((err) => {
-        console.error(err)
-        res.json(err)
-      })
-  })
-  router.put("/update/:planid", (req, res) => {
-    Model.findByIdAndUpdate(req.params.planid, req.body, { new: true })
+  router.put("/update/:assetid", (req, res) => {
+    Model.findByIdAndUpdate(req.params.assetid, req.body, { new: true })
       .then((result) => {
         res.json(result)
       })

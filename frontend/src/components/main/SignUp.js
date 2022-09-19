@@ -24,7 +24,7 @@ import * as Yup from "yup";
 import Image2 from "../img/ab2.jpeg";
 import "./sign.css";
 const url = app_config.backend_url;
-const Sign = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const userForm = {
@@ -36,7 +36,7 @@ const Sign = () => {
   };
   const userSubmit = async (formdata) => {
     console.log(formdata);
-    const response = await fetch(url+"/user/add", {
+    const response = await fetch(url + "/user/add", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: { "Content-Type": "application/json" },
@@ -50,7 +50,7 @@ const Sign = () => {
         text: "Registered successfully!!",
       });
       navigate("/main/signin");
-    } else if(response.status) {
+    } else if (response.status) {
       console.log(response.status);
       console.log("something went wrong");
       Swal.error({
@@ -65,27 +65,69 @@ const Sign = () => {
       .min(2, "Too Short!")
       .max(22, "Too Long!")
       .required("UserName is Required"),
+    //check email if exists
+    // checkEmail: Yup.boolean(),
+    // email: Yup.string()
+    //   .email("Invalid email")
+    //   .required("Email is Required")
+    //   .when("checkEmail", {
+    //     is: true,
+    //     then: Yup.string(),
+    //     test: async (values) => {
+    //       if (values) {
+    //         try {
+    //           let response = await fetch(url + "user/checkemail/" + values, {
+    //             method: "POST",
+    //             headers: {
+    //               "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({ email: values }),
+    //           });
+    //           if (response.ok) {
+    //             return true;
+    //           } else {
+    //             return false;
+    //           }
+    //         } catch (error) {
+    //           console.log(error);
+    //         }
+    //       }
+    //       console.log(values);
+    //       return true;
+    //     },
+    //   }),
 
-    email: Yup.string().email("Invalid email").required("Email is Required"),
     password: Yup.string()
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
       )
       .required("Password is Required"),
+
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Password Confirmation is Required"),
   });
+  // const validateEmail = async (email) => {
+  //   if(email)
+  //   {const res = await fetch( `${url}/user/checkemail/${email}`)
+  //   const data = await res.json();
+  //   console.log(data);
+  //   if(data) return 'Email Already Exists';}
+  //   return ''
+  // }
   return (
-    <div id="signup" className="signin-bg animate__animated animate__backInDown">
+    <div
+      id="signup"
+      className="signin-bg animate__animated animate__backInDown"
+    >
       <IconButton
-                size="large"
-                onClick={(e) => navigate("/main/home")}
-                sx={{float:"right"}}
-              >
-                <CancelPresentation  sx={{color:"white", fontSize:60}}/>
-              </IconButton>
+        size="large"
+        onClick={(e) => navigate("/main/home")}
+        sx={{ float: "right" }}
+      >
+        <CancelPresentation sx={{ color: "white", fontSize: 60 }} />
+      </IconButton>
       <section class="vh-100 ">
         <div class="container h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
@@ -238,19 +280,14 @@ const Sign = () => {
                                 Create Account
                               </Button>
 
-                              <p
-                                class="mt-4"
-                                style={{ color: "#393f81"}}
-                              >
+                              <p class="mt-4" style={{ color: "#393f81" }}>
                                 I have an account
                               </p>
                               <p
                                 class="mt-4"
                                 style={{ color: "#393f81", float: "right" }}
                               >
-                                <Link to="/main/signin">
-                                  Sign In
-                                </Link>
+                                <Link to="/main/signin">Sign In</Link>
                               </p>
                             </div>
                             <div className="d-flex justify-content-center align-items-center mb-1">
@@ -306,4 +343,4 @@ const Sign = () => {
   );
 };
 
-export default Sign;
+export default SignUp;

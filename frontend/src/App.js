@@ -9,7 +9,6 @@ import ManageUser from "./components/admin/ManageUser";
 import Profile from "./components/admin/Profile";
 import User from "./components/user";
 import UserProfile from "./components/user/UserProfile";
-import Plans from "./components/main/Plans";
 import NotFound from "./components/main/NotFound";
 // import AddWebpage from "./components/user/AddWebpage";
 import Authorisor from "./components/user/AuthUser";
@@ -17,7 +16,8 @@ import { UserProvider } from "./components/user/UserContext";
 import { useState } from "react";
 import UserrProfile from "./components/user/UserrProfile";
 import SignIn from "./components/main/SignIn";
-import Sign from "./components/main/Sign";
+import SignUp from "./components/main/SignUp";
+
 import Accounts from "./components/user/Accounts";
 import ManageSites from "./components/admin/ManageSites";
 import Sidebar from "./components/user/Sidebar";
@@ -25,6 +25,9 @@ import UpdatePassword from "./components/main/UpdatePassword";
 import ChangePassword from "./components/main/ChangePassword";
 import AdminAuthorisor from "./components/admin/Auth";
 import WebpageManager from "./components/user/WebpageManager";
+import Pricing from "./components/main/Pricing";
+import Pricing1 from "./components/main/Pricing1";
+import PlanManager from "./components/user/PlanManager";
 function App() {
   
     const [currentUser, setcurrentUser] = useState(
@@ -37,24 +40,31 @@ function App() {
         <Routes>
           <Route element={<Main />} path="main">
             <Route path="signin" element={<SignIn />} />
-            <Route path="sign" element={<Sign />} />
+            <Route path="signup" element={<SignUp />} />
             <Route path="contactus" element={<ContactUs />} />
             <Route path="resetpswd" element={<ResetPassword />} />
               <Route path="home" element={<Home />} />
               <Route path="updatepswd" element={<UpdatePassword />} />
             <Route path="changepswd" element={<ChangePassword/>} />
-            <Route path="plan" element={<Plans />} />
+              <Route path="pricing" element={<Pricing/>} />
+              <Route path="pricing1" element={<Pricing1/>} />
+              
               <Route element={<NotFound></NotFound>} path="notfound" />
               
           </Route>
+            <Route element={
+              // <AdminAuthorisor>
+              <Admin />
+              //</AdminAuthorisor>
+            } path="admin">
             <Route path="manageuser" element={<ManageUser />} />
-          <Route element={<Admin />} path="admin">
               <Route path="profile" element={<Profile />} />
               <Route path="managesites" element={<ManageSites/>}/>
           </Route>
           <Route element={<Authorisor><User/></Authorisor>} path="user">
             <Route path="userprofile" element={<UserProfile />} />
               <Route path="userrprofile" element={<UserrProfile />} />
+            <Route path="planManager" element={<PlanManager/>} />
               
               <Route path="sidebar" element={<Sidebar />} />
               <Route path="accounts" element={<Accounts/>}/>

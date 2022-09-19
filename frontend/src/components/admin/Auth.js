@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 const AdminAuthorisor = ({children}) => {
     const [currentUser, setCurrentUser] = useState(
-        JSON.parse(sessionStorage.getItem("main"))
+        JSON.parse(sessionStorage.getItem("admin"))
       );
       console.log(currentUser);
 
@@ -12,7 +12,7 @@ const AdminAuthorisor = ({children}) => {
         Swal.fire({
           icon: "info",
           title: "OOops!!",
-          text: "You need to be logged in",
+          text: "You need to be admin",
         });
         return <Navigate to="/main/signin
         " />;

@@ -16,8 +16,13 @@ import { UserContext } from './../user/UserContext';
 import Image2 from "../img/ab2.jpeg";
 import "./sign.css";
 import jwt_decode from "jwt-decode";
+import app_config from "../../config";
 
+const url = app_config.backend_url;
 const SignIn = () => {
+
+  const { setAvatar } = useContext(UserContext);
+
   const handleSignOut = (event) => {
     setUser({});
     document.getElementById("signInDiv").hidden = false;
@@ -30,6 +35,7 @@ const SignIn = () => {
     var userObject = jwt_decode(response.credential); //converted token into object
     console.log(userObject);
     setUser(userObject);
+    setAvatar(userObject.picture);
     //after signin the button of "signin with google" hides
     document.getElementById("signInDiv").hidden = true;
   };
@@ -59,7 +65,7 @@ const SignIn = () => {
   const loginSubmit = async (formdata, { setSubmitting }) => {
     console.log(formdata);
     setSubmitting(true);
-    const response = await fetch("http://localhost:5000/user/authenticate", {
+    const response = await fetch(url+"/user/authenticate", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: {

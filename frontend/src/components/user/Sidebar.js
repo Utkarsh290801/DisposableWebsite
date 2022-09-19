@@ -221,7 +221,7 @@ export default function Sidebar({ children, options, title }) {
               size="large"
               sx={{ ml: 1,...boxSX }}
               color="inherit"
-              onClick={(e) => navigate("/main/plan")}
+              onClick={(e) => navigate("/main/pricing1")}
             >
               Plans
             </Button>

@@ -13,6 +13,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^7.2.1",
     "jwt-decode": "^3.1.2",
+    "mdb-react-ui-kit": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.3.0",
