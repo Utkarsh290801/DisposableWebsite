@@ -2,17 +2,17 @@ import { Avatar, Button, IconButton, TextField } from "@mui/material";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import DeleteIcon from '@mui/icons-material/Delete';
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import DeleteIcon from "@mui/icons-material/Delete";
 import app_config from "../../config";
 import toast from "react-hot-toast";
 const UserrProfile = () => {
-  const [file, setFile] = useState();
-    // const handleChange=(e) =>{
-    //     console.log(e.target.files);
-    //     setFile(URL.createObjectURL(e.target.files[0]));
-    // }
-  
+  const [previewUrl, setPreviewUrl] = useState("");
+  // const handleChange=(e) =>{
+  //     console.log(e.target.files);
+  //     setFile(URL.createObjectURL(e.target.files[0]));
+  // }
+
   const [updateForm, setUpdateForm] = useState({});
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -57,6 +57,15 @@ const UserrProfile = () => {
     setSelImage(file.name);
     const fd = new FormData();
     fd.append("myfile", file);
+    const reader = new FileReader();
+    // reader.addEventListener("load", () => {
+    //   setImgData(reader.result);
+    // });
+    reader.onload = (data) => {
+      console.log(data.target.result);
+      setPreviewUrl(data.target.result);
+    };
+    reader.readAsDataURL(file);
     fetch(url + "/util/uploadfile", {
       method: "POST",
       body: fd,
@@ -108,9 +117,7 @@ const UserrProfile = () => {
               <div className="container-fluid px-5">
                 <div className="row">
                   <div className="col-lg-6 col-sm-9">
-                    <h1 className="mb-2 text-primary">
-                      Profile Settings
-                    </h1>
+                    <h1 className="mb-2 text-primary">Profile Settings</h1>
                     <p className="mb-4 text-white max-width-500">
                       Manage your basic profile information here.
                     </p>
@@ -122,14 +129,17 @@ const UserrProfile = () => {
         </div>
       </div>
 
-      <div className="container-fluid py-4 "  style={{
-                backgroundImage:
-                  "url('https://www.creative-tim.com/assets/navbar/bg-purchases-5c9fc0930fe5ac15a960ddacd6224025e8eb0479f8f80ffa7e53804fba4b438a.jpg",
-              }}>
+      <div
+        className="container-fluid py-4 "
+        style={{
+          backgroundImage:
+            "url('https://www.creative-tim.com/assets/navbar/bg-purchases-5c9fc0930fe5ac15a960ddacd6224025e8eb0479f8f80ffa7e53804fba4b438a.jpg",
+        }}
+      >
         <div className="row">
           <div className="col-md-6">
             <Formik
-             enableReinitialize={true}
+              enableReinitialize={true}
               initialValues={currentUser}
               // initialValues={{
               //   username: "Raju",
@@ -138,7 +148,7 @@ const UserrProfile = () => {
               // }}
               onSubmit={onFormSubmit}
             >
-              {({ values, handleChange, handleSubmit ,isSubmitting}) => (
+              {({ values, handleChange, handleSubmit, isSubmitting }) => (
                 <form onSubmit={handleSubmit}>
                   <div className="card">
                     <div className="card-header">
@@ -155,20 +165,30 @@ const UserrProfile = () => {
                             data-provides="fileupload"
                           >
                             <div className="photo-container d-flex align-items-center">
-                              
-                            <Avatar src={file} sx={{ width: 60, height: 60 }} />
-                              <IconButton color="primary" aria-label="upload picture" component="label">
-  <input hidden accept="image/*" type="file"  onChange={uploadThumbnail} />
-  <PhotoCamera />
-</IconButton>
-                              <Button variant="contained" color="error" startIcon={<DeleteIcon />} >
-  Remove
-</Button>
-                             
+                              <Avatar src={previewUrl} sx={{ width: 60, height: 60 }} />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="label"
+                              >
+                                <input
+                                  hidden
+                                  accept="image/*"
+                                  type="file"
+                                  onChange={uploadThumbnail}
+                                />
+                                <PhotoCamera />
+                              </IconButton>
+                              <Button
+                                variant="contained"
+                                color="error"
+                                startIcon={<DeleteIcon />}
+                              >
+                                Remove
+                              </Button>
                             </div>
                           </div>
                         </div>
-
                       </div>
 
                       <TextField
@@ -198,16 +218,17 @@ const UserrProfile = () => {
                         value={values.password}
                       />
                     </div>
-                    <Button type="submit" variant="contained">Update</Button>
+                    <Button type="submit" variant="contained">
+                      Update
+                    </Button>
                   </div>
                 </form>
               )}
             </Formik>
-            
           </div>
 
           <div className="col-md-6">
-          <form className="form-horizontal mt-1">
+            <form className="form-horizontal mt-1">
               <div className="card">
                 <div className="card-header">
                   <h4 className="mb-0">Social Profiles</h4>
