@@ -214,7 +214,7 @@ const SignIn = () => {
                                 I'm New User
                               </p>
                               <p class="mt-4" style={{ color: "#393f81" }}>
-                                <Link to="/main/sign">Create Account</Link>
+                                <Link to="/main/signup">Create Account</Link>
                               </p>
                             </div>
                             <div className="d-flex justify-content-center align-items-center mb-1">

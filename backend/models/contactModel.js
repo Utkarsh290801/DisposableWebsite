@@ -1,6 +1,6 @@
-const mongoose = require("../connection");
+const { Schema,model} = require('../connection');
 
-const schema = new mongoose.Schema({
+const myschema = new Schema({
   name: String,
   mobile: Number,
   email: String,
@@ -10,4 +10,4 @@ const schema = new mongoose.Schema({
   
 });
 
-const model = mongoose.model("contactcollection", schema);
+module.exports=model("contactcollection", myschema);

@@ -33,7 +33,7 @@ const User = () => {
     {
       name: "Manage Plans",
       icon: <ManageHistoryIcon/>,
-      link: "/user/manageplans",
+      link: "/user/planManager",
     },
 
   ];

@@ -13,7 +13,7 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import { Formik } from "formik";
+import { Field, Formik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -109,14 +109,16 @@ const SignUp = () => {
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Password Confirmation is Required"),
   });
-  // const validateEmail = async (email) => {
-  //   if(email)
-  //   {const res = await fetch( `${url}/user/checkemail/${email}`)
-  //   const data = await res.json();
-  //   console.log(data);
-  //   if(data) return 'Email Already Exists';}
-  //   return ''
-  // }
+
+  const validateEmail = async (email) => {
+    if(email)
+    {const res = await fetch( `${url}/user/checkemail/${email}`)
+    const data = await res.json();
+    console.log(data);
+    if(data) return 'Email Already Exists';}
+    return ''
+  }
+
   return (
     <div
       id="signup"
@@ -183,7 +185,7 @@ const SignUp = () => {
                               />
                             </div>
                             <div class="form-outline">
-                              <TextField
+                              <Field
                                 label="Email"
                                 variant="standard"
                                 className="w-100 mb-3"
@@ -197,9 +199,11 @@ const SignUp = () => {
                                 }}
                                 onChange={handleChange}
                                 value={values.email}
+                                validate={validateEmail}
                                 helperText={touched.email ? errors.email : ""}
                                 error={Boolean(errors.email && touched.email)}
                               />
+                              <p>{errors.email}</p>
                             </div>
                             <div class="form-outline ">
                               <TextField

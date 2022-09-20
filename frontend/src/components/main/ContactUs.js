@@ -223,7 +223,7 @@ const ContactUs = () => {
         text: "send successfully!!",
       });
       
-    } else if (response.status) {
+    } else if (response.status===500) {
       console.log(response.status);
       console.log("something went wrong");
       Swal.error({
@@ -302,7 +302,8 @@ const ContactUs = () => {
                    </Stack>            
              
           <Stack sx={{mt:5}}>
-        <Button 
+                <Button 
+                  type="submit"
         variant="contained" 
         color="warning" 
         size="large" 
