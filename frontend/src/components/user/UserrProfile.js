@@ -7,6 +7,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import app_config from "../../config";
 import toast from "react-hot-toast";
 const UserrProfile = () => {
+  const [file, setFile] = useState();
+    // const handleChange=(e) =>{
+    //     console.log(e.target.files);
+    //     setFile(URL.createObjectURL(e.target.files[0]));
+    // }
   
   const [updateForm, setUpdateForm] = useState({});
   const [currentUser, setCurrentUser] = useState(
@@ -25,6 +30,7 @@ const UserrProfile = () => {
     console.log(currentUser);
   }, []);
   const onFormSubmit = (value, { setSubmitting }) => {
+    value.avatar = selImage;
     fetch("http://localhost:5000/user/update/" + currentUser._id, {
       method: "PUT",
       body: JSON.stringify(value),
@@ -150,7 +156,7 @@ const UserrProfile = () => {
                           >
                             <div className="photo-container d-flex align-items-center">
                               
-                            <Avatar src="/broken-image.jpg"sx={{ width: 60, height: 60 }} />
+                            <Avatar src={file} sx={{ width: 60, height: 60 }} />
                               <IconButton color="primary" aria-label="upload picture" component="label">
   <input hidden accept="image/*" type="file"  onChange={uploadThumbnail} />
   <PhotoCamera />
@@ -169,7 +175,7 @@ const UserrProfile = () => {
                         className="mt-4 w-100"
                         label="Full Name"
                         variant="filled"
-                        name="name"
+                        name="username"
                         onChange={handleChange}
                         value={values.username}
                       />
