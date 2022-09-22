@@ -1,4 +1,4 @@
-import { Avatar, Button, IconButton, TextField } from "@mui/material";
+import { Avatar, Button, IconButton, TextField, Tooltip } from "@mui/material";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -6,6 +6,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
 import app_config from "../../config";
 import toast from "react-hot-toast";
+import{motion} from "framer-motion"
 const UserrProfile = () => {
   const [previewUrl, setPreviewUrl] = useState("");
   // const handleChange=(e) =>{
@@ -103,7 +104,10 @@ const UserrProfile = () => {
     });
   };
   return (
-    <div>
+    <motion.div className="container" style={{ backgroundColor: "#eee" }}
+      initial={{ x: '-100vw' }}
+      animate={{ x: 0 }}
+    transition={{type:"spring",duration:1,bounce:0.3}}>
       <div className="container-fluid p-0 m-0">
         <div className="row mt-4">
           <div className="col-12">
@@ -131,10 +135,10 @@ const UserrProfile = () => {
 
       <div
         className="container-fluid py-4 "
-        style={{
-          backgroundImage:
-            "url('https://www.creative-tim.com/assets/navbar/bg-purchases-5c9fc0930fe5ac15a960ddacd6224025e8eb0479f8f80ffa7e53804fba4b438a.jpg",
-        }}
+        // style={{
+        //   backgroundImage:
+        //     "url('https://www.creative-tim.com/assets/navbar/bg-purchases-5c9fc0930fe5ac15a960ddacd6224025e8eb0479f8f80ffa7e53804fba4b438a.jpg",
+        // }}
       >
         <div className="row">
           <div className="col-md-6">
@@ -158,14 +162,17 @@ const UserrProfile = () => {
                       </p>
                     </div>
                     <div className="card-body">
-                      <div className="row mb-5">
+                      <div className="row mb-3 d-flex align-items-center justify-content-center">
                         <div className="col-md-6">
                           <div
-                            className="fileupload fileupload-new"
+                            className="fileupload fileupload-new "
                             data-provides="fileupload"
                           >
-                            <div className="photo-container d-flex align-items-center">
-                              <Avatar src={previewUrl} sx={{ width: 60, height: 60 }} />
+                            <div className="photo-container d-flex align-items-center justify-content-center">
+                              <Avatar
+                                src={previewUrl}
+                                sx={{ width: 150, height: 150 }}
+                              />
                               <IconButton
                                 color="primary"
                                 aria-label="upload picture"
@@ -179,16 +186,18 @@ const UserrProfile = () => {
                                 />
                                 <PhotoCamera />
                               </IconButton>
-                              <Button
-                                variant="contained"
-                                color="error"
-                                startIcon={<DeleteIcon />}
-                              >
-                                Remove
-                              </Button>
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div className="d-flex align-items-center justify-content-center">
+                      <Tooltip title="Remove">
+                        <Button
+                          variant="contained"
+                          color="error"
+                          startIcon={<DeleteIcon />}
+                          >Remove</Button>
+                          </Tooltip>
                       </div>
 
                       <TextField
@@ -312,7 +321,7 @@ const UserrProfile = () => {
                 </div>
               </div>
             </form>
-            <div class="card mt-4 mb-4">
+            <div className="card mt-4 mb-4">
               <div className="card-body d-flex justify-content-between align-items-center flex-column flex-md-row">
                 <div>
                   <h6 className="mb-0">Do you want to leave us? 😔</h6>
@@ -431,7 +440,7 @@ const UserrProfile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

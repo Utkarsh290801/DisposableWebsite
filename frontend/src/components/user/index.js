@@ -13,7 +13,7 @@ const User = () => {
     {
       name: "Profile",
       icon: <AccountCircle />,
-      link: "/user/profile",
+      link: "/user/userrprofile",
     },
     {
       name: "Preview",

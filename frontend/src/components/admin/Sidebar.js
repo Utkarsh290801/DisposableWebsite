@@ -193,7 +193,7 @@ export default function Sidebar({ children, options, title }) {
                 sx={{
                   minWidth: 0,
                   mr: open ? 3 : "auto",
-                  justifyContent: "center",color:'inherit',...boxSX
+                  justifyContent: "center",color:'inherit'
                 }}
               >
                 {icon}

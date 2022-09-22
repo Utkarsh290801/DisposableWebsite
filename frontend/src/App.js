@@ -72,7 +72,8 @@ function App() {
             >
               <Route path="userprofile" element={<UserProfile />} />
               <Route path="userrprofile" element={<UserrProfile />} />
-              <Route path="planManager" element={<PlanManager />} />
+              
+              <Route path="planmanager" element={<PlanManager />} />
 
               <Route path="sidebar" element={<Sidebar />} />
               <Route path="accounts" element={<Accounts />} />

@@ -238,18 +238,21 @@ const ContactUs = () => {
   const formBody = ({ values, handleSubmit, handleChange , isSubmitting}) => {
   return (
     <Container >
-    <div class="mb-4 " >
-      <p class=" font-weight-bold text-center my-4" style={{letterSpacing:"3px", color:"", fontSize:"70px", fontWeight:"200px", fontFamily:"'Calligraffitti', cursive"}} >
+    <div className="mb-4 " >
+        <p className=" font-weight-bold text-center my-4" style={{
+          letterSpacing: "3px", color: "", fontSize: "70px", fontWeight: "200px",
+          // fontFamily: "'Calligraffitti', cursive"
+        }} >
         Get in Touch
       </p>
 
-      <p class="text-center w-responsive mx-auto mb-5" style={{letterSpacing:"3px",fontFamily:"Tapestry", color:"red", fontSize:"20px", fontWeight:"200px"}}>
+      <p className="text-center w-responsive mx-auto mb-5" style={{letterSpacing:"3px",fontFamily:"Tapestry", color:"red", fontSize:"20px", fontWeight:"200px"}}>
         Do you have any questions? Please do not hesitate to contact us
         directly.
       </p>
 
-      <div class="row">
-        <div class="col-md-8 mb-md-0 mb-5">
+      <div className="row">
+        <div className="col-md-8 mb-md-0 mb-5">
 
           <form onSubmit={handleSubmit}>
             <Stack direction="row" spacing={5}>
@@ -315,8 +318,8 @@ const ContactUs = () => {
 
         </div>
 
-        <div class="col-md-4 text-center">
-          <ul class="list-unstyled mb-0">
+        <div className="col-md-4 ">
+          <ul className="list-unstyled mb-0">
             <li>
             <Grid item xl={15} textAlign="center" color="white" bgcolor="#27293d">
             <CardContent>
