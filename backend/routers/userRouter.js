@@ -1,7 +1,15 @@
 const Model = require("../models/userModel");
 const router = require("express").Router();
+// const bcrypt = require('bcrypt');
+// const salt=bcrypt.genSaltSync(12);
 
 router.post("/add", (req, res) => {
+// const hash=bcrypt.hashSync(req.body.password,salt);
+// req.body.password=hash;
+// const hash2=bcrypt.hashSync(req.body.confirmpassword,salt);
+// req.body.confirmpassword=hash2;
+// const hash3=bcrypt.hashSync(req.body.newpassword,salt);
+// req.body.newpassword=hash3;
   //Reading client data from request body
   console.log(req.body);
 

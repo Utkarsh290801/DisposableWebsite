@@ -170,6 +170,7 @@ const UserrProfile = () => {
                           >
                             <div className="photo-container d-flex align-items-center justify-content-center">
                               <Avatar
+                              // src={url+"/uploads/"+(currentUser.avatar?currentUser.avatar:"")}
                                 src={previewUrl}
                                 sx={{ width: 150, height: 150 }}
                               />
