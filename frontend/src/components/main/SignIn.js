@@ -89,7 +89,7 @@ const SignIn = () => {
         navigate("/user/webpagemanager");
         sessionStorage.setItem("user", JSON.stringify(data));
       });
-    } else if (response.status === 300) {
+    } else if (response.status === 401) {
       console.log(response.status);
       console.log("something went wrong");
       Swal.fire({
@@ -111,7 +111,7 @@ const SignIn = () => {
                 <Cancel className="" sx={{color:"white", fontSize:60,backgroundClip: "text",backgroundImage:" -webkit-linear-gradient(top, rgb(72, 15, 15), rgb(255, 0, 0))", textShadow: "none",borderStyle: "groove",padding:"0px",borderRadius: "27%",borderWidth: "0.5px",backgroundColor: "rgb(0, 0, 0)"}}/>
               </IconButton>
             
-      <section class="vh-100">
+      <section className="vh-100">
         <div class="container  h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col col-xl-10">
