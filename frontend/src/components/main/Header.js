@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import WebhookIcon from "@mui/icons-material/Webhook";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -222,11 +222,11 @@ const Header = () => {
               color="inherit"
               sx={{ ml: 2 }}
             >
-              <AccountCircle />
+              <Link to="/main/signin"><Avatar sx={{ width: 40, height: 40 }}></Avatar></Link>
             </IconButton>
           </Tooltip>
 
-          <Menu
+          {/* <Menu
             anchorEl={userMenuPos}
             open={Boolean(userMenuPos)}
             onClose={(e) => setUserMenuPos(null)}
@@ -237,7 +237,7 @@ const Header = () => {
               </ListItemIcon>
               <ListItemText>Login</ListItemText>
             </MenuItem>
-          </Menu>
+          </Menu> */}
         </Box>
       );
     } else {
@@ -245,7 +245,7 @@ const Header = () => {
         <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="" src={url + "/" + currentUser.avatar} />
+              <Avatar sx={{ width: 40, height: 40 }} alt="" src={currentUser.avatar?url + "/" +currentUser.avatar:""} />
             </IconButton>
           </Tooltip>
           <Menu
@@ -332,7 +332,7 @@ const Header = () => {
               }}
             >
               {pages.map(({ name, link }) => (
-                <MenuItem key={name} onClick={(e) => navigate(link)}>
+                <MenuItem   key={name} onClick={(e) => navigate(link)}>
                   <Typography textAlign="center">{name}</Typography>
                 </MenuItem>
               ))}

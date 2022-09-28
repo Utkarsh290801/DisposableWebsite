@@ -1,4 +1,11 @@
-import { Avatar, Button, IconButton, TextField, Tooltip } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Button,
+  IconButton,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -6,7 +13,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
 import app_config from "../../config";
 import toast from "react-hot-toast";
-import{motion} from "framer-motion"
+import { motion } from "framer-motion";
 const UserrProfile = () => {
   const [previewUrl, setPreviewUrl] = useState("");
   // const handleChange=(e) =>{
@@ -104,10 +111,13 @@ const UserrProfile = () => {
     });
   };
   return (
-    <motion.div className="container" style={{ backgroundColor: "#eee" }}
-      initial={{ x: '-100vw' }}
+    <motion.div
+      className="container"
+      style={{ backgroundColor: "#eee" }}
+      initial={{ x: "-100vw" }}
       animate={{ x: 0 }}
-    transition={{type:"spring",duration:1,bounce:0.3}}>
+      transition={{ type: "spring", duration: 1, bounce: 0.3 }}
+    >
       <div className="container-fluid p-0 m-0">
         <div className="row mt-4">
           <div className="col-12">
@@ -169,35 +179,53 @@ const UserrProfile = () => {
                             data-provides="fileupload"
                           >
                             <div className="photo-container d-flex align-items-center justify-content-center">
-                              <Avatar
-                                src={previewUrl}
-                                sx={{ width: 150, height: 150 }}
-                              />
-                              <IconButton
-                                color="primary"
-                                aria-label="upload picture"
-                                component="label"
+                              {/* {url+'/'+currentUser.avatar} */}
+
+                              <Badge
+                                overlap="circular"
+                                anchorOrigin={{
+                                  vertical: "bottom",
+                                  horizontal: "right",
+                                }}
+                                badgeContent={
+                                  <IconButton
+                                    color="primary"
+                                    aria-label="upload picture"
+                                    component="label"
+                                  >
+                                    <input
+                                      hidden
+                                      accept="image/*"
+                                      type="file"
+                                      onChange={uploadThumbnail}
+                                    />
+                                    <PhotoCamera />
+                                  </IconButton>
+                                }
                               >
-                                <input
-                                  hidden
-                                  accept="image/*"
-                                  type="file"
-                                  onChange={uploadThumbnail}
+                                <Avatar
+                                  src={
+                                    currentUser.avatar
+                                      ? url + "/" + currentUser.avatar
+                                      : previewUrl
+                                  }
+                                  sx={{ width: 150, height: 150 }}
                                 />
-                                <PhotoCamera />
-                              </IconButton>
+                              </Badge>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="d-flex align-items-center justify-content-center">
-                      <Tooltip title="Remove">
-                        <Button
-                          variant="contained"
-                          color="error"
-                          startIcon={<DeleteIcon />}
-                          >Remove</Button>
-                          </Tooltip>
+                        <Tooltip title="Remove">
+                          <Button
+                            variant="contained"
+                            color="error"
+                            startIcon={<DeleteIcon />}
+                          >
+                            Remove
+                          </Button>
+                        </Tooltip>
                       </div>
 
                       <TextField
