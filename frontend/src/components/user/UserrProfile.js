@@ -1,12 +1,13 @@
 import { Avatar, Button, IconButton, TextField, Tooltip } from "@mui/material";
-import { Formik } from "formik";
+import { Field, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
 import app_config from "../../config";
 import toast from "react-hot-toast";
-import{motion} from "framer-motion"
+import * as Yup from "yup";
+import { motion } from "framer-motion";
 const UserrProfile = () => {
   const [previewUrl, setPreviewUrl] = useState("");
   // const handleChange=(e) =>{
@@ -15,6 +16,7 @@ const UserrProfile = () => {
   // }
 
   const [updateForm, setUpdateForm] = useState({});
+  const [newPass, setNewPass] = useState("");
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
@@ -30,11 +32,15 @@ const UserrProfile = () => {
       });
     console.log(currentUser);
   }, []);
+
   const onFormSubmit = (value, { setSubmitting }) => {
     value.avatar = selImage;
     fetch("http://localhost:5000/user/update/" + currentUser._id, {
       method: "PUT",
       body: JSON.stringify(value),
+      // body : JSON.stringify({
+      //   password : newPass
+      // })
       headers: {
         "Content-Type": "application/json",
       },
@@ -53,6 +59,42 @@ const UserrProfile = () => {
       });
     });
   };
+  const onChangePassword = () => {
+    if(!newPass) {
+      Swal.fire({
+      icon : 'error',
+      title : 'error'
+    })
+    return;
+  }
+    fetch("http://localhost:5000/user/update/" + currentUser._id, {
+      method: "PUT",
+      body: JSON.stringify({
+        password: newPass,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          console.log(data);
+          setCurrentUser(data);
+          sessionStorage.setItem("user", JSON.stringify(data));
+        });
+      }
+      Swal.fire({
+        icon: "success",
+        title: "Welldone!",
+        text: "Password Changed",
+      });
+    });
+  };
+  const passwordValidator = (password) => {
+    if (!password) return "password required";
+    return ""
+  };
+
   const uploadThumbnail = (e) => {
     const file = e.target.files[0];
     setSelImage(file.name);
@@ -104,10 +146,13 @@ const UserrProfile = () => {
     });
   };
   return (
-    <motion.div className="container" style={{ backgroundColor: "#eee" }}
-      initial={{ x: '-100vw' }}
+    <motion.div
+      className="container"
+      style={{ backgroundColor: "#eee" }}
+      initial={{ x: "-100vw" }}
       animate={{ x: 0 }}
-    transition={{type:"spring",duration:1,bounce:0.3}}>
+      transition={{ type: "spring", duration: 1, bounce: 0.3 }}
+    >
       <div className="container-fluid p-0 m-0">
         <div className="row mt-4">
           <div className="col-12">
@@ -170,7 +215,7 @@ const UserrProfile = () => {
                           >
                             <div className="photo-container d-flex align-items-center justify-content-center">
                               <Avatar
-                              // src={url+"/uploads/"+(currentUser.avatar?currentUser.avatar:"")}
+                                // src={url+"/uploads/"+(currentUser.avatar?currentUser.avatar:"")}
                                 src={previewUrl}
                                 sx={{ width: 150, height: 150 }}
                               />
@@ -192,13 +237,15 @@ const UserrProfile = () => {
                         </div>
                       </div>
                       <div className="d-flex align-items-center justify-content-center">
-                      <Tooltip title="Remove">
-                        <Button
-                          variant="contained"
-                          color="error"
-                          startIcon={<DeleteIcon />}
-                          >Remove</Button>
-                          </Tooltip>
+                        <Tooltip title="Remove">
+                          <Button
+                            variant="contained"
+                            color="error"
+                            startIcon={<DeleteIcon />}
+                          >
+                            Remove
+                          </Button>
+                        </Tooltip>
                       </div>
 
                       <TextField
@@ -217,15 +264,6 @@ const UserrProfile = () => {
                         name="email"
                         onChange={handleChange}
                         value={values.email}
-                      />
-                      <TextField
-                        className="mt-4 w-100"
-                        type="password"
-                        label="Password"
-                        name="password"
-                        variant="filled"
-                        onChange={handleChange}
-                        value={values.password}
                       />
                     </div>
                     <Button type="submit" variant="contained">
@@ -438,6 +476,18 @@ const UserrProfile = () => {
                 </div>
               </div>
             </form> */}
+
+            <div>
+              <TextField
+              label="New Password"
+                className="mt-4 w-100"
+                name="password"
+                validate={passwordValidator}
+                onChange={(e) => setNewPass(e.target.value)}
+                value={newPass}
+              />
+              <button onClick={onChangePassword}>UPdate Password</button>
+            </div>
           </div>
         </div>
       </div>
