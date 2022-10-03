@@ -1,12 +1,26 @@
+// <<<<<<< HEAD
 import { Avatar, Button, IconButton, TextField, Tooltip } from "@mui/material";
 import { Field, Formik } from "formik";
+import {
+  Avatar,
+  Badge,
+  Button,
+  IconButton,
+  TextField,
+  Tooltip,
+} from "@mui/material";
+import { Formik } from "formik";
+// >>>>>>> c6d8bb5b9c961e90a15c0b5d8d35c2033bd76b61
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
 import app_config from "../../config";
 import toast from "react-hot-toast";
+// <<<<<<< HEAD
 import * as Yup from "yup";
+
+// >>>>>>> c6d8bb5b9c961e90a15c0b5d8d35c2033bd76b61
 import { motion } from "framer-motion";
 const UserrProfile = () => {
   const [previewUrl, setPreviewUrl] = useState("");
@@ -214,6 +228,7 @@ const UserrProfile = () => {
                             data-provides="fileupload"
                           >
                             <div className="photo-container d-flex align-items-center justify-content-center">
+{/* <<<<<<< HEAD */}
                               <Avatar
                                 // src={url+"/uploads/"+(currentUser.avatar?currentUser.avatar:"")}
                                 src={previewUrl}
@@ -223,15 +238,41 @@ const UserrProfile = () => {
                                 color="primary"
                                 aria-label="upload picture"
                                 component="label"
+// =======
+                              {/* {url+'/'+currentUser.avatar} */}
+
+                              <Badge
+                                overlap="circular"
+                                anchorOrigin={{
+                                  vertical: "bottom",
+                                  horizontal: "right",
+                                }}
+                                badgeContent={
+                                  <IconButton
+                                    color="primary"
+                                    aria-label="upload picture"
+                                    component="label"
+                                  >
+                                    <input
+                                      hidden
+                                      accept="image/*"
+                                      type="file"
+                                      onChange={uploadThumbnail}
+                                    />
+                                    <PhotoCamera />
+                                  </IconButton>
+                                }
+
                               >
-                                <input
-                                  hidden
-                                  accept="image/*"
-                                  type="file"
-                                  onChange={uploadThumbnail}
+                                <Avatar
+                                  src={
+                                    currentUser.avatar
+                                      ? url + "/" + currentUser.avatar
+                                      : previewUrl
+                                  }
+                                  sx={{ width: 150, height: 150 }}
                                 />
-                                <PhotoCamera />
-                              </IconButton>
+                              </Badge>
                             </div>
                           </div>
                         </div>

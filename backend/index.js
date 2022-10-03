@@ -22,6 +22,7 @@ app.use("/util", utilRouter);
 app.get('/', (req, res) => {
     res.send('response from userRouter')
 })
+app.use(express.static('./static/uploads'))
 app.listen(port, () => {
     console.log('server started')
 })

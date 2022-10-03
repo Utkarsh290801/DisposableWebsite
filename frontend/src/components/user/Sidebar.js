@@ -18,12 +18,14 @@ import ListItemText from "@mui/material/ListItemText";
 import { NavLink, useNavigate } from "react-router-dom";
 import WebhookIcon from '@mui/icons-material/Webhook';
 import { Avatar, Button, Menu, MenuItem, Tooltip } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Home } from "@mui/icons-material";
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { UserContext } from "./UserContext";
+import app_config from "../../config";
 
-
+const url = app_config.backend_url;
 const drawerWidth = 240;
 const settings = [{name:'Profile',link:'/user/userrprofile'}, {name:'Account',link:'/user/accounts'}, {name:'Logout',link:'/'}];
 
@@ -144,6 +146,7 @@ export default function Sidebar({ children, options, title }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
   const { loggedIn, setLoggedIn } = React.useContext(UserContext);
+  
   const logout = () => {
     //1.destroy session value
     sessionStorage.removeItem("user");
@@ -172,7 +175,10 @@ export default function Sidebar({ children, options, title }) {
       backgroundColor: '#b1b0b9'
     },
   };
-
+  
+  const [currentUser, setCurrentUser] =useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  );
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -259,7 +265,8 @@ export default function Sidebar({ children, options, title }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="" src={currentUser.avatar ? url+'/'+currentUser.avatar : "" }
+                                 />
               </IconButton>
             </Tooltip>
             <Menu
