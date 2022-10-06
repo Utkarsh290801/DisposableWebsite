@@ -1,3 +1,4 @@
+import { Field, Formik } from "formik";
 import {
   Avatar,
   Badge,
@@ -6,7 +7,6 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -22,6 +22,7 @@ const UserrProfile = () => {
   // }
 
   const [updateForm, setUpdateForm] = useState({});
+  const [newPass, setNewPass] = useState("");
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
@@ -37,11 +38,15 @@ const UserrProfile = () => {
       });
     console.log(currentUser);
   }, []);
+
   const onFormSubmit = (value, { setSubmitting }) => {
     value.avatar = selImage;
     fetch("http://localhost:5000/user/update/" + currentUser._id, {
       method: "PUT",
       body: JSON.stringify(value),
+      // body : JSON.stringify({
+      //   password : newPass
+      // })
       headers: {
         "Content-Type": "application/json",
       },
@@ -60,6 +65,42 @@ const UserrProfile = () => {
       });
     });
   };
+  const onChangePassword = () => {
+    if (!newPass) {
+      Swal.fire({
+        icon: "error",
+        title: "error",
+      });
+      return;
+    }
+    fetch("http://localhost:5000/user/update/" + currentUser._id, {
+      method: "PUT",
+      body: JSON.stringify({
+        password: newPass,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          console.log(data);
+          setCurrentUser(data);
+          sessionStorage.setItem("user", JSON.stringify(data));
+        });
+      }
+      Swal.fire({
+        icon: "success",
+        title: "Welldone!",
+        text: "Password Changed",
+      });
+    });
+  };
+  const passwordValidator = (password) => {
+    if (!password) return "password required";
+    return "";
+  };
+
   const uploadThumbnail = (e) => {
     const file = e.target.files[0];
     setSelImage(file.name);
@@ -244,15 +285,6 @@ const UserrProfile = () => {
                         name="email"
                         onChange={handleChange}
                         value={values.email}
-                      />
-                      <TextField
-                        className="mt-4 w-100"
-                        type="password"
-                        label="Password"
-                        name="password"
-                        variant="filled"
-                        onChange={handleChange}
-                        value={values.password}
                       />
                     </div>
                     <Button type="submit" variant="contained">
@@ -465,6 +497,18 @@ const UserrProfile = () => {
                 </div>
               </div>
             </form> */}
+
+            <div>
+              <TextField
+                label="New Password"
+                className="mt-4 w-100"
+                name="password"
+                validate={passwordValidator}
+                onChange={(e) => setNewPass(e.target.value)}
+                value={newPass}
+              />
+              <button onClick={onChangePassword}>UPdate Password</button>
+            </div>
           </div>
         </div>
       </div>

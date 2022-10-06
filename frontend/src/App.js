@@ -17,7 +17,7 @@ import { useState } from "react";
 import UserrProfile from "./components/user/UserrProfile";
 import SignIn from "./components/main/SignIn";
 import SignUp from "./components/main/SignUp";
-
+import WebBuilder from './components/user/WebBuilder';
 import Accounts from "./components/user/Accounts";
 import ManageSites from "./components/admin/ManageSites";
 import Sidebar from "./components/user/Sidebar";
@@ -71,7 +71,7 @@ function App() {
               }
               path="user"
             >
-              <Route path="userprofile" element={<UserProfile />} />
+              {/* <Route path="userprofile" element={<UserProfile />} /> */}
               <Route path="userrprofile" element={<UserrProfile />} />
               <Route path="webbuild" element={<WebBuild/>} />
               
@@ -88,6 +88,7 @@ function App() {
                 }
                 path="webpagemanager"
               />
+                <Route element={<WebBuilder/>}path="webbuild"/>
             </Route>
             <Route element={<Navigate to="/main/notfound" />} path="*" />
             <Route element={<Navigate to="/main/home" />} path="/" />

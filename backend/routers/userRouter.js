@@ -1,7 +1,12 @@
 const Model = require("../models/userModel");
 const router = require("express").Router();
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync(12);
 
 router.post("/add", (req, res) => {
+  const hash = bcrypt.hashSync(req.body.password, salt);
+  req.body.password = hash;
+
   //Reading client data from request body
   console.log(req.body);
 
@@ -78,9 +83,19 @@ router.delete("/delete/:userid", (req, res) => {
     });
 });
 router.put("/update/:userid", (req, res) => {
+  const formdata = req.body;
+  let hash;
+  if(formdata.password){
+    hash = bcrypt.hashSync(formdata.password, salt);
+    formdata.password = hash;
+  }
+  console.log(formdata);
   Model.findByIdAndUpdate(req.params.userid, req.body, { new: true })
-    .then((result) => {
-      res.json(result);
+    // .then((result) => {
+    //   res.json(result);
+    // })
+    .then((userdata) => {
+      res.json(userdata);
     })
     .catch((err) => {
       console.error(err);
@@ -88,12 +103,18 @@ router.put("/update/:userid", (req, res) => {
     });
 });
 router.post("/authenticate", (req, res) => {
-  Model.findOne({ email: req.body.email, password: req.body.password })
+  // Model.findOne({ email: req.body.email, password: req.body.password })
+  Model.findOne({ email: req.body.email })
     .then((userdata) => {
       if (userdata) {
-        res.status(200).json(userdata);
+        if (bcrypt.compareSync(req.body.password, userdata.password))
+          res.json(userdata);
+        else {
+          res.status(401).json({ message: "Invalid Credentials" });
+        }
       } else {
-        res.status(300).json({ message: "Invalid Credentials" });
+        // if result is null
+        res.status(401).json({ status: "Login Failed" });
       }
     })
     .catch((err) => {
