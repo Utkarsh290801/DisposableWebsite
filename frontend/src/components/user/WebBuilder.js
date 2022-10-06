@@ -22,8 +22,8 @@ const WebBuilder = () => {
 
     const [pluginLoaded, setPluginLoaded] = useState(false);
     const [editor, setEditor] = useState(null);
-
-
+    const [page, setPage] = useState(null);
+    let e;
 
     useEffect(() => {
         if (!pluginLoaded) {
@@ -32,7 +32,8 @@ const WebBuilder = () => {
             setPluginLoaded(true);
         }
         else if (!editor) {
-          const e = grapesjs.init({
+          
+          e = grapesjs.init({
                 // color:'white',
                 height: '100vh',
                 width: 'auto',
@@ -102,8 +103,6 @@ const WebBuilder = () => {
             
                 
           });
-
-
         }
       
 
@@ -114,6 +113,9 @@ const WebBuilder = () => {
 
   return ( 
     <div>
+      <button className='btn btn-primary' onClick={
+        () => console.log(e)
+      }>Save</button>
     <div id="gjs" className="h"></div>
     <div id="blocks"></div>
   </div>
