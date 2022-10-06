@@ -117,41 +117,41 @@ const UserrProfile = () => {
       setPreviewUrl(data.target.result);
     };
     reader.readAsDataURL(file);
-    fetch(url + "/util/uploadfile", {
-      method: "POST",
-      body: fd,
-    }).then((res) => {
-      if (res.status === 200) {
-        fetch(url + "/user/update/" + currentUser._id, {
-          method: "PUT",
-          body: JSON.stringify({ avatar: file.name }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then((res) => {
-          console.log(res.status);
-          if (res.status == 200) {
-            res.json().then((data) => {
-              console.log(data);
-              setCurrentUser(data);
-              sessionStorage.setItem("user", JSON.stringify(data));
-            });
-          }
-          Swal.fire({
-            icon: "success",
-            title: "Welldone!",
-            text: "You have successfully Updated",
-          });
-        });
-        toast.success("Image Uploaded!!", {
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      }
-    });
+    // fetch(url + "/util/uploadfile", {
+    //   method: "POST",
+    //   body: fd,
+    // }).then((res) => {
+    //   if (res.status === 200) {
+    //     fetch(url + "/user/update/" + currentUser._id, {
+    //       method: "PUT",
+    //       body: JSON.stringify({ avatar: file.name }),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }).then((res) => {
+    //       console.log(res.status);
+    //       if (res.status == 200) {
+    //         res.json().then((data) => {
+    //           console.log(data);
+    //           setCurrentUser(data);
+    //           sessionStorage.setItem("user", JSON.stringify(data));
+    //         });
+    //       }
+    //       Swal.fire({
+    //         icon: "success",
+    //         title: "Welldone!",
+    //         text: "You have successfully Updated",
+    //       });
+    //     });
+    //     toast.success("Image Uploaded!!", {
+    //       style: {
+    //         borderRadius: "10px",
+    //         background: "#333",
+    //         color: "#fff",
+    //       },
+    //     });
+    //   }
+    // });
   };
   return (
     <motion.div
