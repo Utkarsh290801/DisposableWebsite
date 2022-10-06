@@ -27,9 +27,9 @@
 .App-link {
   color: #61dafb;
 }
-.nav-item.active{
-  border-bottom: 20px solid blue;
-}
+/* .nav-item.active {
+  border-bottom: ;
+} */
 
 @keyframes App-logo-spin {
   from {
@@ -38,4 +38,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.mylink {
+  color: rgb(199, 199, 199);
+}
+.mylink.active{
+border: 2px solid rgb(90, 90, 223) !important;
 }

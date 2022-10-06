@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import WebhookIcon from "@mui/icons-material/Webhook";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -26,7 +26,7 @@ import { useEffect, useState } from "react";
 
 const url = app_config.backend_url;
 const pages = [
-  { name: "Home", link: "/main" },
+  { name: "Home", link: "/main/home" },
   { name: "Why?", link: "/" },
   { name: "Store-templates", link: "/" },
   { name: "Pricing", link: "/main/pricing1" },
@@ -222,7 +222,9 @@ const Header = () => {
               color="inherit"
               sx={{ ml: 2 }}
             >
-              <Link to="/main/signin"><Avatar sx={{ width: 40, height: 40 }}></Avatar></Link>
+              <Link to="/main/signin">
+                <Avatar sx={{ width: 40, height: 40 }}></Avatar>
+              </Link>
             </IconButton>
           </Tooltip>
 
@@ -245,7 +247,11 @@ const Header = () => {
         <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar sx={{ width: 40, height: 40 }} alt="" src={currentUser.avatar?url + "/" +currentUser.avatar:""} />
+              <Avatar
+                sx={{ width: 40, height: 40 }}
+                alt=""
+                src={currentUser.avatar ? url + "/" + currentUser.avatar : ""}
+              />
             </IconButton>
           </Tooltip>
           <Menu
@@ -332,7 +338,7 @@ const Header = () => {
               }}
             >
               {pages.map(({ name, link }) => (
-                <MenuItem   key={name} onClick={(e) => navigate(link)}>
+                <MenuItem key={name} onClick={(e) => navigate(link)}>
                   <Typography textAlign="center">{name}</Typography>
                 </MenuItem>
               ))}
@@ -373,21 +379,23 @@ const Header = () => {
           >
             Web-X
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: {justifyContent:"center",alignItems:"center", xs: "none", md: "flex" } }}>
             {pages.map(({ name, link }) => (
-              <Button
+              <NavLink
                 key={name}
-                onClick={(e) => navigate(link)}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  mx: 1,
-                  display: "block",
-                  ...boxSX,
-                }}
+                to={link}
+                className="btn mylink mx-1"
+                // onClick={(e) => navigate(link)}
+                // sx={{
+                //   my: 2,
+                //   color: "white",
+                //   mx: 1,
+                //   display: "block",
+                //   ...boxSX,
+                // }}
               >
                 {name}
-              </Button>
+              </NavLink>
             ))}
           </Box>
 
