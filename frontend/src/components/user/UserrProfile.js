@@ -1,5 +1,5 @@
 // <<<<<<< HEAD
-import { Avatar, Button, IconButton, TextField, Tooltip } from "@mui/material";
+// import {  IconButton, TextField, Tooltip } from "@mui/material";
 import { Field, Formik } from "formik";
 import {
   Avatar,
@@ -9,7 +9,7 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import { Formik } from "formik";
+// import { Formik } from "formik";
 // >>>>>>> c6d8bb5b9c961e90a15c0b5d8d35c2033bd76b61
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -17,10 +17,6 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
 import app_config from "../../config";
 import toast from "react-hot-toast";
-// <<<<<<< HEAD
-import * as Yup from "yup";
-
-// >>>>>>> c6d8bb5b9c961e90a15c0b5d8d35c2033bd76b61
 import { motion } from "framer-motion";
 const UserrProfile = () => {
   const [previewUrl, setPreviewUrl] = useState("");
@@ -228,17 +224,8 @@ const UserrProfile = () => {
                             data-provides="fileupload"
                           >
                             <div className="photo-container d-flex align-items-center justify-content-center">
-{/* <<<<<<< HEAD */}
-                              <Avatar
-                                // src={url+"/uploads/"+(currentUser.avatar?currentUser.avatar:"")}
-                                src={previewUrl}
-                                sx={{ width: 150, height: 150 }}
-                              />
-                              <IconButton
-                                color="primary"
-                                aria-label="upload picture"
-                                component="label"
-// =======
+
+
                               {/* {url+'/'+currentUser.avatar} */}
 
                               <Badge

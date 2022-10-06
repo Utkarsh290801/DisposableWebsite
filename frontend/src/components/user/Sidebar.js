@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme,alpha } from "@mui/material/styles";
+import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -16,18 +16,22 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { NavLink, useNavigate } from "react-router-dom";
-import WebhookIcon from '@mui/icons-material/Webhook';
+import WebhookIcon from "@mui/icons-material/Webhook";
 import { Avatar, Button, Menu, MenuItem, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Home } from "@mui/icons-material";
-import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
 import { UserContext } from "./UserContext";
 import app_config from "../../config";
 
 const url = app_config.backend_url;
 const drawerWidth = 240;
-const settings = [{name:'Profile',link:'/user/userrprofile'}, {name:'Account',link:'/user/accounts'}, {name:'Logout',link:'/'}];
+const settings = [
+  { name: "Profile", link: "/user/userrprofile" },
+  { name: "Account", link: "/user/accounts" },
+  { name: "Logout", link: "/" },
+];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -60,22 +64,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.enteringScreen,
     }),
-    ...(open && {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
+  }),
+}));
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -95,49 +99,47 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 //Search Bar
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
+  "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
+    width: "auto",
   },
 }));
 
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
 }));
-
 
 // Change Here
 export default function Sidebar({ children, options, title }) {
@@ -146,7 +148,7 @@ export default function Sidebar({ children, options, title }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
   const { loggedIn, setLoggedIn } = React.useContext(UserContext);
-  
+
   const logout = () => {
     //1.destroy session value
     sessionStorage.removeItem("user");
@@ -171,12 +173,12 @@ export default function Sidebar({ children, options, title }) {
   //----- hover effect for MenuItem------
   const boxSX = {
     "&:hover": {
-      color: 'black',
-      backgroundColor: '#b1b0b9'
+      color: "black",
+      backgroundColor: "#b1b0b9",
     },
   };
-  
-  const [currentUser, setCurrentUser] =useState(
+
+  const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
   return (
@@ -215,90 +217,87 @@ export default function Sidebar({ children, options, title }) {
           <Box sx={{ flexGrow: 1 }}>
             <Button
               size="large"
-              sx={{ ml: 1,...boxSX }}
+              sx={{ ml: 1, ...boxSX }}
               color="inherit"
               onClick={(e) => navigate("/main/preview")}
             >
               Preview
             </Button>
           </Box>
-          <Box sx={{ flexGrow: 30}}>
+          <Box sx={{ flexGrow: 30 }}>
             <Button
               size="large"
-              sx={{ ml: 1,...boxSX }}
+              sx={{ ml: 1, ...boxSX }}
               color="inherit"
               onClick={(e) => navigate("/main/pricing1")}
             >
               Plans
             </Button>
-          </Box> 
+          </Box>
 
- {/*------ SearchBar-------- */}
- <Search sx={{ mr: '5px' }}>
+          {/*------ SearchBar-------- */}
+          <Search sx={{ mr: "5px" }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ "aria-label": "search" }}
             />
           </Search>
 
           {/*--------- Login&Logout-------- */}
 
-          {!loggedIn ?
-            (
-              <li className="nav">
-                <NavLink className="btn btn-primary m-3" to="/main/signin">
-                  Login Now
-                </NavLink>
-              </li>
-          )
-           :
-            (
-              <NavLink onClick={logout} className="btn btn-danger m-3"to="/">
-                Logout
+          {!loggedIn ? (
+            <li className="nav">
+              <NavLink className="btn btn-primary m-3" to="/main/signin">
+                Login Now
               </NavLink>
+            </li>
+          ) : (
+            <NavLink onClick={logout} className="btn btn-danger m-3" to="/">
+              Logout
+            </NavLink>
           )}
-          
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="" src={currentUser.avatar ? url+'/'+currentUser.avatar : "" }
-                                 />
+                <Avatar
+                  alt=""
+                  src={currentUser.avatar ? url + "/" + currentUser.avatar : ""}
+                />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map(({name,link}) => (
-                <MenuItem key={name} onClick={(e)=>navigate(link)}>
+              {settings.map(({ name, link }) => (
+                <MenuItem key={name} onClick={(e) => navigate(link)}>
                   <Typography textAlign="center">{name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open} >
+      <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           {/* logo and name of website */}
-          <WebhookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <WebhookIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -306,17 +305,17 @@ export default function Sidebar({ children, options, title }) {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             Web-X
           </Typography>
-          
+
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -326,7 +325,7 @@ export default function Sidebar({ children, options, title }) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List sx={{ background: '#1d1b31', color: 'white', height: '100%' }}>
+        <List sx={{ background: "#1d1b31", color: "white", height: "100%" }}>
           {options.map(({ name, icon, link }) => (
             <ListItemButton
               onClick={(e) => navigate(link)}
@@ -334,14 +333,16 @@ export default function Sidebar({ children, options, title }) {
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
-                px: 2.5, ...boxSX
+                px: 2.5,
+                ...boxSX,
               }}
             >
               <ListItemIcon
                 sx={{
                   minWidth: 0,
                   mr: open ? 3 : "auto",
-                  justifyContent: "center", color: 'inherit'
+                  justifyContent: "center",
+                  color: "inherit",
                 }}
               >
                 {icon}
@@ -351,7 +352,7 @@ export default function Sidebar({ children, options, title }) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />
         {/* Change Here */}
         {children}
