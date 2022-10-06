@@ -7,12 +7,13 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
 import app_config from "../../config";
 import toast from "react-hot-toast";
+import { UserContext } from './../user/UserContext';
 import { motion } from "framer-motion";
 const UserrProfile = () => {
   const [previewUrl, setPreviewUrl] = useState("");
@@ -20,7 +21,7 @@ const UserrProfile = () => {
   //     console.log(e.target.files);
   //     setFile(URL.createObjectURL(e.target.files[0]));
   // }
-
+  const { setAvatar } = useContext(UserContext);
   const [updateForm, setUpdateForm] = useState({});
   const [newPass, setNewPass] = useState("");
   const [currentUser, setCurrentUser] = useState(
@@ -104,6 +105,7 @@ const UserrProfile = () => {
   const uploadThumbnail = (e) => {
     const file = e.target.files[0];
     setSelImage(file.name);
+    setAvatar(url+'/'+file.name);
     const fd = new FormData();
     fd.append("myfile", file);
     const reader = new FileReader();
