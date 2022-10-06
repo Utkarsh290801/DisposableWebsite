@@ -84,8 +84,11 @@ router.delete("/delete/:userid", (req, res) => {
 });
 router.put("/update/:userid", (req, res) => {
   const formdata = req.body;
-  const hash = bcrypt.hashSync(formdata.password, salt);
-  formdata.password = hash;
+  let hash;
+  if(formdata.password){
+    hash = bcrypt.hashSync(formdata.password, salt);
+    formdata.password = hash;
+  }
   console.log(formdata);
   Model.findByIdAndUpdate(req.params.userid, req.body, { new: true })
     // .then((result) => {

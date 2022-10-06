@@ -1,5 +1,3 @@
-// <<<<<<< HEAD
-// import {  IconButton, TextField, Tooltip } from "@mui/material";
 import { Field, Formik } from "formik";
 import {
   Avatar,
@@ -9,8 +7,6 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-// import { Formik } from "formik";
-// >>>>>>> c6d8bb5b9c961e90a15c0b5d8d35c2033bd76b61
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -70,13 +66,13 @@ const UserrProfile = () => {
     });
   };
   const onChangePassword = () => {
-    if(!newPass) {
+    if (!newPass) {
       Swal.fire({
-      icon : 'error',
-      title : 'error'
-    })
-    return;
-  }
+        icon: "error",
+        title: "error",
+      });
+      return;
+    }
     fetch("http://localhost:5000/user/update/" + currentUser._id, {
       method: "PUT",
       body: JSON.stringify({
@@ -102,7 +98,7 @@ const UserrProfile = () => {
   };
   const passwordValidator = (password) => {
     if (!password) return "password required";
-    return ""
+    return "";
   };
 
   const uploadThumbnail = (e) => {
@@ -224,8 +220,6 @@ const UserrProfile = () => {
                             data-provides="fileupload"
                           >
                             <div className="photo-container d-flex align-items-center justify-content-center">
-
-
                               {/* {url+'/'+currentUser.avatar} */}
 
                               <Badge
@@ -249,7 +243,6 @@ const UserrProfile = () => {
                                     <PhotoCamera />
                                   </IconButton>
                                 }
-
                               >
                                 <Avatar
                                   src={
@@ -507,7 +500,7 @@ const UserrProfile = () => {
 
             <div>
               <TextField
-              label="New Password"
+                label="New Password"
                 className="mt-4 w-100"
                 name="password"
                 validate={passwordValidator}
