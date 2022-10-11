@@ -28,7 +28,6 @@ import WebpageManager from "./components/user/WebpageManager";
 import Pricing from "./components/main/Pricing";
 import Pricing1 from "./components/main/Pricing1";
 import PlanManager from "./components/user/PlanManager";
-import WebBuild from "./components/user/WebBuild";
 function App() {
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
