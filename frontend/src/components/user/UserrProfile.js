@@ -21,6 +21,23 @@ const UserrProfile = () => {
   //     console.log(e.target.files);
   //     setFile(URL.createObjectURL(e.target.files[0]));
   // }
+  const [userArray,setUserArray]=useState([])
+  const getDataFromBackend = () => {
+    fetch(url + '/user/getall').then(res => res.json()).then(data => {
+      console.log(data);
+      setUserArray(data);
+    })
+  }
+  const deleteUser = async () => {
+    const res = await fetch(url + "/user/delete/", currentUser._id, {
+      method:"DELETE",
+    })
+    if (res.status === 200) {
+      toast.success("Successfully deleted")
+      getDataFromBackend()
+    }
+  }
+  
   const { setAvatar } = useContext(UserContext);
   const [updateForm, setUpdateForm] = useState({});
   const [newPass, setNewPass] = useState("");
@@ -154,7 +171,7 @@ const UserrProfile = () => {
     // });
   };
   return (
-    <motion.div
+    <div
       className="container"
       style={{ backgroundColor: "#eee" }}
       initial={{ x: "-100vw" }}
@@ -393,6 +410,7 @@ const UserrProfile = () => {
                   type="button"
                   data-bs-toggle="modal"
                   className="btn btn-outline-danger mb-0 mt-3 mt-md-0"
+                  
                 >
                   Delete account
                 </a>
@@ -421,6 +439,7 @@ const UserrProfile = () => {
                           <input
                             className="btn btn-outline-danger mb-0"
                             type="submit"
+                            onClick={()=>deleteUser()}
                             value="Yes, I'm sure"
                           />
                         </form>
@@ -514,7 +533,7 @@ const UserrProfile = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

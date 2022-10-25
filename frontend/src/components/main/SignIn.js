@@ -90,7 +90,7 @@ const SignIn = () => {
           sessionStorage.setItem("admin", JSON.stringify(data));
           navigate("/admin/");
         } else {
-          navigate("/user/webpagemanager");
+          navigate("/user/webbuild");
           sessionStorage.setItem("user", JSON.stringify(data));
         }
       });
