@@ -1,4 +1,10 @@
-import { Cancel, CancelPresentation, EmailOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  Cancel,
+  CancelPresentation,
+  EmailOutlined,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import {
   Button,
   Checkbox,
@@ -11,7 +17,7 @@ import { Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { UserContext } from './../user/UserContext';
+import { UserContext } from "./../user/UserContext";
 // import Image1 from './img/ab1.jpg'
 import Image2 from "../img/ab2.jpeg";
 import "./sign.css";
@@ -20,7 +26,6 @@ import app_config from "../../config";
 
 const url = app_config.backend_url;
 const SignIn = () => {
-
   const { setAvatar } = useContext(UserContext);
 
   const handleSignOut = (event) => {
@@ -38,9 +43,14 @@ const SignIn = () => {
     setAvatar(userObject.picture);
     //after signin the button of "signin with google" hides
     document.getElementById("signInDiv").hidden = true;
+    sessionStorage.setItem('user', JSON.stringify({
+      username : userObject.name,
+      email : userObject.email,
+      avatar : userObject.picture,
+    }))
   };
 
-  const {setLoggedIn} = useContext(UserContext)
+  const { setLoggedIn } = useContext(UserContext);
   useEffect(() => {
     /*global google*/
     google.accounts.id.initialize({
@@ -65,7 +75,7 @@ const SignIn = () => {
   const loginSubmit = async (formdata, { setSubmitting }) => {
     console.log(formdata);
     setSubmitting(true);
-    const response = await fetch(url+"/user/authenticate", {
+    const response = await fetch(url + "/user/authenticate", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: {
@@ -101,16 +111,33 @@ const SignIn = () => {
     setSubmitting(false);
   };
   return (
-    <div id="signup" className="signin-bg animate__animated animate__backInDown">
-       <IconButton
-                size="large"
-                onClick={(e) => navigate("/main/home")}
-                sx={{float:"right"}}
-                
-              >
-                <Cancel className="" sx={{color:"white", fontSize:60,backgroundClip: "text",backgroundImage:" -webkit-linear-gradient(top, rgb(72, 15, 15), rgb(255, 0, 0))", textShadow: "none",borderStyle: "groove",padding:"0px",borderRadius: "27%",borderWidth: "0.5px",backgroundColor: "rgb(0, 0, 0)"}}/>
-              </IconButton>
-            
+    <div
+      id="signup"
+      className="signin-bg animate__animated animate__backInDown"
+    >
+      <IconButton
+        size="large"
+        onClick={(e) => navigate("/main/home")}
+        sx={{ float: "right" }}
+      >
+        <Cancel
+          className=""
+          sx={{
+            color: "white",
+            fontSize: 60,
+            backgroundClip: "text",
+            backgroundImage:
+              " -webkit-linear-gradient(top, rgb(72, 15, 15), rgb(255, 0, 0))",
+            textShadow: "none",
+            borderStyle: "groove",
+            padding: "0px",
+            borderRadius: "27%",
+            borderWidth: "0.5px",
+            backgroundColor: "rgb(0, 0, 0)",
+          }}
+        />
+      </IconButton>
+
       <section className="vh-100">
         <div class="container  h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
@@ -252,7 +279,7 @@ const SignIn = () => {
 
                               {user && (
                                 <div>
-                                  <img src={user.picture} alt=""/>
+                                  <img src={user.picture} alt="" />
                                   <h3>{user.name}</h3>
                                 </div>
                               )}
