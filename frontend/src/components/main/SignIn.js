@@ -95,9 +95,14 @@ const SignIn = () => {
         console.log(data);
 
         setLoggedIn(true);
-
-        navigate("/user/webpagemanager");
-        sessionStorage.setItem("user", JSON.stringify(data));
+        //for admin login
+        if (data.isAdmin) {
+          sessionStorage.setItem("admin", JSON.stringify(data));
+          navigate("/admin/");
+        } else {
+          navigate("/user/webbuild");
+          sessionStorage.setItem("user", JSON.stringify(data));
+        }
       });
     } else if (response.status === 401) {
       console.log(response.status);

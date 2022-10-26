@@ -210,7 +210,14 @@ export default function Sidebar({ children, options, title }) {
                 onClick={(e) => navigate("/main/home")}
                 sx={{ mr: 2 }}
               >
-                <Home />
+                {/* <Home/> */}
+                <lord-icon
+    src="https://cdn.lordicon.com/etqbfrgp.json"
+    trigger="hover"
+    colors="outline:#131432,primary:#92140c,secondary:#f24c00,tertiary:#b26836,quaternary:#ebe6ef"
+    state="hover"
+    style={{width:"30px", height: "30px"}}>
+</lord-icon>
               </IconButton>
             </Tooltip>
           </Box>

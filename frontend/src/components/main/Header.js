@@ -152,7 +152,7 @@ const Header = () => {
               color="inherit"
               sx={{ ml: 2 }}
             >
-              <Campaign />
+              {/* <Campaign /> */}
             </IconButton>
           </Tooltip>
           <Menu
@@ -223,7 +223,12 @@ const Header = () => {
               sx={{ ml: 2 }}
             >
               <Link to="/main/signin">
-                <Avatar sx={{ width: 40, height: 40 }}></Avatar>
+              <lord-icon
+    src="https://cdn.lordicon.com/hbvyhtse.json"
+    trigger="hover"
+    colors="primary:#e4e4e4"
+    style={{width:"50px",height:"50px"}}>
+</lord-icon>
               </Link>
             </IconButton>
           </Tooltip>
@@ -247,11 +252,13 @@ const Header = () => {
         <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Typography sx={{color:"white"}}>{currentUser.username}</Typography>
               <Avatar
-                sx={{ width: 40, height: 40 }}
+                sx={{ width: 50, height: 50 }}
                 alt=""
                 src={currentUser.avatar ? url + "/" + currentUser.avatar : ""}
               />
+              
             </IconButton>
           </Tooltip>
           <Menu
