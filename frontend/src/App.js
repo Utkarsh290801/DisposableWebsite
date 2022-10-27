@@ -8,7 +8,6 @@ import Admin from "./components/admin";
 import ManageUser from "./components/admin/ManageUser";
 import Profile from "./components/admin/Profile";
 import User from "./components/user";
-import UserProfile from "./components/user/UserProfile";
 import NotFound from "./components/main/NotFound";
 // import AddWebpage from "./components/user/AddWebpage";
 import Authorisor from "./components/user/AuthUser";
@@ -53,7 +52,7 @@ function App() {
             <Route
               element={
                 <AdminAuthorisor>
-                <Admin />
+                  <Admin />
                 </AdminAuthorisor>
               }
               path="admin"
@@ -62,7 +61,7 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="managesites" element={<ManageSites />} />
             </Route>
-            
+
             <Route
               element={
                 <Authorisor>
@@ -71,7 +70,6 @@ function App() {
               }
               path="user"
             >
-              {/* <Route path="userprofile" element={<UserProfile />} /> */}
               <Route path="userrprofile" element={<UserrProfile />} />
               <Route path="webbuild" element={<WebBuilder />} />
 
@@ -83,15 +81,18 @@ function App() {
               <Route
                 element={
                   <Authorisor>
-                    <WebpageManager />
+                    <WebpageManager/>
                   </Authorisor>
                 }
                 path="webpagemanager"
               />
               <Route element={<WebBuilder />} path="webbuild" />
             </Route>
+
+
             <Route element={<Navigate to="/main/notfound" />} path="*" />
             <Route element={<Navigate to="/main/home" />} path="/" />
+            
           </Routes>
         </BrowserRouter>
       </UserProvider>

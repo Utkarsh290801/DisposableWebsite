@@ -24,6 +24,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import { useEffect, useState } from "react";
 
+
 const url = app_config.backend_url;
 const pages = [
   { name: "Home", link: "/main/home" },
@@ -31,7 +32,7 @@ const pages = [
   { name: "Store-templates", link: "/" },
   { name: "Pricing", link: "/main/pricing1" },
   { name: "Contact Us", link: "/main/contactus" },
-  { name: "Login", link: "/main/signin" },
+  // { name: "Login", link: "/main/signin" },
 ];
 
 //Search Bar
@@ -85,6 +86,8 @@ const Header = () => {
   const [adminMenuPos, setAdminMenuPos] = useState(null);
   const [adminMenuPos2, setAdminMenuPos2] = useState(null);
 
+  const { loggedIn, setLoggedIn } = React.useContext(UserContext);
+
   const user = sessionStorage.getItem("user");
   const admin = sessionStorage.getItem("admin");
 
@@ -98,6 +101,7 @@ const Header = () => {
   const logout = () => {
     setAnchorElUser(null);
     sessionStorage.removeItem("user");
+    setLoggedIn(false);
     navigate("/main/signin");
   };
   const adminLogout = () => {
@@ -152,7 +156,7 @@ const Header = () => {
               color="inherit"
               sx={{ ml: 2 }}
             >
-              {/* <Campaign /> */}
+              <Button >Admin</Button>
             </IconButton>
           </Tooltip>
           <Menu
@@ -404,6 +408,17 @@ const Header = () => {
                 {name}
               </NavLink>
             ))}
+            {!loggedIn ? (
+                <li className="nav">
+                  <NavLink className="btn mylink m-3" to="/main/signin">
+                    Login Now
+                  </NavLink>
+                </li>
+              ) : (
+                <NavLink onClick={logout} className="btn btn-danger m-3"to="/">
+                  Logout
+                </NavLink>
+              )}
           </Box>
 
           {/*------ SearchBar-------- */}
