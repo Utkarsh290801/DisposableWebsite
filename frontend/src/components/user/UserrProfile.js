@@ -28,8 +28,9 @@ const UserrProfile = () => {
       setUserArray(data);
     })
   }
+
   const deleteUser = async () => {
-    const res = await fetch(url + "/user/delete/", currentUser._id, {
+    const res = await fetch(url + "/user/delete/"+ currentUser._id, {
       method:"DELETE",
     })
     if (res.status === 200) {
@@ -435,14 +436,15 @@ const UserrProfile = () => {
                         </p>
                       </div>
                       <div className="modal-footer">
-                        <form className="button_to" method="post">
-                          <input
+                        
+                          <button
                             className="btn btn-outline-danger mb-0"
                             type="submit"
-                            onClick={()=>deleteUser()}
-                            value="Yes, I'm sure"
-                          />
-                        </form>
+                            onClick={()=>deleteUser(currentUser._id)}
+                           
+                        >Yes, I'm sure
+                          </button>
+                        
                         <button
                           type="button"
                           className="btn bg-gradient-dark mb-0"

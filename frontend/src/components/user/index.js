@@ -15,18 +15,18 @@ const User = () => {
     {
       name: "Profile",
       icon:
-    //     <lord-icon
-    //     src="https://cdn.lordicon.com/hbvyhtse.json"
-    //     trigger="hover"
-    //     colors="primary:#e4e4e4"
-    //     style={{width:"40px", height: "40px"
-    // } }>
-    //   </lord-icon>,
-      <lord-icon
-          src="https://cdn.lordicon.com/dqxvvqzi.json"
-          trigger="hover"
-          style={{width:"40px", height: "40px"}}>
+        <lord-icon
+        src="https://cdn.lordicon.com/hbvyhtse.json"
+        trigger="hover"
+        colors="primary:#e4e4e4"
+        style={{width:"40px", height: "40px"
+    } }>
       </lord-icon>,
+      // <lord-icon
+      //     src="https://cdn.lordicon.com/dqxvvqzi.json"
+      //     trigger="hover"
+      //     style={{width:"40px", height: "40px"}}>
+      // </lord-icon>,
       link: "/user/userrprofile",
     },
     {
