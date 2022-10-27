@@ -9,8 +9,10 @@ const utilRouter = require("./routers/utils");
 const cors = require('cors')
 const api_config = require('./config')
 app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(express.json ({limit: "10mb", extended: true}))
+app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
 
-app.use(express.json())
+// app.use(express.json())
 
 const port = api_config.port;
 app.use('/user', userRouter)

@@ -27,6 +27,7 @@ import WebpageManager from "./components/user/WebpageManager";
 import Pricing from "./components/main/Pricing";
 import Pricing1 from "./components/main/Pricing1";
 import PlanManager from "./components/user/PlanManager";
+import LivePage from "./components/main/LivePage";
 function App() {
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -42,10 +43,11 @@ function App() {
               <Route path="contactus" element={<ContactUs />} />
               <Route path="resetpswd" element={<ResetPassword />} />
               <Route path="home" element={<Home />} />
+              <Route path="live/:pageid" element={<LivePage />} />
               <Route path="updatepswd" element={<UpdatePassword />} />
               <Route path="changepswd" element={<ChangePassword />} />
-              <Route path="pricing" element={<Pricing />} />
-              {/* <Route path="pricing1" element={<Pricing1 />} /> */}
+              {/* <Route path="pricing" element={<Pricing />} /> */}
+              <Route path="pricing1" element={<Pricing1 />} />
 
               <Route element={<NotFound></NotFound>} path="notfound" />
             </Route>
