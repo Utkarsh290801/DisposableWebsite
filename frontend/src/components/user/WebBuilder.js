@@ -21,7 +21,7 @@ const WebBuilder = () => {
   const url = app_config.backend_url;
   const [pluginLoaded, setPluginLoaded] = useState(false);
   const [editor, setEditor] = useState(null);
-  const [page, setPage] = useState(null);
+  const [webpageData, setWebpageData] = useState(null);
   let e;
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -31,19 +31,20 @@ const WebBuilder = () => {
     // const SubmitWebpage = async (values) => {
     //   values.user = currentUser._id;
     //   console.log(values);
-      // }
-      const response = await fetch(url + "/webpage/add", {
-        method: "POST",
-        body: JSON.stringify({
-          title: "My Webpage",
-          description: "",
-          type: "",
-          // user: currentUser._id,
-          data: editor.getProjectData(),
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-      console.log(response.status);
+    // }
+    const response = await fetch(url + "/webpage/update/" + webpageData._id, {
+      method: "PUT",
+      body: JSON.stringify({
+        data: editor.getProjectData(),
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log(response.status);
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data);
+    }
     // };
   };
 
@@ -68,8 +69,8 @@ const WebBuilder = () => {
             "http://173.249.14.149:3001/api/Dashboards/5ef370de14213070188a41eb/grapes?access_token=B6IES26pZSvpX4J8c8q4wmseASpRtmBOtvXzztH57NDDJXxO94qE7VbtJ7y718GZ",
           urlLoad:
             "http://173.249.14.149:3001/api/Dashboards/5ef370de14213070188a41eb/grapes?access_token=B6IES26pZSvpX4J8c8q4wmseASpRtmBOtvXzztH57NDDJXxO94qE7VbtJ7y718GZ",
-          autosave: true,
-          autoload: true,
+          // autosave: true,
+          // autoload: true,
           contentTypeJson: true,
           storeComponents: true,
           allowScripts: 1,
@@ -124,7 +125,14 @@ const WebBuilder = () => {
           },
         },
       });
-      setEditor(e);
+      fetch(url + "/webpage/getbyuser/" + currentUser._id)
+        .then((res) => res.json())
+        .then((webpage) => {
+          console.log(webpage);
+          setWebpageData(webpage);
+          if (webpage.data) e.loadProjectData(webpage.data);
+          setEditor(e);
+        });
     }
   });
 

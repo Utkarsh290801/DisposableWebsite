@@ -43,25 +43,26 @@ const SignUp = () => {
     });
     if (response.status === 200) {
       console.log(response.status);
+      const data = await response.json();
       console.log("data saved");
-      // const response = await fetch(url + "/webpage/add", {
-      //   method: "POST",
-      //   body: JSON.stringify({
-      //     title: "My Webpage",
-      //     description: "",
-      //     type: "",
-      //     // user: currentUser._id,
-      //     data: editor.getProjectData(),
-      //   }),
-      //   headers: { "Content-Type": "application/json" },
-      // });
+      const response2 = await fetch(url + "/webpage/add", {
+        method: "POST",
+        body: JSON.stringify({
+          title: "",
+          description: "",
+          type: "",
+          user: data._id,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response2.status === 200) console.log("page created");
       Swal.fire({
         icon: "success",
         title: "Success",
         text: "Registered successfully!!",
       });
 
-      navigate("/main/signin");
+      // navigate("/main/signin");
     } else if (response.status) {
       console.log(response.status);
       console.log("something went wrong");
