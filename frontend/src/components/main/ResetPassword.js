@@ -1,47 +1,263 @@
-import { Button, TextField } from '@mui/material'
-import { Formik } from 'formik'
-import React from 'react'
+import {
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
+import { useState } from "react";
+
+import Swal from "sweetalert2";
+import { Formik } from "formik";
+import { useNavigate } from "react-router-dom";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import * as Yup from "yup";
 
 const ResetPassword = () => {
-  return (
-    <div className="signin-bg">
-      <section className="vh-100">
-        <div className="container col-md-6 col-lg-6 col-xs-12 col-sm-6 h-100">
-          <div className="row d-flex align-items-center justify-content-center h-100">
-            
-                            <div className="card">
-                                <div className='card-body'>
-                <h1 className="font-weight-bold " style={{ textAlign: "center" }}>Forgot your password?</h1>
-                <p className='mt-4' style={{textAlign:"center",fontSize:'1em'}}>
-                  Please enter the email address associated
-                  with your account and We will email you a
-                  link to reset your password.
-                </p>
-                
-          <Formik
-            //   initialValues={changePassword} onSubmit={passwordSubmit}
-          >
-              {({ values, handleChange, handleSubmit }) => (
-                  <form onSubmit={handleSubmit}>
-                      <TextField className='mt-4' fullWidth label="Enter Your Email"
-                          /*id="email" onChange={handleChange} value={values.email}*/
-                      />    
-                         
+  const [passVisible, setPassVisible] = useState(false);
 
-                  <Button variant ="contained" type='submit' className='mt-4 mx-auto d-flex'fullWidth>Send Request</Button>
-                      <Button
-                          /*variant="contained" color='error'*/ className='mt-2 mx-auto d-flex'>Back</Button>
-              </form>
+  const [email, setEmail] = useState("");
+
+  const [otp, setOTP] = useState("");
+  const [showReset, setShowReset] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const navigate = useNavigate();
+
+  const generateOTP = () => {
+    let otp = parseInt(Math.random().toFixed(4).substr(`-${4}`));
+    setOTP(otp);
+    return otp;
+  };
+
+  const passwordForm = {
+    otp: "",
+    password: "",
+    confirm: "",
+  };
+
+  const sendOTP = () => {
+    fetch("http://localhost:5000/util/sendmail", {
+      method: "POST",
+      body: JSON.stringify({
+        to: email,
+        subject: "Password Reset",
+        text: "This is your OTP for password reset " + generateOTP(),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res.status);
+      console.log(generateOTP());
+      if (res.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "success",
+          text: "OTP Sent Successfully",
+        });
+      }
+      return res.json();
+    });
+  };
+
+  const verifyUser = () => {
+    fetch("http://localhost:5000/user/getbyemail/" + email)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (!data) {
+          console.log("not found!!");
+          Swal.fire({
+            icon: "error",
+            title: "Email not registered!!",
+          });
+        } else {
+          setCurrentUser(data);
+          setShowReset(true);
+          sendOTP();
+          // console.log(generateOTP());
+        }
+      });
+  };
+
+  const verifyOTP = (formdata) => {
+    if (otp == formdata.otp) {
+      console.log("otp matched");
+      resetPassword(formdata);
+    } else {
+      console.log("otp not matched");
+      Swal.fire({
+        icon: "error",
+        title: "failed",
+        text: "Enter Correct OTP",
+      });
+    }
+  };
+
+  const resetPassword = ({ password }) => {
+    fetch("http://localhost:5000/user/update/" + currentUser._id, {
+      method: "PUT",
+      body: JSON.stringify({ password: password }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        console.log("reset");
+        if (res.status === 200)
+          Swal.fire({
+            icon: "success",
+            title: "Password Reset Success!!",
+          }).then(() => {
+            navigate("/signin");
+          });
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  };
+  const validationSchema = Yup.object().shape({
+    password: Yup.string()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      )
+      .required("Password is Required"),
+    confirm: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Password Confirmation is Required"),
+  });
+
+  const showResetForm = () => {
+    if (showReset) {
+      return (
+        <Card className="mt-5" sx={{ width: 451 }} align="center">
+          <CardContent align="center">
+            <Formik
+              initialValues={passwordForm}
+              onSubmit={verifyOTP}
+              validationSchema={validationSchema}
+            >
+              {({ values, handleSubmit, handleChange, errors }) => (
+                <form onSubmit={handleSubmit}>
+                  <TextField
+                    className="w-100 mt-3"
+                    placeholder="Enter OTP recieved in Email"
+                    label="Enter OTP"
+                    variant="outlined"
+                    id="otp"
+                    value={values.otp}
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    className="w-100 mt-3"
+                    placeholder="Enter New Password"
+                    label="Password"
+                    variant="outlined"
+                    id="password"
+                    type={passVisible ? "text" : "password"}
+                    value={values.password}
+                    error={Boolean(errors.password)}
+                    helperText="Enter your Password please"
+                    onChange={handleChange}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility1"
+                            onClick={(e) => {
+                              setPassVisible(!passVisible);
+                            }}
+                            edge="end"
+                          >
+                            {passVisible ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    className="w-100 mt-3"
+                    placeholder="Confirm Password"
+                    label="Confirm Password"
+                    variant="outlined"
+                    id="confirm"
+                    type="password"
+                    value={values.confirm}
+                    error={errors.confirm}
+                    helperText={Boolean(errors.confirm)}
+                    onChange={handleChange}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility1"
+                            onClick={(e) => {
+                              setPassVisible(!passVisible);
+                            }}
+                            edge="end"
+                          >
+                            {passVisible ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className="mt-5"
+                    type="submit"
+                    fullWidth
+                  >
+                    Submit
+                  </Button>
+                </form>
               )}
-              </Formik>
-              </div>
-              </div>
-            </div>
-          </div>
-       
-      </section>
-    </div>
-  )
-}
+            </Formik>
+          </CardContent>
+        </Card>
+      );
+    }
+  };
+  // const validationSchema = Yup.object().shape({
+  //   email: Yup.string().email("Invalid email").required("Email is Required")
+  // });
 
-export default ResetPassword
+  return (
+    <div className="reset-card" align="center">
+      <Card className="mt-5" sx={{ width: 451 }} align="center">
+        <CardContent align="center">
+          <TextField
+            className="w-100 mt-3"
+            placeholder="Enter Your Email"
+            label="Email"
+            variant="outlined"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <Button
+            color="success"
+            variant="contained"
+            className="mt-5"
+            type="submit"
+            fullWidth
+            onClick={verifyUser}
+          >
+            Submit
+          </Button>
+        </CardContent>
+      </Card>
+
+      {showResetForm()}
+    </div>
+  );
+};
+
+export default ResetPassword;

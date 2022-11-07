@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
 
-const ChangePassword = () => {
+const Reset = () => {
   return (
     <div className="signin-bg">
       <section className="vh-100">
@@ -14,18 +14,18 @@ const ChangePassword = () => {
                   className="font-weight-bold "
                   style={{ textAlign: "center" }}
                 >
-                  Request sent successfully!
+                  Forgot your password?
                 </h1>
                 <p
                   className="mt-4"
                   style={{ textAlign: "center", fontSize: "1em" }}
                 >
-                  We've sent a 6-digit confirmation email to your email. Please
-                  enter the code in below box to verify your email.
+                  Please enter the email address associated with your account
+                  and We will email you a link to reset your password.
                 </p>
 
                 <Formik
-                //   initialValues={updatePassword} onSubmit={passwordSubmit}
+                //   initialValues={changePassword} onSubmit={passwordSubmit}
                 >
                   {({ values, handleChange, handleSubmit }) => (
                     <form onSubmit={handleSubmit}>
@@ -35,24 +35,6 @@ const ChangePassword = () => {
                         label="Enter Your Email"
                         /*id="email" onChange={handleChange} value={values.email}*/
                       />
-                      <TextField
-                        className="mt-4"
-                        fullWidth
-                        label="Enter 6-digit code"
-                        /* id="password" onChange={handleChange} type="password" value={values.password}*/
-                      />
-                      <TextField
-                        className="mt-4"
-                        fullWidth
-                        type="password"
-                        label="Password" /*id="password" onChange={handleChange} value={values.password}*/
-                      />
-                      <TextField
-                        className="mt-4"
-                        fullWidth
-                        type="password"
-                        label="Confirm New Password" /*id="confirmPassword" onChange={handleChange} value={values.password}*/
-                      />
 
                       <Button
                         variant="contained"
@@ -60,12 +42,12 @@ const ChangePassword = () => {
                         className="mt-4 mx-auto d-flex"
                         fullWidth
                       >
-                        Change Password
+                        Send Request
                       </Button>
                       <Button
                         /*variant="contained" color='error'*/ className="mt-2 mx-auto d-flex"
                       >
-                        Resend code
+                        Back
                       </Button>
                     </form>
                   )}
@@ -79,4 +61,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default Reset;

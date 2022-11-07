@@ -1,11 +1,11 @@
-.signin-bg{
-    background-image: url('../../../public/ab1.jpg');
-    /* background-size: 100vh; */
-    /* background-attachment: fixed; */
+.signin-bg {
+  background-image: url("../../../public/ab1.jpg");
+  /* background-size: 100vh; */
+  /* background-attachment: fixed; */
   background-size: cover;
   background-position: center;
 }
-#signup{
+#signup {
   /* font-size: 48px; */
   /* color: black; */
   /* position: absolute; */

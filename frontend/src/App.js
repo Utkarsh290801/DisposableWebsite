@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Route, Link, Routes, Navigate } from "react-router-dom";
 import Main from "./components/main";
 import ContactUs from "./components/main/ContactUs";
+import Reset from "./components/main/Reset";
 import ResetPassword from "./components/main/ResetPassword";
 import Home from "./components/main/Home";
 import Admin from "./components/admin";
@@ -28,6 +29,7 @@ import Pricing from "./components/main/Pricing";
 import Pricing1 from "./components/main/Pricing1";
 import PlanManager from "./components/user/PlanManager";
 import LivePage from "./components/main/LivePage";
+import UserManager from "./components/admin/UserManager";
 function App() {
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -41,7 +43,8 @@ function App() {
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="contactus" element={<ContactUs />} />
-              <Route path="resetpswd" element={<ResetPassword />} />
+              <Route path="resetpswd" element={<Reset />} />
+              <Route path="reset" element={<ResetPassword />} />
               <Route path="home" element={<Home />} />
               <Route path="live/:pageid" element={<LivePage />} />
               <Route path="updatepswd" element={<UpdatePassword />} />
@@ -60,6 +63,7 @@ function App() {
               path="admin"
             >
               <Route path="manageuser" element={<ManageUser />} />
+              <Route path="usermanager" element={<UserManager />} />
               <Route path="profile" element={<Profile />} />
               <Route path="managesites" element={<ManageSites />} />
             </Route>
@@ -83,7 +87,7 @@ function App() {
               <Route
                 element={
                   <Authorisor>
-                    <WebpageManager/>
+                    <WebpageManager />
                   </Authorisor>
                 }
                 path="webpagemanager"
@@ -91,10 +95,8 @@ function App() {
               <Route element={<WebBuilder />} path="webbuild" />
             </Route>
 
-
             <Route element={<Navigate to="/main/notfound" />} path="*" />
             <Route element={<Navigate to="/main/home" />} path="/" />
-            
           </Routes>
         </BrowserRouter>
       </UserProvider>

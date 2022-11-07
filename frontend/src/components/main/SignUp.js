@@ -44,11 +44,23 @@ const SignUp = () => {
     if (response.status === 200) {
       console.log(response.status);
       console.log("data saved");
+      // const response = await fetch(url + "/webpage/add", {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     title: "My Webpage",
+      //     description: "",
+      //     type: "",
+      //     // user: currentUser._id,
+      //     data: editor.getProjectData(),
+      //   }),
+      //   headers: { "Content-Type": "application/json" },
+      // });
       Swal.fire({
         icon: "success",
         title: "Success",
         text: "Registered successfully!!",
       });
+
       navigate("/main/signin");
     } else if (response.status) {
       console.log(response.status);
@@ -60,7 +72,7 @@ const SignUp = () => {
       });
     }
   };
-  
+
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
       .min(2, "Too Short!")
@@ -111,13 +123,14 @@ const SignUp = () => {
   });
 
   const validateEmail = async (email) => {
-    if(email)
-    {const res = await fetch( `${url}/user/checkemail/${email}`)
-    const data = await res.json();
-    console.log(data);
-    if(data) return 'Email Already Exists';}
-    return ''
-  }
+    if (email) {
+      const res = await fetch(`${url}/user/checkemail/${email}`);
+      const data = await res.json();
+      console.log(data);
+      if (data) return "Email Already Exists";
+    }
+    return "";
+  };
 
   return (
     <div

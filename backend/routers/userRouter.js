@@ -71,7 +71,16 @@ router.get("/checkemail/:email", (req, res) => {
       res.json(err);
     });
 });
-
+router.get("/getbyemail/:email", (req, res) => {
+  Model.findOne({ email: req.params.email })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json(err);
+    });
+});
 router.delete("/delete/:userid", (req, res) => {
   Model.findByIdAndDelete(req.params.userid)
     .then((result) => {
@@ -85,7 +94,7 @@ router.delete("/delete/:userid", (req, res) => {
 router.put("/update/:userid", (req, res) => {
   const formdata = req.body;
   let hash;
-  if(formdata.password){
+  if (formdata.password) {
     hash = bcrypt.hashSync(formdata.password, salt);
     formdata.password = hash;
   }

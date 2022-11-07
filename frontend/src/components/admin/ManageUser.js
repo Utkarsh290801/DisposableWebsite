@@ -102,7 +102,6 @@ const ManageUser = () => {
       return (
         <DataGrid
           rows={userArray}
-          
           columns={columns}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}

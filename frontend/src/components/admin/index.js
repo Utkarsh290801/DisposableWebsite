@@ -2,9 +2,9 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { AccountCircle } from "@mui/icons-material";
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
 
 const Admin = () => {
   const options = [
@@ -15,7 +15,7 @@ const Admin = () => {
     },
     {
       name: "Manage Users",
-      icon: <ManageAccountsIcon/>,
+      icon: <ManageAccountsIcon />,
       link: "/admin/manageuser",
     },
     {
@@ -25,20 +25,18 @@ const Admin = () => {
     },
     {
       name: "Dashboard",
-      icon: <DashboardIcon/>,
+      icon: <DashboardIcon />,
       link: "/admin/dashboard",
     },
-
   ];
-
 
   return (
     <div>
-       <Sidebar title="Admin Dashboard /" options={options}>
+      <Sidebar title="Admin Dashboard /" options={options}>
         <Outlet />
       </Sidebar>
     </div>
-  )
-}
+  );
+};
 
-export default Admin
+export default Admin;

@@ -10,32 +10,43 @@ import gsTap from "grapesjs-tabs";
 import Basics from "grapesjs-blocks-basic";
 import BaseReactComponent from "./base-react-component";
 import app_config from "../../config";
+import { useParams } from "react-router-dom";
 // import {TablePluginRef} from "./Table/consts";
 // import addTablePlugin from './Table';
 // import { ChartPluginRef } from "./Chart/consts";
 // import addChartPlugin from './Chart';
 
 const WebBuilder = () => {
+  const { id } = useParams();
   const url = app_config.backend_url;
   const [pluginLoaded, setPluginLoaded] = useState(false);
   const [editor, setEditor] = useState(null);
   const [page, setPage] = useState(null);
   let e;
-
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  );
   const saveToDB = async () => {
     console.log();
-    const response = await fetch(url + "/webpage/add", {
-      method: "POST",
-      body: JSON.stringify({
-        title: "My Webpage",
-        description: "",
-        type: "",
-        data: editor.getProjectData(),
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log(response.status);
+    // const SubmitWebpage = async (values) => {
+    //   values.user = currentUser._id;
+    //   console.log(values);
+      // }
+      const response = await fetch(url + "/webpage/add", {
+        method: "POST",
+        body: JSON.stringify({
+          title: "My Webpage",
+          description: "",
+          type: "",
+          // user: currentUser._id,
+          data: editor.getProjectData(),
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(response.status);
+    // };
   };
+
   useEffect(() => {
     if (!pluginLoaded) {
       // addTablePlugin();

@@ -8,7 +8,7 @@ import gsCustome from "grapesjs-custom-code";
 import "grapesjs-preset-webpage/dist";
 import gsTap from "grapesjs-tabs";
 import Basics from "grapesjs-blocks-basic";
-// import BaseReactComponent from "./base-react-component";
+import BaseReactComponent from "../user/base-react-component";
 import app_config from "../../config";
 import { useParams } from "react-router-dom";
 // import {TablePluginRef} from "./Table/consts";
@@ -23,11 +23,9 @@ const WebBuilder = () => {
   const [page, setPage] = useState(null);
   let e;
 
-  const {pageid} = useParams();
+  const { pageid } = useParams();
 
   console.log(pageid);
-
-  
 
   const saveToDB = async () => {
     console.log();
@@ -56,7 +54,7 @@ const WebBuilder = () => {
 
         container: "#gjs",
         fromElement: true,
-        plugins: [gsWebpage, gsCustome, gsTap, Basics, ],
+        plugins: [gsWebpage, gsCustome, gsTap, Basics, BaseReactComponent],
         storageManager: {
           id: "gjs-",
           type: "local",

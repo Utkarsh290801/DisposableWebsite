@@ -29,12 +29,12 @@
 //   const classes = useStyles();
 
 //   const url = app_config.backend_url;
-  
+
 //   const content = {
 //     'badge': 'Products & Plans',
 //     'header-p1': 'Grow better',
 //     'header-p2': 'with the Right Plan.',
-//     'description': 'Pay for what you need when you need.', 
+//     'description': 'Pay for what you need when you need.',
 //     'option1': 'Monthly',
 //     'option2': 'Annual',
 
@@ -164,7 +164,6 @@
 //                 </CardContent>
 //               </Card>
 //             </Grid>
-
 
 //           </Grid>
 //         </Box>

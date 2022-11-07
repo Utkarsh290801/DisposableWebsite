@@ -43,11 +43,14 @@ const SignIn = () => {
     setAvatar(userObject.picture);
     //after signin the button of "signin with google" hides
     document.getElementById("signInDiv").hidden = true;
-    sessionStorage.setItem('user', JSON.stringify({
-      username : userObject.name,
-      email : userObject.email,
-      avatar : userObject.picture,
-    }))
+    sessionStorage.setItem(
+      "user",
+      JSON.stringify({
+        username: userObject.name,
+        email: userObject.email,
+        avatar: userObject.picture,
+      })
+    );
   };
 
   const { setLoggedIn } = useContext(UserContext);

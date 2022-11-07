@@ -18,7 +18,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
-import WebhookIcon from '@mui/icons-material/Webhook';
+import WebhookIcon from "@mui/icons-material/Webhook";
 import { Tooltip } from "@mui/material";
 import { Home } from "@mui/icons-material";
 
@@ -55,22 +55,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.enteringScreen,
     }),
-    ...(open && {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
+  }),
+}));
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -102,19 +102,19 @@ export default function Sidebar({ children, options, title }) {
 
   const handleDrawerClose = () => {
     setOpen(false);
-    };
-     //----- hover effect for MenuItem------
-   const boxSX = {
+  };
+  //----- hover effect for MenuItem------
+  const boxSX = {
     "&:hover": {
-      color: 'black',
-      backgroundColor: '#b1b0b9'
+      color: "black",
+      backgroundColor: "#b1b0b9",
     },
   };
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{background:"#1d1b31"}}>
+      <AppBar position="fixed" open={open} sx={{ background: "#1d1b31" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -144,13 +144,12 @@ export default function Sidebar({ children, options, title }) {
               </IconButton>
             </Tooltip>
           </Box>
-          
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open} >
+      <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-      {/* logo and name of website */}
-        <WebhookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* logo and name of website */}
+          <WebhookIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -158,17 +157,17 @@ export default function Sidebar({ children, options, title }) {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             Web-X
           </Typography>
-          
+
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -178,7 +177,7 @@ export default function Sidebar({ children, options, title }) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List  sx={{background:'#1d1b31',color:'white', height:'100%'}}>
+        <List sx={{ background: "#1d1b31", color: "white", height: "100%" }}>
           {options.map(({ name, icon, link }) => (
             <ListItemButton
               onClick={(e) => navigate(link)}
@@ -186,14 +185,16 @@ export default function Sidebar({ children, options, title }) {
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
-                px: 2.5,...boxSX
+                px: 2.5,
+                ...boxSX,
               }}
             >
               <ListItemIcon
                 sx={{
                   minWidth: 0,
                   mr: open ? 3 : "auto",
-                  justifyContent: "center",color:'inherit'
+                  justifyContent: "center",
+                  color: "inherit",
                 }}
               >
                 {icon}

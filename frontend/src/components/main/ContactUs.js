@@ -5,7 +5,7 @@
 
 // const ContactUs = () => {
 //   return (
-//     <Container style={{marginTop:"13vh"}} 
+//     <Container style={{marginTop:"13vh"}}
 //       // style={{ minHeight: '100vh', alignItems: 'center', justifyContent: 'center', display: 'flex' }}
 //     >
 //       <Card >
@@ -172,12 +172,12 @@
 // };
 
 // export default ContactUs;
-import { Container,  TextField, Button, Grid, CardContent } from "@mui/material";
+import { Container, TextField, Button, Grid, CardContent } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CallIcon from '@mui/icons-material/Call';
-import EmailIcon from '@mui/icons-material/Email';
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CallIcon from "@mui/icons-material/Call";
+import EmailIcon from "@mui/icons-material/Email";
 import { Formik } from "formik";
 import app_config from "../../config";
 import Swal from "sweetalert2";
@@ -197,19 +197,17 @@ const ContactUs = () => {
   const userForm = {
     name: "",
     email: "",
-    mobile:"",
+    mobile: "",
     subject: "",
     message: "",
   };
 
-  
- 
-  const feedbackSubmit = async(formdata, { setSubmitting }) => {
+  const feedbackSubmit = async (formdata, { setSubmitting }) => {
     console.log(formdata);
     setSubmitting(true);
-   
+
     // asynchronous function returns promise
-   const response = await fetch(url + "/contact/add", {
+    const response = await fetch(url + "/contact/add", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: { "Content-Type": "application/json" },
@@ -222,8 +220,7 @@ const ContactUs = () => {
         title: "Success",
         text: "send successfully!!",
       });
-      
-    } else if (response.status===500) {
+    } else if (response.status === 500) {
       console.log(response.status);
       console.log("something went wrong");
       Swal.error({
@@ -234,165 +231,204 @@ const ContactUs = () => {
     }
     setSubmitting(false);
   };
- 
-  const formBody = ({ values, handleSubmit, handleChange , isSubmitting}) => {
-  return (
-    <Container >
-    <div className="mb-4 " >
-        <p className=" font-weight-bold text-center my-4" style={{
-          letterSpacing: "3px", color: "", fontSize: "70px", fontWeight: "200px",
-          // fontFamily: "'Calligraffitti', cursive"
-        }} >
-        Get in Touch
-      </p>
 
-      <p className="text-center w-responsive mx-auto mb-5" style={{letterSpacing:"3px",fontFamily:"Tapestry", color:"red", fontSize:"20px", fontWeight:"200px"}}>
-        Do you have any questions? Please do not hesitate to contact us
-        directly.
-      </p>
+  const formBody = ({ values, handleSubmit, handleChange, isSubmitting }) => {
+    return (
+      <Container>
+        <div className="mb-4 ">
+          <p
+            className=" font-weight-bold text-center my-4"
+            style={{
+              letterSpacing: "3px",
+              color: "",
+              fontSize: "70px",
+              fontWeight: "200px",
+              // fontFamily: "'Calligraffitti', cursive"
+            }}
+          >
+            Get in Touch
+          </p>
 
-      <div className="row">
-        <div className="col-md-8 mb-md-0 mb-5">
+          <p
+            className="text-center w-responsive mx-auto mb-5"
+            style={{
+              letterSpacing: "3px",
+              fontFamily: "Tapestry",
+              color: "red",
+              fontSize: "20px",
+              fontWeight: "200px",
+            }}
+          >
+            Do you have any questions? Please do not hesitate to contact us
+            directly.
+          </p>
 
-          <form onSubmit={handleSubmit}>
-            <Stack direction="row" spacing={5}>
-                <TextField
-                  className="w-50 "
+          <div className="row">
+            <div className="col-md-8 mb-md-0 mb-5">
+              <form onSubmit={handleSubmit}>
+                <Stack direction="row" spacing={5}>
+                  <TextField
+                    className="w-50 "
                     type="text"
                     id="name"
                     label="Your Name"
-                   varient="outlined"
-                   onChange={handleChange}
-                   value={values.name}/>
-            
+                    varient="outlined"
+                    onChange={handleChange}
+                    value={values.name}
+                  />
+
                   <TextField
-                  className="w-50 "
+                    className="w-50 "
                     type="email"
                     id="email"
                     label="Your Email"
-                   varient="outlined" 
-                   onChange={handleChange}
-                   value={values.email}/>
-              </Stack>
-              <Stack direction="column" spacing={3} >
-              <TextField
-                  sx={{mt:3}}
-                  className="w-100 "
+                    varient="outlined"
+                    onChange={handleChange}
+                    value={values.email}
+                  />
+                </Stack>
+                <Stack direction="column" spacing={3}>
+                  <TextField
+                    sx={{ mt: 3 }}
+                    className="w-100 "
                     type="number"
                     id="mobile"
                     label="Your Contact No"
-                   varient="outlined"
-                   onChange={handleChange}
-                   value={values.mobile}/>
-              <TextField
-                  className="w-100 "
+                    varient="outlined"
+                    onChange={handleChange}
+                    value={values.mobile}
+                  />
+                  <TextField
+                    className="w-100 "
                     type="text"
                     id="subject"
                     label="Subject"
-                   varient="outlined"
-                   onChange={handleChange}
-                   value={values.subject}/>
-              <TextField
-                  className="w-100 "
+                    varient="outlined"
+                    onChange={handleChange}
+                    value={values.subject}
+                  />
+                  <TextField
+                    className="w-100 "
                     type="text"
                     id="message"
                     label="Your Message"
                     multiline
                     rows={2}
-                   varient="outlined"
-                   onChange={handleChange}
-                   value={values.message}/>
-                   </Stack>            
-             
-          <Stack sx={{mt:5}}>
-                <Button 
-                  type="submit"
-        variant="contained" 
-        color="warning" 
-        size="large" 
-        endIcon={<SendIcon />}>
-        Contact Us
-        </Button>
-        </Stack>
-          </form>
+                    varient="outlined"
+                    onChange={handleChange}
+                    value={values.message}
+                  />
+                </Stack>
 
-        </div>
+                <Stack sx={{ mt: 5 }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="warning"
+                    size="large"
+                    endIcon={<SendIcon />}
+                  >
+                    Contact Us
+                  </Button>
+                </Stack>
+              </form>
+            </div>
 
-        <div className="col-md-4 ">
-          <ul className="list-unstyled mb-0">
-            <li>
-            <Grid item xl={15} textAlign="center" color="white" bgcolor="#27293d">
-            <CardContent>
-              <h3 className="font-weight-bold my-4 pb-2">
-                Contact information
-              </h3>
-              <ul className="text-lg-left list-unstyled ml-4">
+            <div className="col-md-4 ">
+              <ul className="list-unstyled mb-0">
                 <li>
-                    <Grid item xl={15}>
-            <LocationOnIcon sx={{ fontSize: 55 }} color=""/>
-           <Button variant="text" color="inherit" href="#contained-buttons">
-           India, 226021, U.P.
-           </Button>
-           </Grid>
-           
-            </li>
+                  <Grid
+                    item
+                    xl={15}
+                    textAlign="center"
+                    color="white"
+                    bgcolor="#27293d"
+                  >
+                    <CardContent>
+                      <h3 className="font-weight-bold my-4 pb-2">
+                        Contact information
+                      </h3>
+                      <ul className="text-lg-left list-unstyled ml-4">
+                        <li>
+                          <Grid item xl={15}>
+                            <LocationOnIcon sx={{ fontSize: 55 }} color="" />
+                            <Button
+                              variant="text"
+                              color="inherit"
+                              href="#contained-buttons"
+                            >
+                              India, 226021, U.P.
+                            </Button>
+                          </Grid>
+                        </li>
 
-            <li>
-            <Grid item xl={15}>
-            <CallIcon sx={{ fontSize: 55 }} color=""/>
-           <Button variant="text" color="inherit" href="#contained-buttons">
-           +1 624737832
-           </Button>
-           </Grid>
-           
-           </li>
+                        <li>
+                          <Grid item xl={15}>
+                            <CallIcon sx={{ fontSize: 55 }} color="" />
+                            <Button
+                              variant="text"
+                              color="inherit"
+                              href="#contained-buttons"
+                            >
+                              +1 624737832
+                            </Button>
+                          </Grid>
+                        </li>
 
-            <li>
-            <Grid item xl={15}>
-            <EmailIcon sx={{ fontSize: 55 }} color=""/>
-           <Button variant="text" color="inherit" href="#contained-buttons">
-           Admin@admin.com
-           </Button>
-           </Grid>
-          
+                        <li>
+                          <Grid item xl={15}>
+                            <EmailIcon sx={{ fontSize: 55 }} color="" />
+                            <Button
+                              variant="text"
+                              color="inherit"
+                              href="#contained-buttons"
+                            >
+                              Admin@admin.com
+                            </Button>
+                          </Grid>
+                        </li>
+                      </ul>
+                      <hr className="hr-light my-4" />
+                      <ul className="list-inline text-center list-unstyled">
+                        <li
+                          className="list-inline-item"
+                          style={{ fontSize: 25 }}
+                        >
+                          <a className="p-2 fa-lg tw-ic">
+                            <i class="fab fa-twitter"></i>
+                          </a>
+                        </li>
+                        <li
+                          className="list-inline-item"
+                          style={{ fontSize: 25 }}
+                        >
+                          <a className="p-2 fa-lg li-ic">
+                            <i class="fab fa-linkedin-in"> </i>
+                          </a>
+                        </li>
+                        <li
+                          className="list-inline-item"
+                          style={{ fontSize: 25 }}
+                        >
+                          <a className="p-2 fa-lg ins-ic">
+                            <i class="fab fa-instagram"> </i>
+                          </a>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Grid>
                 </li>
               </ul>
-              <hr className="hr-light my-4" />
-              <ul className="list-inline text-center list-unstyled">
-                <li className="list-inline-item" style={{ fontSize: 25 }}>
-                  <a className="p-2 fa-lg tw-ic">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                </li>
-                <li className="list-inline-item" style={{ fontSize: 25 }}>
-                  <a className="p-2 fa-lg li-ic">
-                    <i class="fab fa-linkedin-in"> </i>
-                  </a>
-                </li>
-                <li className="list-inline-item" style={{ fontSize: 25 }}>
-                  <a className="p-2 fa-lg ins-ic">
-                    <i class="fab fa-instagram"> </i>
-                  </a>
-                </li>
-              </ul>
-            </CardContent>
-          </Grid>
-         
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    </Container>
-
-   
-  );
-};
-     return (
-   
-      <Formik initialValues={userForm} onSubmit={feedbackSubmit}>
-        {formBody}
-      </Formik>
+      </Container>
+    );
+  };
+  return (
+    <Formik initialValues={userForm} onSubmit={feedbackSubmit}>
+      {formBody}
+    </Formik>
   );
 };
 

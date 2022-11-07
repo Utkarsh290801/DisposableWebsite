@@ -24,7 +24,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import { useEffect, useState } from "react";
 
-
 const url = app_config.backend_url;
 const pages = [
   { name: "Home", link: "/main/home" },
@@ -156,7 +155,7 @@ const Header = () => {
               color="inherit"
               sx={{ ml: 2 }}
             >
-              <Button >Admin</Button>
+              <Button>Admin</Button>
             </IconButton>
           </Tooltip>
           <Menu
@@ -227,12 +226,12 @@ const Header = () => {
               sx={{ ml: 2 }}
             >
               <Link to="/main/signin">
-              <lord-icon
-    src="https://cdn.lordicon.com/hbvyhtse.json"
-    trigger="hover"
-    colors="primary:#e4e4e4"
-    style={{width:"50px",height:"50px"}}>
-</lord-icon>
+                <lord-icon
+                  src="https://cdn.lordicon.com/hbvyhtse.json"
+                  trigger="hover"
+                  colors="primary:#e4e4e4"
+                  style={{ width: "50px", height: "50px" }}
+                ></lord-icon>
               </Link>
             </IconButton>
           </Tooltip>
@@ -256,13 +255,14 @@ const Header = () => {
         <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Typography sx={{color:"white"}}>{currentUser.username}</Typography>
+              <Typography sx={{ color: "white" }}>
+                {currentUser.username}
+              </Typography>
               <Avatar
                 sx={{ width: 50, height: 50 }}
                 alt=""
                 src={currentUser.avatar ? url + "/" + currentUser.avatar : ""}
               />
-              
             </IconButton>
           </Tooltip>
           <Menu
@@ -390,7 +390,17 @@ const Header = () => {
           >
             Web-X
           </Typography>
-          <Box sx={{ flexGrow: 1, display: {justifyContent:"center",alignItems:"center", xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: {
+                justifyContent: "center",
+                alignItems: "center",
+                xs: "none",
+                md: "flex",
+              },
+            }}
+          >
             {pages.map(({ name, link }) => (
               <NavLink
                 key={name}
@@ -409,16 +419,16 @@ const Header = () => {
               </NavLink>
             ))}
             {!loggedIn ? (
-                <li className="nav">
-                  <NavLink className="btn mylink m-3" to="/main/signin">
-                    Login Now
-                  </NavLink>
-                </li>
-              ) : (
-                <NavLink onClick={logout} className="btn btn-danger m-3"to="/">
-                  Logout
+              <li className="nav">
+                <NavLink className="btn mylink m-3" to="/main/signin">
+                  Login Now
                 </NavLink>
-              )}
+              </li>
+            ) : (
+              <NavLink onClick={logout} className="btn btn-danger m-3" to="/">
+                Logout
+              </NavLink>
+            )}
           </Box>
 
           {/*------ SearchBar-------- */}
