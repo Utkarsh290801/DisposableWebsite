@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Link, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Main from "./components/main";
 import ContactUs from "./components/main/ContactUs";
 import Reset from "./components/main/Reset";
@@ -19,6 +19,7 @@ import SignIn from "./components/main/SignIn";
 import SignUp from "./components/main/SignUp";
 import WebBuilder from "./components/user/WebBuilder";
 import Accounts from "./components/user/Accounts";
+import Checkout from "./components/user/Checkout";
 import ManageSites from "./components/admin/ManageSites";
 import Sidebar from "./components/user/Sidebar";
 import UpdatePassword from "./components/main/UpdatePassword";
@@ -77,6 +78,7 @@ function App() {
               path="user"
             >
               <Route path="userrprofile" element={<UserrProfile />} />
+              <Route path="checkout" element={<Checkout/>} />
               <Route path="webbuild" element={<WebBuilder />} />
 
               <Route path="planmanager" element={<PlanManager />} />
