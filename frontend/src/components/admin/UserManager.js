@@ -157,6 +157,7 @@ const UserManager = () => {
                                 onClick={(e) => updateUser({ curr })}
                               >
                                 View Details
+                                <h2>heyy bacha</h2>
                               </button>
                             </tbody>
                           </table>
