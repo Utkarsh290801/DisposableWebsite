@@ -10,14 +10,14 @@ import gsTap from "grapesjs-tabs";
 import Basics from "grapesjs-blocks-basic";
 import BaseReactComponent from "./base-react-component";
 import app_config from "../../config";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import {TablePluginRef} from "./Table/consts";
 // import addTablePlugin from './Table';
 // import { ChartPluginRef } from "./Chart/consts";
 // import addChartPlugin from './Chart';
 
 const WebBuilder = () => {
-  const { id } = useParams();
+  const navigate = useNavigate();
   const url = app_config.backend_url;
   const [pluginLoaded, setPluginLoaded] = useState(false);
   const [editor, setEditor] = useState(null);
@@ -138,6 +138,16 @@ const WebBuilder = () => {
 
   return (
     <div>
+      {Boolean(webpageData) && (
+        <a
+          className="btn btn-link"
+          target="_blank"
+          href={"/live/" + webpageData._id}
+        >
+          Visit Live Page
+        </a>
+      )}
+
       <button
         className="btn btn-primary"
         onClick={() => {

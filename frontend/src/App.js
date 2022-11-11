@@ -40,6 +40,7 @@ function App() {
       <UserProvider currentUser={currentUser}>
         <BrowserRouter>
           <Routes>
+            <Route path="live/:pageid" element={<LivePage />} />
             <Route element={<Main />} path="main">
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
@@ -47,7 +48,6 @@ function App() {
               <Route path="resetpswd" element={<Reset />} />
               <Route path="reset" element={<ResetPassword />} />
               <Route path="home" element={<Home />} />
-              <Route path="live/:pageid" element={<LivePage />} />
               <Route path="updatepswd" element={<UpdatePassword />} />
               <Route path="changepswd" element={<ChangePassword />} />
               {/* <Route path="pricing" element={<Pricing />} /> */}
