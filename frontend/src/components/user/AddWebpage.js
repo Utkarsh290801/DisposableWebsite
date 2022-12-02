@@ -12,11 +12,10 @@ const AddWebpage = () => {
   const url = "http://localhost:5000";
   const AddForm = {
     title: "",
-    type:"",
+    type: "",
     description: "",
-    disposed:"",
+    disposed: "",
   };
-  
 
   const addSubmit = async (formdata) => {
     formdata.image = selImage;
@@ -126,9 +125,6 @@ const AddWebpage = () => {
                               error={Boolean(errors.title && touched.title)}
                             />
 
-                         
-                             
-
                             <TextField
                               label="Description"
                               id="description"
@@ -156,7 +152,7 @@ const AddWebpage = () => {
                               onChange={handleChange}
                               className="w-100 mb-4"
                             />
-{/*                            
+                            {/*                            
                             <label>Uploade Image</label>
                             <input
                               className="form-control"

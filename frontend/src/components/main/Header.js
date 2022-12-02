@@ -31,7 +31,7 @@ const pages = [
   { name: "Store-templates", link: "/" },
   { name: "Pricing", link: "/main/pricing1" },
   { name: "Contact Us", link: "/main/contactus" },
-  { name: "Login", link: "/main/signin" },
+  // { name: "Login", link: "/main/signin" },
 ];
 
 //Search Bar
@@ -85,6 +85,8 @@ const Header = () => {
   const [adminMenuPos, setAdminMenuPos] = useState(null);
   const [adminMenuPos2, setAdminMenuPos2] = useState(null);
 
+  const { loggedIn, setLoggedIn } = React.useContext(UserContext);
+
   const user = sessionStorage.getItem("user");
   const admin = sessionStorage.getItem("admin");
 
@@ -98,6 +100,7 @@ const Header = () => {
   const logout = () => {
     setAnchorElUser(null);
     sessionStorage.removeItem("user");
+    setLoggedIn(false);
     navigate("/main/signin");
   };
   const adminLogout = () => {
@@ -152,7 +155,7 @@ const Header = () => {
               color="inherit"
               sx={{ ml: 2 }}
             >
-              <Campaign />
+              <Button>Admin</Button>
             </IconButton>
           </Tooltip>
           <Menu
@@ -223,7 +226,12 @@ const Header = () => {
               sx={{ ml: 2 }}
             >
               <Link to="/main/signin">
-                <Avatar sx={{ width: 40, height: 40 }}></Avatar>
+                <lord-icon
+                  src="https://cdn.lordicon.com/hbvyhtse.json"
+                  trigger="hover"
+                  colors="primary:#e4e4e4"
+                  style={{ width: "50px", height: "50px" }}
+                ></lord-icon>
               </Link>
             </IconButton>
           </Tooltip>
@@ -247,8 +255,11 @@ const Header = () => {
         <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Typography sx={{ color: "white" }}>
+                {currentUser.username}
+              </Typography>
               <Avatar
-                sx={{ width: 40, height: 40 }}
+                sx={{ width: 50, height: 50 }}
                 alt=""
                 src={currentUser.avatar ? url + "/" + currentUser.avatar : ""}
               />
@@ -379,7 +390,17 @@ const Header = () => {
           >
             Web-X
           </Typography>
-          <Box sx={{ flexGrow: 1, display: {justifyContent:"center",alignItems:"center", xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: {
+                justifyContent: "center",
+                alignItems: "center",
+                xs: "none",
+                md: "flex",
+              },
+            }}
+          >
             {pages.map(({ name, link }) => (
               <NavLink
                 key={name}
@@ -397,6 +418,17 @@ const Header = () => {
                 {name}
               </NavLink>
             ))}
+            {!loggedIn ? (
+              <li className="nav">
+                <NavLink className="btn mylink m-3" to="/main/signin">
+                  Login Now
+                </NavLink>
+              </li>
+            ) : (
+              <NavLink onClick={logout} className="btn btn-danger m-3" to="/">
+                Logout
+              </NavLink>
+            )}
           </Box>
 
           {/*------ SearchBar-------- */}

@@ -17,7 +17,6 @@ import Container from "@mui/material/Container";
 import app_config from "../../config";
 import Swal from "sweetalert2";
 
-
 function Copyright(props) {
   return (
     <Typography
@@ -36,9 +35,6 @@ function Copyright(props) {
   );
 }
 
-
-
-
 export default function Pricing1() {
   const url = app_config.backend_url;
   const [currentUser, setCurrentUser] = React.useState(
@@ -46,9 +42,20 @@ export default function Pricing1() {
   );
 
   const priceSubmit = async (planData) => {
-    console.log();
-   
-  
+    console.log(planData);
+    if (currentUser) {
+      const res = await fetch(url + "/plan/checkuser/" + currentUser._id);
+      const planData = await res.json();
+      console.log(planData);
+      if (planData) {
+        Swal.fire({
+          icon: "error",
+          title: "Error!!",
+          text: "Something Went Wrong!",
+        });
+        return;
+      }
+    }
     const response = await fetch(url + "/plan/add", {
       method: "POST",
       body: JSON.stringify({
@@ -110,7 +117,7 @@ export default function Pricing1() {
       buttonVariant: "outlined",
     },
   ];
-  
+
   const footers = [
     {
       title: "Company",
@@ -141,8 +148,9 @@ export default function Pricing1() {
     },
   ];
 
-  return <>
-    <GlobalStyles
+  return (
+    <>
+      <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
       <CssBaseline />
@@ -281,5 +289,6 @@ export default function Pricing1() {
         </Grid>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-  </>
+    </>
+  );
 }

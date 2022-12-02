@@ -1,36 +1,36 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
+import ReactDOM from "react-dom";
+import React from "react";
 
 export default (editor) => {
   const domc = editor.Components;
-  const defType = domc.getType('default');
+  const defType = domc.getType("default");
   const defModel = defType.model;
-  const wrpChld = 'data-chld';
+  const wrpChld = "data-chld";
 
   // Main React component
-  domc.addType('react-component', {
+  domc.addType("react-component", {
     model: {
       toHTML(opts = {}) {
         return defModel.prototype.toHTML.call(this, {
           ...opts,
-          tag: this.get('type')
+          tag: this.get("type"),
         });
-      }
+      },
     },
     view: {
-      tagName: 'div',
+      tagName: "div",
 
       init() {
         const { model } = this;
-        this.listenTo(model, 'change:attributes', this.render);
-        this.listenTo(model.components(), 'add remove reset', this.__upRender);
+        this.listenTo(model, "change:attributes", this.render);
+        this.listenTo(model.components(), "add remove reset", this.__upRender);
       },
 
       getChildrenContainer() {
         const { childrenContainer } = this;
         if (childrenContainer) return childrenContainer;
 
-        this.childrenContainer = document.createElement('childc');
+        this.childrenContainer = document.createElement("childc");
 
         return this.childrenContainer;
       },
@@ -40,7 +40,7 @@ export default (editor) => {
        * to render children
        */
       createReactChildWrap() {
-        return React.createElement('span', { [wrpChld]: true });
+        return React.createElement("span", { [wrpChld]: true });
       },
 
       createReactEl(cmp, props) {
@@ -55,8 +55,8 @@ export default (editor) => {
         const { model, el } = this;
         this.updateAttributes();
         this.renderChildren();
-        const reactEl = this.createReactEl(model.get('component'), {
-          ...model.get('attributes')
+        const reactEl = this.createReactEl(model.get("component"), {
+          ...model.get("attributes"),
         });
         this.mountReact(reactEl, el);
         const chld = el.querySelector(`span[${wrpChld}]`);
@@ -75,7 +75,7 @@ export default (editor) => {
       __upRender() {
         clearTimeout(this._upr);
         this._upr = setTimeout(() => this.render());
-      }
-    }
+      },
+    },
   });
 };

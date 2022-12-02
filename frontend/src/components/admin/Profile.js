@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { Avatar, Button, IconButton, TextField } from "@mui/material";
 import { Formik } from "formik";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import DeleteIcon from '@mui/icons-material/Delete';
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   MDBCol,
   MDBContainer,
@@ -18,18 +18,18 @@ import {
   MDBProgressBar,
   MDBIcon,
   MDBListGroup,
-  MDBListGroupItem
-} from 'mdb-react-ui-kit';
+  MDBListGroupItem,
+} from "mdb-react-ui-kit";
 
 export default function profile() {
   return (
-    <section style={{ backgroundColor: '#eee' }}>
+    <section style={{ backgroundColor: "#eee" }}>
       <MDBContainer className="py-5">
         <MDBRow>
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
               <MDBBreadcrumbItem>
-                <a href='#'>Home</a>
+                <a href="#">Home</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
                 <a href="#">Admin</a>
@@ -47,13 +47,16 @@ export default function profile() {
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                   alt="avatar"
                   className="rounded-circle"
-                  style={{ width: '150px' }}
-                  fluid />
+                  style={{ width: "150px" }}
+                  fluid
+                />
                 <p className="text-muted mb-1">Full Stack Developer</p>
                 <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
                 <div className="d-flex justify-content-center mb-2">
                   <MDBBtn>Follow</MDBBtn>
-                  <MDBBtn outline className="ms-1">Message</MDBBtn>
+                  <MDBBtn outline className="ms-1">
+                    Message
+                  </MDBBtn>
                 </div>
               </MDBCardBody>
             </MDBCard>
@@ -64,7 +67,9 @@ export default function profile() {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBCardText className="text-muted">
+                      Johnatan Smith
+                    </MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -73,7 +78,9 @@ export default function profile() {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                    <MDBCardText className="text-muted">
+                      example@example.com
+                    </MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -82,7 +89,9 @@ export default function profile() {
                     <MDBCardText>Phone</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
+                    <MDBCardText className="text-muted">
+                      (097) 234-5678
+                    </MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -91,7 +100,9 @@ export default function profile() {
                     <MDBCardText>Mobile</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
+                    <MDBCardText className="text-muted">
+                      (098) 765-4321
+                    </MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -100,33 +111,50 @@ export default function profile() {
                     <MDBCardText>Address</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                    <MDBCardText className="text-muted">
+                      Bay Area, San Francisco, CA
+                    </MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
             <MDBCard className="mb-4 mb-lg-0">
               <MDBCardBody className="p-0">
-                
                 <MDBListGroup flush className="rounded-3">
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <MDBIcon fas icon="globe fa-lg text-warning" />
                     <MDBCardText>https://mdbootstrap.com</MDBCardText>
                   </MDBListGroupItem>
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
+                    <MDBIcon
+                      fab
+                      icon="github fa-lg"
+                      style={{ color: "#333333" }}
+                    />
                     <MDBCardText>mdbootstrap</MDBCardText>
                   </MDBListGroupItem>
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
+                    <MDBIcon
+                      fab
+                      icon="twitter fa-lg"
+                      style={{ color: "#55acee" }}
+                    />
                     <MDBCardText>@mdbootstrap</MDBCardText>
                   </MDBListGroupItem>
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
+                    <MDBIcon
+                      fab
+                      icon="instagram fa-lg"
+                      style={{ color: "#ac2bac" }}
+                    />
                     <MDBCardText>mdbootstrap</MDBCardText>
                   </MDBListGroupItem>
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
+                    <MDBIcon
+                      fab
+                      icon="facebook fa-lg"
+                      style={{ color: "#3b5998" }}
+                    />
                     <MDBCardText>mdbootstrap</MDBCardText>
                   </MDBListGroupItem>
                 </MDBListGroup>
@@ -134,7 +162,6 @@ export default function profile() {
             </MDBCard>
           </MDBCol>
           <MDBCol lg="8">
-      
             <Formik
               // initialValues={currentUser}
               initialValues={{
@@ -161,20 +188,28 @@ export default function profile() {
                             data-provides="fileupload"
                           >
                             <div className="photo-container d-flex align-items-center">
-                              
-                            <Avatar src="/broken-image.jpg"sx={{ width: 60, height: 60 }} />
-                              <IconButton color="primary" aria-label="upload picture" component="label">
-  <input hidden accept="image/*" type="file" />
-  <PhotoCamera />
-</IconButton>
-                              <Button variant="contained" color="error" startIcon={<DeleteIcon />} >
-  Remove
-</Button>
-                             
+                              <Avatar
+                                src="/broken-image.jpg"
+                                sx={{ width: 60, height: 60 }}
+                              />
+                              <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="label"
+                              >
+                                <input hidden accept="image/*" type="file" />
+                                <PhotoCamera />
+                              </IconButton>
+                              <Button
+                                variant="contained"
+                                color="error"
+                                startIcon={<DeleteIcon />}
+                              >
+                                Remove
+                              </Button>
                             </div>
                           </div>
                         </div>
-
                       </div>
 
                       <TextField
@@ -204,13 +239,15 @@ export default function profile() {
                         value={values.password}
                       />
                     </div>
-                    <Button type="submit" variant="contained">Update</Button>
+                    <Button type="submit" variant="contained">
+                      Update
+                    </Button>
                   </div>
                 </form>
               )}
             </Formik>
-          
-          <form className="form-horizontal mt-4">
+
+            <form className="form-horizontal mt-4">
               <div className="card">
                 <div className="card-header">
                   <h4 className="mb-0">Social Profiles</h4>
@@ -346,13 +383,8 @@ export default function profile() {
                     </div>
                   </div>
                 </div>
-              </div> </div>
-     
-      
-
-      
-
-            
+              </div>{" "}
+            </div>
           </MDBCol>
         </MDBRow>
       </MDBContainer>

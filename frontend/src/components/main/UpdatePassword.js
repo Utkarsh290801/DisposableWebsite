@@ -24,7 +24,7 @@ const UpdatePassword = () => {
   //             console.log("Something Went Wrong")
   //         }
   // }
-  
+
   // const schema = Yup.object().shape({
   //   name: Yup.string(),
   //   email: Yup.string().email(),
@@ -53,9 +53,9 @@ const UpdatePassword = () => {
                 </h1>
                 {/* <div class="row g-0"> */}
                 <Formik
-                  // validationSchema={schema}
-                  // initialValues={updatePassword}
-                  // onSubmit={passwordSubmit}
+                // validationSchema={schema}
+                // initialValues={updatePassword}
+                // onSubmit={passwordSubmit}
                 >
                   {({ values, handleChange, handleSubmit }) => (
                     <form onSubmit={handleSubmit}>

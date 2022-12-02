@@ -13,7 +13,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import DeleteIcon from "@mui/icons-material/Delete";
 import app_config from "../../config";
 import toast from "react-hot-toast";
-import { UserContext } from './../user/UserContext';
+import { UserContext } from "./../user/UserContext";
 import { motion } from "framer-motion";
 const UserrProfile = () => {
   const [previewUrl, setPreviewUrl] = useState("");
@@ -21,6 +21,26 @@ const UserrProfile = () => {
   //     console.log(e.target.files);
   //     setFile(URL.createObjectURL(e.target.files[0]));
   // }
+  const [userArray, setUserArray] = useState([]);
+  const getDataFromBackend = () => {
+    fetch(url + "/user/getall")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUserArray(data);
+      });
+  };
+
+  const deleteUser = async () => {
+    const res = await fetch(url + "/user/delete/" + currentUser._id, {
+      method: "DELETE",
+    });
+    if (res.status === 200) {
+      toast.success("Successfully deleted");
+      getDataFromBackend();
+    }
+  };
+
   const { setAvatar } = useContext(UserContext);
   const [updateForm, setUpdateForm] = useState({});
   const [newPass, setNewPass] = useState("");
@@ -105,7 +125,7 @@ const UserrProfile = () => {
   const uploadThumbnail = (e) => {
     const file = e.target.files[0];
     setSelImage(file.name);
-    setAvatar(url+'/'+file.name);
+    setAvatar(url + "/" + file.name);
     const fd = new FormData();
     fd.append("myfile", file);
     const reader = new FileReader();
@@ -154,7 +174,7 @@ const UserrProfile = () => {
     // });
   };
   return (
-    <motion.div
+    <div
       className="container"
       style={{ backgroundColor: "#eee" }}
       initial={{ x: "-100vw" }}
@@ -417,13 +437,14 @@ const UserrProfile = () => {
                         </p>
                       </div>
                       <div className="modal-footer">
-                        <form className="button_to" method="post">
-                          <input
-                            className="btn btn-outline-danger mb-0"
-                            type="submit"
-                            value="Yes, I'm sure"
-                          />
-                        </form>
+                        <button
+                          className="btn btn-outline-danger mb-0"
+                          type="submit"
+                          onClick={() => deleteUser(currentUser._id)}
+                        >
+                          Yes, I'm sure
+                        </button>
+
                         <button
                           type="button"
                           className="btn bg-gradient-dark mb-0"
@@ -514,7 +535,7 @@ const UserrProfile = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
