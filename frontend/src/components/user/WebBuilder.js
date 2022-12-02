@@ -43,6 +43,7 @@ const WebBuilder = () => {
                 plugins: [gsWebpage, gsCustome, gsTap,Basics, BaseReactComponent
 
               ],
+              
                 storageManager: {
                   id: "gjs-",
                 type: 'local',
