@@ -79,37 +79,32 @@ const SignUp = () => {
       .min(2, "Too Short!")
       .max(22, "Too Long!")
       .required("UserName is Required"),
-    //check email if exists
-    // checkEmail: Yup.boolean(),
-    // email: Yup.string()
-    //   .email("Invalid email")
-    //   .required("Email is Required")
-    //   .when("checkEmail", {
-    //     is: true,
-    //     then: Yup.string(),
-    //     test: async (values) => {
-    //       if (values) {
-    //         try {
-    //           let response = await fetch(url + "user/checkemail/" + values, {
-    //             method: "POST",
-    //             headers: {
-    //               "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({ email: values }),
-    //           });
-    //           if (response.ok) {
-    //             return true;
-    //           } else {
-    //             return false;
-    //           }
-    //         } catch (error) {
-    //           console.log(error);
-    //         }
-    //       }
-    //       console.log(values);
-    //       return true;
-    //     },
-    //   }),
+    email: Yup.string()
+      .email("Email is invalid")
+      .required("*Email is required")
+      .test("email", "Email already exists", async (value) => {
+        const response = await fetch(
+          app_config.backend_url + "/user/checkemail/"+value,
+          // {
+          //   method: "POST",
+          //   body: JSON.stringify({ email: value }),
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // }
+        );
+        const data = await response.json();
+        if (response.status === 200) {
+          console.log("email found");
+          return false;
+        } else if (response.status === 404) {
+          console.log("email not found");
+          return true;
+        } else if (response.status === 402) {
+          console.log("email not found");
+          return true;
+        }
+      }),
 
     password: Yup.string()
       .matches(
@@ -213,7 +208,6 @@ const SignUp = () => {
                                 }}
                                 onChange={handleChange}
                                 value={values.email}
-                                validate={validateEmail}
                                 helperText={touched.email ? errors.email : ""}
                                 error={Boolean(errors.email && touched.email)}
                               />

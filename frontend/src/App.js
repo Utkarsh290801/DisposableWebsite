@@ -4,7 +4,7 @@ import Main from "./components/main";
 import ContactUs from "./components/main/ContactUs";
 import Reset from "./components/main/Reset";
 import ResetPassword from "./components/main/ResetPassword";
-import Home from "./components/main/Home";
+
 import Admin from "./components/admin";
 import ManageUser from "./components/admin/ManageUser";
 import Profile from "./components/admin/Profile";
@@ -31,6 +31,9 @@ import Pricing1 from "./components/main/Pricing1";
 import PlanManager from "./components/user/PlanManager";
 import LivePage from "./components/main/LivePage";
 import UserManager from "./components/admin/UserManager";
+import Navbar from "./components/main/Home/Navbar";
+import HomePage from "./components/main/Home/HomePage";
+import Portfolio from "./components/main/Home/Portfolio";
 function App() {
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -42,12 +45,17 @@ function App() {
           <Routes>
             <Route path="live/:pageid" element={<LivePage />} />
             <Route element={<Main />} path="main">
+              
+              <Route path="home" element={<HomePage/>} />
+              {/* <Route path="service" element={<Services/>} /> */}
+              {/* <Route path="portfolio" element={<Portfolio/>} /> */}
+              <Route path="nav" element={<Navbar/>} />
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="contactus" element={<ContactUs />} />
               <Route path="resetpswd" element={<Reset />} />
               <Route path="reset" element={<ResetPassword />} />
-              <Route path="home" element={<Home />} />
+             
               <Route path="updatepswd" element={<UpdatePassword />} />
               <Route path="changepswd" element={<ChangePassword />} />
               {/* <Route path="pricing" element={<Pricing />} /> */}

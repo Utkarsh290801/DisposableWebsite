@@ -42,8 +42,9 @@ router.get("/checkemail/:email", (req, res) => {
   console.log(req.params.useremail);
   Model.findOne({ email: req.params.email })
     .then((result) => {
-      console.log(result);
-      res.json(result);
+      if(result)
+      res.status(200).json(result);
+    else res.status(402).json(result)
     })
     .catch((err) => {
       console.log(err);
