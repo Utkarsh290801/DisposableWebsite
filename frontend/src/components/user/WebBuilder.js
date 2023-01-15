@@ -80,19 +80,22 @@ const WebBuilder = () => {
         },
         pluginsOpts: {
           "grapesjs-preset-webpage": {
-            blocksBasicOpts: {
-              blocks: [
-                "column1",
-                "column2",
-                "column3",
-                "column3-7",
-                "text",
-                "link",
-                "image",
-                "video",
-              ],
-              flexGrid: 1,
-            },
+            // blocksBasicOpts: {
+            //   blocks: [
+            //     "column1",
+            //     "column2",
+            //     "column3",
+            //     "column3-7",
+            //     "text",
+            //     "link",
+            //     "image",
+            //     "video",
+            //   ],
+            //   flexGrid: 1,
+            // },
+            blockManager:{
+              appendTo: '.myblocks',
+            
             blocks: [
               {
                 id: "section", // id is mandatory
@@ -113,6 +116,9 @@ const WebBuilder = () => {
                 id: "image",
                 label: "Image",
                 // Select the component once it's dropped
+                media: `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
+            </svg>`,
                 select: true,
                 // You can pass components as a JSON instead of a simple HTML string,
                 // in this case we also use a defined component type `image`
@@ -122,7 +128,7 @@ const WebBuilder = () => {
                 activate: true,
               },
             ],
-          },
+          },}
         },
       });
       fetch(url + "/webpage/getbyuser/" + currentUser._id)

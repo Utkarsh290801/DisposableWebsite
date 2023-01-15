@@ -253,7 +253,7 @@ const ContactUs = () => {
             className="text-center w-responsive mx-auto mb-5"
             style={{
               letterSpacing: "3px",
-              fontFamily: "Tapestry",
+              fontFly: "Tapestry",
               color: "red",
               fontSize: "20px",
               fontWeight: "200px",
