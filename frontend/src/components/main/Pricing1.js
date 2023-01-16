@@ -2,7 +2,7 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
+import { Link, Card } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
@@ -11,7 +11,6 @@ import Grid from "@mui/material/Grid";
 import StarIcon from "@mui/icons-material/StarBorder";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 import app_config from "../../config";
@@ -244,15 +243,16 @@ export default function Pricing1() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button
-                    fullWidth
+                  <a
                     variant={tier.buttonVariant}
-                    onClick={() => {
-                      priceSubmit(tier);
-                    }}
+                    // onClick={() => {
+                    //   priceSubmit(tier);
+                    // }}
+                    href="https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY"
+                    target="_blank"
                   >
                     {tier.buttonText}
-                  </Button>
+                  </a>
                 </CardActions>
               </Card>
             </Grid>
@@ -278,7 +278,7 @@ export default function Pricing1() {
               <ul>
                 {footer.description.map((item) => (
                   <li key={item}>
-                    <Link href="#" variant="subtitle1" color="text.secondary">
+                    <Link variant="subtitle1" color="text.secondary">
                       {item}
                     </Link>
                   </li>
