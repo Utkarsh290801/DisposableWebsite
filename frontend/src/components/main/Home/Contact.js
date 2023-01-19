@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { Formik } from "formik";
 import { Button, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import { ToastContainer, toast } from "react-toastify";
 function Contact() {
   const [element, controls] = useScroll();
   const url = app_config.backend_url;
@@ -31,11 +32,12 @@ function Contact() {
     if (response.status === 200) {
       console.log(response.status);
       console.log("data saved");
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "send successfully!!",
-      });
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "Success",
+      //   text: "send successfully!!",
+      // });
+      toast.success("send successfully!!")
     } else if (response.status === 500) {
       console.log(response.status);
       console.log("something went wrong");
@@ -140,6 +142,7 @@ function Contact() {
                 </Button>
               </div>
             </form>
+        <ToastContainer />
           </div>
         </motion.div>
       </Section>
