@@ -43,10 +43,10 @@ function App() {
       <UserProvider currentUser={currentUser}>
         <BrowserRouter>
           <Routes>
+              <Route path="home" element={<HomePage/>} />
             <Route path="live/:pageid" element={<LivePage />} />
             <Route element={<Main />} path="main">
               
-              <Route path="home" element={<HomePage/>} />
               {/* <Route path="service" element={<Services/>} /> */}
               {/* <Route path="portfolio" element={<Portfolio/>} /> */}
               <Route path="nav" element={<Navbar/>} />
@@ -106,7 +106,7 @@ function App() {
             </Route>
 
             <Route element={<Navigate to="/main/notfound" />} path="*" />
-            <Route element={<Navigate to="/main/home" />} path="/" />
+            <Route element={<Navigate to="/home" />} path="/" />
           </Routes>
         </BrowserRouter>
       </UserProvider>

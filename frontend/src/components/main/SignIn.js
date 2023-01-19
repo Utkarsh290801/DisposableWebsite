@@ -14,6 +14,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Formik } from "formik";
+// import home from "./assets/watercolor6.jpg";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -125,7 +126,7 @@ const SignIn = () => {
     >
       <IconButton
         size="large"
-        onClick={(e) => navigate("/main/home")}
+        onClick={(e) => navigate("/home")}
         sx={{ float: "right" }}
       >
         <Cancel
@@ -162,7 +163,15 @@ const SignIn = () => {
                   </div>
                   <div class="col-md-6 col-lg-5 col-xl-6">
                     <div class="card-body p-lg-5 text-black">
-                      <h1 className="font-weight-bold ">Sign In</h1>
+                      <h1
+                        className="font-weight-bold"
+                        // style={{
+                        //   color: "var(--secondary-color)",
+                        //   fontWeight: "500",
+                        // }}
+                      >
+                        Sign In
+                      </h1>
                       <Formik initialValues={loginform} onSubmit={loginSubmit}>
                         {({
                           values,
@@ -177,6 +186,7 @@ const SignIn = () => {
                                 variant="standard"
                                 className="w-100 mb-4"
                                 id="email"
+                                // style={{ borderBottom: "0.1rem solid var(--secondary-color)"}}
                                 InputProps={{
                                   endAdornment: (
                                     <InputAdornment position="end">

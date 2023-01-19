@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import play from "./assets/play.png";
-import home from "./assets/home.png";
+import feature1 from "./assets/editor.gif";
+import feature2 from "./assets/temps-3.jpg";
+// import feature2 from "./assets/maker.jpg";
+// import feature3 from "./assets/preview.png";
+import feature3 from "./assets/p.jpg";
 import Title from "./Title";
 import { motion } from "framer-motion";
 import { useScroll } from "./useScroll";
@@ -11,29 +15,32 @@ function Blog() {
   const [element, controls] = useScroll();
   const blogsData = [
     {
-      title: "features",
-      type: "Sdjb",
+      title: "You don't have to code",
+      type: "Drag-n-Drop",
       description:
-        "lorem20jdehbjbenbbbbbbbb bbbbbbbb bbbbbbbbbbbbbb bbbbbbbbbb",
+        "Web-X is a super easy and simple website builder application - just drag-n-drop site elements to your page, add content, and style it to look the way you like.  ",
+      image: feature1,
     },
     {
-      title: "Rgjkkggj j",
-      type: "Rkcenk",
+      title: "Make your site unique      ",
+      type: "Modify a Template",
       description:
-        "fujjjjjjjjjjjjjjjjjjjjj jjjjjjjjjjjjjjjjjj jjjjjjjjjjj jjjjjjjjjjjjmb jjjjjjj",
+        "Web-X offers a huge collection of website blocks, templates. You can pick one of free templates your future website will be based on. You are free to modify a website as you want: add pages, edit their titles, descriptions, change the look of site by using the visual inline editor and block parameters. Combine blocks from different themes to create a unique mix.    ",
+      image: feature2,
     },
     {
-      title: "SUN",
-      type: "Yoghj a",
+      title: "Publish your website",
+      type: "Preview & Publish",
       description:
-        "gjgjbbnb ugjb  jgm jm g g buuvv  uvu tiuvit  uyv  utgb, jgkg, hjh, uy,h ylb   ;",
+        " You have had a nice preview of your site in the app switching between mobile, tablet and desktop views (yes, it's possible, too). It's time to publish the the ready website to your local folder and to GitHub Pages.        ",
+      image: feature3,
     },
   ];
   return (
     <Section id="blog" ref={element}>
       <Title value="Feature" />
       <div className="blogs">
-        {blogsData.map(({ title, type, description }) => {
+        {blogsData.map(({ title, type, description ,image}) => {
           return (
             <motion.div
               className="blog"
@@ -45,7 +52,9 @@ function Blog() {
                 duration: 0.8,
               }}
             >
-              <div className="image"></div>
+              <div className="">
+                <img className="image" src={image} alt="Feature" />
+              </div>
               <div className="title">
                 <h3>{title}</h3>
               </div>
@@ -53,18 +62,19 @@ function Blog() {
               <div className="description">
                 <p>{description}</p>
               </div>
-              <div className="more">
-                <img src={play} alt="Play" />
-                <span>Read More</span>
-              </div>
             </motion.div>
           );
         })}
+              {/* <div className="more">
+                <img src={play} alt="Play" />
+                <span>Read More</span>
+              </div> */}
       </div>
     </Section>
   );
 }
 
+// background: url(${home}) no-repeat center center;
 const Section = styled.section`
   min-height: 100vh;
   position: relative;
@@ -76,10 +86,10 @@ const Section = styled.section`
     .blog {
       display: flex;
       flex-direction: column;
+      
       gap: 1rem;
       .image {
-        height: 15rem;
-        background: url(${home}) no-repeat center center;
+        height: 13rem;
         background-size: cover;
         display: flex;
         justify-content: center;
@@ -102,6 +112,7 @@ const Section = styled.section`
       }
       .more {
         display: flex;
+        flex-direction: column;
         align-items: center;
         gap: 1rem;
         cursor: pointer;

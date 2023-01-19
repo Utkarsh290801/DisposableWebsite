@@ -138,7 +138,7 @@ const ResetPassword = () => {
             icon: "success",
             title: "Password Reset Success!!",
           }).then(() => {
-            navigate("/signin");
+            navigate("/main/signin");
           });
         return res.json();
       })
