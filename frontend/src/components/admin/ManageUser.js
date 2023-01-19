@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import app_config from "../../config";
 import { Avatar, IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { UserContext } from "../user/UserContext";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
@@ -69,11 +70,11 @@ const ManageUser = () => {
       headerName: "View Profile",
       width: 130,
     },
-    {
-      field: "delete",
-      headerName: "Delete",
-      width: 90,
-    },
+    // {
+    //   field: "delete",
+    //   headerName: "Delete",
+    //   width: 90,
+    // },
     // {
     //   field: 'fullName',
     //   headerName: 'Full name',
@@ -101,6 +102,7 @@ const ManageUser = () => {
     } else {
       return (
         <DataGrid
+       
           rows={userArray}
           columns={columns}
           pageSize={pageSize}
@@ -111,6 +113,9 @@ const ManageUser = () => {
             return obj._id;
           }}
           checkboxSelection
+          getSelectedRows={(d) => {
+            console.log(d);
+          }}
         />
       );
     }
@@ -121,6 +126,9 @@ const ManageUser = () => {
       <h1>User Manager</h1>
       <div className="row">
         <div className="col-md">
+          <button className="btn btn-danger" onClick={(e) => deleteUser()}>
+            <i class="fas fa-trash"></i>
+          </button>
           <Paper
             component="form"
             className="float-end mb-2"
@@ -130,6 +138,13 @@ const ManageUser = () => {
               width: "30%",
             }}
           >
+            {/* <IconButton
+              type="button"
+              sx={{ p: "10px" }}
+              onClick={deleteUser}
+            >
+              <DeleteIcon />
+            </IconButton> */}
             <InputBase
               sx={{ ml: 1, flex: 1 }}
               placeholder="Enter Username to Search"
