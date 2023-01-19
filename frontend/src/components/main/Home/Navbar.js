@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import logo from "/assets/logo.png";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -6,10 +6,24 @@ import { MdClose } from "react-icons/md";
 import { useScroll } from "./useScroll";
 import { motion } from "framer-motion";
 import { navAnimation } from "./animation";
-
+import { NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from "../../user/UserContext";
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [element, controls] = useScroll();
+  const navigate = useNavigate();
+
+  const { loggedIn, setLoggedIn } = React.useContext(UserContext);
+
+
+  const logout = () => {
+    //1.destroy session value
+    sessionStorage.removeItem("user");
+    //2. set the current user to null
+    setLoggedIn(false);
+    //3.navigate to login page
+    navigate("/main/login");
+  };
   return (
     <Nav
       ref={element}
@@ -43,18 +57,32 @@ const Navbar = () => {
           <li>
             <a href="#services">Services</a>
           </li>
-          {/* <li>
-            <a href="#portfolio">Portfolio</a>
-          </li>
           <li>
+            <a href="#contact">Contact</a>
+          </li>
+          {/* <li>
+            <a href="/main/signin">Login Now</a>
+          </li> */}
+             {!loggedIn ? (
+            <li className="">
+              <NavLink className="" to="/main/signin">
+                Login Now
+              </NavLink>
+            </li>
+          ) : (
+            <NavLink style={{textDecoration:"none",textTransform: "uppercase",color: "black"}} onClick={logout} className="" to="/">          
+              Log out
+            </NavLink>
+          )}
+          {/* <li>
+            <a href="#portfolio">Login Now</a>
+          </li> */}
+          {/* <li>
             <a href="#blog">Blog</a>
           </li>
           <li>
             <a href="#skills">Skills</a>
           </li> */}
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
         </ul>
       </div>
     </Nav>

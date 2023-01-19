@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import Title from "./Title";
+import loadmore from "./assets/loadmore.png";
 import pricing1 from "./assets/pricing1.png";
 import pricing2 from "./assets/pricing2.png";
 import play from "./assets/play.png";
@@ -13,7 +14,7 @@ function Pricing() {
   const plans = [
     {
       name: "Basic",
-      price: 13,
+      price: 0,
     },
     {
       name: "Pro",
@@ -27,43 +28,43 @@ function Pricing() {
 
   const data = [
     {
-      value: "lorem",
+      value: "Custom Domain",
       type: "Basic",
     },
     {
-      value: "lorem",
+      value: "Storage Space",
       type: "Basic",
     },
     {
-      value: "lorem",
+      value: "Customer Support",
       type: "Basic",
     },
     {
-      value: "lorem",
+      value: "Pre-built Templates",
       type: "Basic",
     },
     {
-      value: "lorem",
+      value: "Community Forum",
       type: "Basic",
     },
+    // {
+    //   value: "lorem",
+    //   type: "Basic",
+    // },
     {
-      value: "lorem",
-      type: "Basic",
-    },
-    {
-      value: "lorem",
+      value: "Phone Support",
       type: "Pro",
     },
     {
-      value: "lorem",
+      value: "Mobile-responsive designs",
       type: "Pro",
     },
     {
-      value: "lorem",
+      value: "Websites Pages Unlimited",
       type: "Expert",
     },
     {
-      value: "lorem",
+      value: "24x7 Expert Support",
       type: "Expert",
     },
   ];
@@ -124,15 +125,17 @@ function Pricing() {
                     );
                   })}
                 </ul>
-                <div className="pricing__plan__content__actions">
-                  <span>Order Now</span>
-                  <img src={play} alt="Order Now" />
-                </div>
               </div>
             </motion.div>
           );
         })}
       </div>
+                <div className="pricing__plan__content__actions">
+                  <a href="/main/pricing1">Read More 
+                  <div style={{marginLeft:"30px"}}>
+                  <img  src={play} alt="Order Now" /></div></a>
+                  {/* <img src={loadmore} alt="Load More" /> */}
+                </div>
     </Section>
   );
 }
@@ -142,6 +145,13 @@ const Section = styled.section`
   padding: 5rem 0;
   position: relative;
   overflow: hidden;
+   a {
+    color:black;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
   .background {
     .bg1 {
       position: absolute;

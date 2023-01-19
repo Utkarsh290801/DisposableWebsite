@@ -227,7 +227,7 @@ const Header = () => {
               </NavLink>
             </li>
           ) : (
-            <NavLink onClick={logout} className="btn btn-danger m-3" to="/">
+            <NavLink onClick={logout} className="btn btn-danger m-3" to="/">          
               Logout
             </NavLink>
           )}

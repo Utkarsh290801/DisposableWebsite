@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-// import home from "assets/istockphoto-516856080-170667a.jpg";
+// import home from "./assets/istockphoto-516856080-170667a.jpg";
 // import home from "assets/pink-.jpg";
-// import home from "assets/banner-bg.png";
-// import home from "assets/watercolor6.jpg";
+// import home from "./assets/banner-bg.png";
+import home from "./assets/watercolor6.jpg";
 // import home from "./assets/images.jpeg";
 // import play from "assets/play.png";
 import Navbar from "./Navbar";
@@ -126,17 +126,18 @@ const HomePage = () => {
 };
 
 // background: url(${home}) no-repeat center;
+// 
 const Section = styled.section`
-  background: url() no-repeat center;
+min-height: 100vh;
 
-  min-height: 100vh;
-
-  background-size: cover;
-  position: relative;
-  .home {
-    height: 100%;
-
-    .content {
+background: url(${home}) no-repeat center;
+background-size: cover;
+position: relative;
+.home {
+  height: 100%;
+  
+  .content {
+      
       display: flex;
       flex-direction: column;
       align-items: flex-start;

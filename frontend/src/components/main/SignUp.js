@@ -62,7 +62,7 @@ const SignUp = () => {
         text: "Registered successfully!!",
       });
 
-      // navigate("/main/signin");
+      navigate("/main/signin");
     } else if (response.status) {
       console.log(response.status);
       console.log("something went wrong");
@@ -84,7 +84,7 @@ const SignUp = () => {
       .required("*Email is required")
       .test("email", "Email already exists", async (value) => {
         const response = await fetch(
-          app_config.backend_url + "/user/checkemail/"+value,
+          app_config.backend_url + "/user/checkemail/" + value
           // {
           //   method: "POST",
           //   body: JSON.stringify({ email: value }),
@@ -135,7 +135,7 @@ const SignUp = () => {
     >
       <IconButton
         size="large"
-        onClick={(e) => navigate("/main/home")}
+        onClick={(e) => navigate("/home")}
         sx={{ float: "right" }}
       >
         <CancelPresentation sx={{ color: "white", fontSize: 60 }} />
@@ -194,10 +194,10 @@ const SignUp = () => {
                               />
                             </div>
                             <div class="form-outline">
-                              <Field
+                              <TextField
                                 label="Email"
                                 variant="standard"
-                                className="w-100 mb-3"
+                                className="w-100"
                                 id="email"
                                 InputProps={{
                                   endAdornment: (
@@ -214,7 +214,7 @@ const SignUp = () => {
                               <p>{errors.email}</p>
                             </div>
                             <div class="form-outline ">
-                              <TextField
+                              {/* <TextField
                                 label="Password*"
                                 variant="standard"
                                 className="w-100 mb-3"
@@ -245,10 +245,47 @@ const SignUp = () => {
                                 error={Boolean(
                                   errors.password && touched.password
                                 )}
+                              /> */}
+                              <TextField
+                                className="w-100 mb-3"
+                                placeholder="Enter New Password"
+                                label="Password"
+                                variant="standard"
+                                id="password"
+                                type={showPassword ? "text" : "password"}
+                                value={values.password}
+                                // error={Boolean(errors.password)}
+                                // helperText="Enter your Password please"
+                                helperText={
+                                  touched.password ? errors.password : ""
+                                }
+                                error={Boolean(
+                                  errors.password && touched.password
+                                )}
+                                onChange={handleChange}
+                                InputProps={{
+                                  endAdornment: (
+                                    <InputAdornment position="end">
+                                      <IconButton
+                                        aria-label="toggle password visibility1"
+                                        onClick={(e) => {
+                                          setShowPassword(!showPassword);
+                                        }}
+                                        edge="end"
+                                      >
+                                        {showPassword ? (
+                                          <Visibility />
+                                        ) : (
+                                          <VisibilityOff />
+                                        )}
+                                      </IconButton>
+                                    </InputAdornment>
+                                  ),
+                                }}
                               />
                             </div>
                             <div class="form-outline ">
-                              <TextField
+                              {/* <TextField
                                 label="Confirm Password*"
                                 placeholder="Re-enterPassword"
                                 variant="standard"
@@ -269,6 +306,37 @@ const SignUp = () => {
                                           my: 0.5,
                                         }}
                                       />
+                                    </InputAdornment>
+                                  ),
+                                }}
+                              /> */}
+                              <TextField
+                                className="w-100 mb-3"
+                                placeholder="Confirm Password"
+                                label="Re-enter Password"
+                                variant="standard"
+                                id="confirmPassword"
+                                type="password"
+                                value={values.confirmPassword}
+                                error={errors.confirmPassword}
+                                helperText={Boolean(errors.confirmPassword)}
+                                onChange={handleChange}
+                                InputProps={{
+                                  endAdornment: (
+                                    <InputAdornment position="end">
+                                      <IconButton
+                                        aria-label="toggle password visibility1"
+                                        onClick={(e) => {
+                                          setShowPassword(!showPassword);
+                                        }}
+                                        edge="end"
+                                      >
+                                        {showPassword ? (
+                                          <Visibility />
+                                        ) : (
+                                          <VisibilityOff />
+                                        )}
+                                      </IconButton>
                                     </InputAdornment>
                                   ),
                                 }}

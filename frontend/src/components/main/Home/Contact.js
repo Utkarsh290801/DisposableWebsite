@@ -4,58 +4,151 @@ import Title from "./Title";
 import { motion } from "framer-motion";
 import { useScroll } from "./useScroll";
 import { contactAnimation } from "./animation";
-
+import app_config from "../../../config";
+import Swal from "sweetalert2";
+import { Formik } from "formik";
+import { Button, TextField } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 function Contact() {
   const [element, controls] = useScroll();
-  return (
-    <Section id="contact" ref={element}>
-      <Title value="contact" />
-      <motion.div
-        className="contact"
-        variants={contactAnimation}
-        animate={controls}
-        transition={{
-          delay: 0.03,
-          type: "tween",
-          duration: 0.8,
-        }}
-      >
-        <div className="contact__title">
-          <p>Stay in touch with me </p>
-          <h2>Quick Contact</h2>
-        </div>
-        <div className="contact__data">
-          <div className="contact__data__description">
-            <h4>Just to say hi !!</h4>
-            <p>
-              If you have any questions simply use the following contact
-              details.
-            </p>
-            <p>
-              lorem20jdehbjbenbbbbbbbb lorem10 kh3skh3 ziu4i i4ry ir i
-              u4itituiui uu iigi3htogo
-            </p>
-            <div>
+  const url = app_config.backend_url;
+  const userForm = {
+    name: "",
+    email: "",
+    message: "",
+  };
+
+  const feedbackSubmit = async (formdata, { setSubmitting }) => {
+    console.log(formdata);
+    setSubmitting(true);
+
+    // asynchronous function returns promise
+    const response = await fetch(url + "/contact/add", {
+      method: "POST",
+      body: JSON.stringify(formdata),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.status === 200) {
+      console.log(response.status);
+      console.log("data saved");
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "send successfully!!",
+      });
+    } else if (response.status === 500) {
+      console.log(response.status);
+      console.log("something went wrong");
+      Swal.error({
+        icon: "error",
+        title: "OOPS",
+        text: "!! something went wrong!!",
+      });
+    }
+    setSubmitting(false);
+  };
+
+  const formBody = ({ values, handleSubmit, handleChange, isSubmitting }) => {
+    return (
+      <Section id="contact" ref={element}>
+        <Title value="contact" />
+        <motion.div
+          className="contact"
+          variants={contactAnimation}
+          animate={controls}
+          transition={{
+            delay: 0.03,
+            type: "tween",
+            duration: 0.8,
+          }}
+        >
+          <div className="contact__title">
+            <p>Stay in touch with me </p>
+            <h2>Quick Contact</h2>
+          </div>
+          <div className="contact__data">
+            <div className="contact__data__description">
+              <h4>Send us a message</h4>
               <p>
-                <strong>Address:</strong> 33, F
+                If you have any work from me or any type of queries related to
+                my website, you can send me message from here. It's my pleasure
+                to help you.
               </p>
               <p>
-                <strong>Email:</strong> ks@gmail.com
+                We'love to hear from you. Our friendly team is always here to
+                chat.
+                {/* If you have any questions simply use the following contact
+              details. */}
               </p>
-              <p>
-                <strong>Website:</strong> ws.com
-              </p>
+              <div>
+                <p>
+                  <strong>Phone:</strong> +91 6386406135 , +91 9336479475
+                </p>
+                <p>
+                  <strong>Email:</strong> testproject2629@gmail.com
+                </p>
+                <p>
+                  <strong>Website:</strong> webx.com
+                </p>
+              </div>
             </div>
+            <form onSubmit={handleSubmit}>
+              <div className="contact__data__form">
+                {/* <input type="text" placeholder="name" />
+                <input type="email" placeholder="email" />
+                <textarea placeholder="message"></textarea>
+                <button>Send Message</button> */}
+                <TextField
+                  className="w-100"
+                  type="text"
+                  id="name"
+                  label="NAME"
+                  style={{ backgroundColor: "white" }}
+                  varient="standard"
+                  onChange={handleChange}
+                  value={values.name}
+                />
+                <TextField
+                  className="w-100 "
+                  type="email"
+                  id="email"
+                  label="E-MAIL"
+                  varient="standard"
+                  style={{ backgroundColor: "white" }}
+                  onChange={handleChange}
+                  value={values.email}
+                />
+                <TextField
+                  className="w-100 "
+                  type="text"
+                  id="message"
+                  label="MESSAGE"
+                  multiline
+                  rows={5}
+                  style={{ backgroundColor: "white" }}
+                  varient="standard"
+                  onChange={handleChange}
+                  value={values.message}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  endIcon={<SendIcon />}
+                >
+                  Contact Us
+                </Button>
+              </div>
+            </form>
           </div>
-          <div className="contact__data__form">
-            <input type="text" placeholder="name" />
-            <input type="email" placeholder="email" />
-            <textarea placeholder="message"></textarea>
-            <button>Send Message</button>
-          </div>
-        </div>
-      </motion.div>
-    </Section>
+        </motion.div>
+      </Section>
+    );
+  };
+  return (
+    <Formik initialValues={userForm} onSubmit={feedbackSubmit}>
+      {formBody}
+    </Formik>
   );
 }
 
@@ -88,7 +181,7 @@ const Section = styled.section`
         }
         p {
           text-align: justify;
-          margin-top: 20px;
+          margin-top: 15px;
         }
         div {
           p {

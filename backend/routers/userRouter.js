@@ -62,16 +62,7 @@ router.get("/getbyid/:userid", (req, res) => {
     });
 });
 
-router.get("/checkemail/:email", (req, res) => {
-  Model.findOne({ email: req.params.email })
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.json(err);
-    });
-});
+
 router.get("/getbyemail/:email", (req, res) => {
   Model.findOne({ email: req.params.email })
     .then((data) => {
