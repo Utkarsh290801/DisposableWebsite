@@ -34,6 +34,7 @@ import UserManager from "./components/admin/UserManager";
 import Navbar from "./components/main/Home/Navbar";
 import HomePage from "./components/main/Home/HomePage";
 import Portfolio from "./components/main/Home/Portfolio";
+// import PageEditor from "./components/user/PageEditor";
 function App() {
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -90,6 +91,7 @@ function App() {
               <Route path="webbuild" element={<WebBuilder />} />
 
               <Route path="planmanager" element={<PlanManager />} />
+              {/* <Route path="pageeditor" element={<PageEditor />} /> */}
 
               <Route path="sidebar" element={<Sidebar />} />
               <Route path="accounts" element={<Accounts />} />
