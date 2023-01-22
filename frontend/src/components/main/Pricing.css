@@ -1,0 +1,411 @@
+/* .pricing-body {
+  height: 100vh;
+  width: 100vw;
+  background-color: #eeca5e;
+  font-family: "Poppins", sans-serif;
+}
+.pricing-container {
+  width: 900px;
+  height: 600px;
+  background-color: #fcf3d8;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  box-shadow: 5.43905px 21.7562px 27.1952px rgba(0, 0, 0, 0.2);
+}
+.pricing-title {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 40px;
+  text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.403);
+}
+.pricing-subtitle {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 300;
+}
+.pricing-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  font-weight: 500;
+  font-size: 14px;
+}
+.pricing-pricing-selector_btn {
+  width: 50px;
+  height: 20px;
+  background-color: #ffd13d;
+  border-radius: 50px;
+  margin: 0 10px;
+  position: relative;
+}
+.switch_button {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border-radius: 50%;
+  transform: translateX(0px);
+  transition: all 300ms linear;
+}
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 999;
+}
+.pricing-card {
+  width: 230px;
+  height: 300px;
+  background-color: #fce7a4;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  transition: all 200ms linear;
+}
+.pricing-card:hover {
+  cursor: pointer;
+  background-color: #f7f7f7;
+}
+.pricing-top_text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+.top_text h2 {
+  font-size: 17px;
+  font-weight: 700;
+}
+.pricing-top_text p {
+  font-size: 16px;
+  font-weight: 500;
+}
+.pricing-cards ul {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  margin-top: 10px;
+  font-size: 12px;
+  gap: 5px;
+}
+.pricing-card_btn {
+  position: absolute;
+  bottom: 15px;
+  left: 14%;
+  background-color: #ffd13d;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 300ms linear;
+}
+.pricing-card_btn p {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.pricing-card_btn1 {
+  position: absolute;
+  bottom: 15px;
+  left: 41.5%;
+  background-color: #ffd13d;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 300ms linear;
+}
+.pricing-card_btn1 p {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.pricing-card_btn2 {
+  position: absolute;
+  bottom: 15px;
+  left: 69.5%;
+  background-color: #ffd13d;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 300ms linear;
+}
+.pricing-card_btn2 p {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.pricing-card_btn:hover {
+  background-color: #000;
+  color: white;
+}
+.pricing-card_btn1:hover {
+  background-color: #000;
+  color: white;
+}
+.pricing-card_btn2:hover {
+  background-color: #000;
+  color: white;
+}
+.pricing-bold {
+  font-weight: 700;
+}
+.pricing-img {
+  position: absolute;
+  top: 70px;
+  right: 70px;
+  opacity: 0.7;
+  user-select: none;
+} */
+
+/* section {
+  padding: 60px 0;
+  min-height: 100vh;
+} */
+.pricing-btn,
+.pricing-btn:hover,
+.pricing-btn:focus,
+.pricing-area:active {
+  text-decoration: none;
+  outline: none;
+}
+.pricing-ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bg-gray {
+  background-color: #f9f9f9;
+}
+
+.site-heading h2 {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.site-heading h2 span {
+  color: #ffaf5a;
+}
+
+.site-heading h4 {
+  display: inline-block;
+  padding-bottom: 20px;
+  position: relative;
+  text-transform: capitalize;
+  z-index: 1;
+}
+
+.site-heading h4::before {
+  background: #ffaf5a none repeat scroll 0 0;
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 50%;
+  margin-left: -25px;
+  position: absolute;
+  width: 50px;
+}
+
+.site-heading h2 span {
+  color: #ffaf5a;
+}
+
+.site-heading {
+  margin-bottom: 60px;
+  overflow: hidden;
+  margin-top: -5px;
+}
+
+.pricing-area .site-heading {
+  margin-bottom: 100px;
+}
+
+.pricing-item {
+  background: #ffffff none repeat scroll 0 0;
+  -moz-box-shadow: 0 0 10px #cccccc;
+  -webkit-box-shadow: 0 0 10px #cccccc;
+  -o-box-shadow: 0 0 10px #cccccc;
+  box-shadow: 0 0 10px #cccccc;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 9;
+}
+
+.pricing-item .icon {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  font-size: 50px;
+  height: 100px;
+  left: 50%;
+  line-height: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100px;
+}
+
+.pricing-item .icon::after {
+  background: #ffffff none repeat scroll 0 0;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.pricing-item.active .icon::after {
+  background: #ffaf5a none repeat scroll 0 0;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.pricing-item.active .icon i {
+  color: #ffffff !important;
+}
+
+.pricing-item .icon i {
+  color: #ffaf5a;
+  cursor: inherit !important;
+}
+
+.pricing-header h4 {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #323a45;
+}
+
+.pricing-header h2 {
+  color: #323a45;
+  font-size: 50px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.pricing-header h2 sup {
+  font-size: 24px;
+  font-weight: 500;
+  top: -25px;
+}
+
+.pricing-header h2 sub {
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: -5px;
+}
+
+.pricing-item .pricing-header span {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.pricing-header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 20px !important;
+  padding: 50px 30px 30px !important;
+}
+
+.pricing-item .footer1 {
+  padding: 20px 30px 30px;
+}
+
+.pricing-item li {
+  font-family: "Poppins", sans-serif;
+  line-height: 40px;
+  margin: 0 30px;
+  text-transform: capitalize;
+}
+
+.pricing-area .pricing-item.active .pricing-header {
+  background: #ffaf5a none repeat scroll 0 0;
+  border-color: transparent;
+  margin: 0;
+}
+
+.pricing-area.color-yellow .pricing-item.active .pricing-header {
+  background: #ff9800 none repeat scroll 0 0;
+}
+
+.pricing-area .pricing-item.active .pricing-header h2,
+.pricing-area .pricing-item.active .pricing-header h4,
+.pricing-area .pricing-item.active .pricing-header span {
+  color: #ffffff;
+}
+
+.pricing-area .pricing-item.active .pricing-header span.badge {
+  background: #ffffff none repeat scroll 0 0;
+  color: #323a45;
+}
+
+.pricing-item li i {
+  color: #999;
+  margin-left: 2px;
+  margin-right: 5px;
+}
+
+.pricing-item li i:hover {
+  cursor: help;
+}
+
+.pricing-item li i.fa-times {
+  color: #e22626;
+}
+
+.btn-sm {
+  padding: 8px 35px;
+  font-size: 12px;
+}
+.btn-dark {
+  background-color: #323a45;
+  color: #ffffff;
+  border: 2px solid #323a45;
+}
+
+.btn-dark.border {
+  background-color: transparent;
+  color: #323a45;
+  border: 2px solid #323a45;
+}
+
+.btn-dark.border:hover {
+  background-color: #323a45;
+  color: #ffffff !important;
+  border: 2px solid #323a45;
+}
+
+.btn-theme {
+  background-color: #ffaf5a;
+  color: #ffffff !important;
+  border: 2px solid #ffaf5a;
+}

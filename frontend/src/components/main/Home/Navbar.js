@@ -55,14 +55,17 @@ const Navbar = () => {
             <a href="#home">Home</a>
           </li>
           <li>
+            <a href="/user/webbuild">Builder</a>
+          </li>
+          <li>
             <a href="#services">Services</a>
+          </li>
+          <li>
+            <a href="#pricing">Pricing</a>
           </li>
           <li>
             <a href="#contact">Contact</a>
           </li>
-          {/* <li>
-            <a href="/main/signin">Login Now</a>
-          </li> */}
              {!loggedIn ? (
             <li className="">
               <NavLink className="" to="/main/signin">
@@ -79,8 +82,8 @@ const Navbar = () => {
           </li> */}
           {/* <li>
             <a href="#blog">Blog</a>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <a href="#skills">Skills</a>
           </li> */}
         </ul>

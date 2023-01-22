@@ -58,7 +58,7 @@ function App() {
              
               <Route path="updatepswd" element={<UpdatePassword />} />
               <Route path="changepswd" element={<ChangePassword />} />
-              {/* <Route path="pricing" element={<Pricing />} /> */}
+              <Route path="pricing" element={<Pricing />} />
               <Route path="pricing1" element={<Pricing1 />} />
 
               <Route element={<NotFound></NotFound>} path="notfound" />

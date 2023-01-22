@@ -32,12 +32,15 @@ function Contact() {
     if (response.status === 200) {
       console.log(response.status);
       console.log("data saved");
-      // Swal.fire({
-      //   icon: "success",
-      //   title: "Success",
-      //   text: "send successfully!!",
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "send successfully!!",
+      });
+      // toast.success("Success Notification !", {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   className: 'toast-message'
       // });
-      toast.success("send successfully!!")
     } else if (response.status === 500) {
       console.log(response.status);
       console.log("something went wrong");
@@ -142,7 +145,7 @@ function Contact() {
                 </Button>
               </div>
             </form>
-        <ToastContainer />
+            <ToastContainer />
           </div>
         </motion.div>
       </Section>
@@ -157,6 +160,14 @@ function Contact() {
 
 const Section = styled.section`
   min-height: 100vh;
+   .toast-message {
+    background: darkblue;
+    color: #fff;
+    font-size: 20px;
+    width: 34vw;
+    padding: 30px 20px;
+}
+
   .contact {
     color: var(--primary-color);
     margin: 0 18rem;

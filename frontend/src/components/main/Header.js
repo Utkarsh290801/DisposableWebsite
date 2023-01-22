@@ -27,7 +27,7 @@ import { useEffect, useState } from "react";
 const url = app_config.backend_url;
 const pages = [
   { name: "Home", link: "/home" },
-  { name: "Why?", link: "/" },
+  // { name: "Why?", link: "/" },
   { name: "Store-templates", link: "/" },
   { name: "Pricing", link: "/main/pricing1" },
   { name: "Contact Us", link: "/main/contactus" },
