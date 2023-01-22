@@ -31,9 +31,12 @@ import Pricing1 from "./components/main/Pricing1";
 import PlanManager from "./components/user/PlanManager";
 import LivePage from "./components/main/LivePage";
 import UserManager from "./components/admin/UserManager";
+import AdminDashboard from "./components/admin/AdminDashboard";
 import Navbar from "./components/main/Home/Navbar";
 import HomePage from "./components/main/Home/HomePage";
 import Portfolio from "./components/main/Home/Portfolio";
+import Preview from "./components/user/Preview";
+
 function App() {
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -72,6 +75,7 @@ function App() {
               path="admin"
             >
               <Route path="manageuser" element={<ManageUser />} />
+              <Route path="admindashboard" element={<AdminDashboard />} />
               <Route path="usermanager" element={<UserManager />} />
               <Route path="profile" element={<Profile />} />
               <Route path="managesites" element={<ManageSites />} />
@@ -90,6 +94,7 @@ function App() {
               <Route path="webbuild" element={<WebBuilder />} />
 
               <Route path="planmanager" element={<PlanManager />} />
+              <Route path="preview" element={<Preview />} />
 
               <Route path="sidebar" element={<Sidebar />} />
               <Route path="accounts" element={<Accounts />} />

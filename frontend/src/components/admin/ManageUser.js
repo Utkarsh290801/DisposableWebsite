@@ -2,12 +2,12 @@ import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import app_config from "../../config";
-import { Avatar, IconButton, InputBase, Paper } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, IconButton, InputBase, Paper, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { UserContext } from "../user/UserContext";
 import { Link } from "react-router-dom";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridExpandMoreIcon } from "@mui/x-data-grid";
 const url = app_config.backend_url;
 
 const ManageUser = () => {
@@ -69,21 +69,8 @@ const ManageUser = () => {
       field: "profile",
       headerName: "View Profile",
       width: 130,
+      // button: <button className="btn btn-danger"></button>
     },
-    // {
-    //   field: "delete",
-    //   headerName: "Delete",
-    //   width: 90,
-    // },
-    // {
-    //   field: 'fullName',
-    //   headerName: 'Full name',
-    //   description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   width: 160,
-    //   valueGetter: (params) =>
-    //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    // },
   ];
 
   useEffect(() => {
@@ -102,7 +89,6 @@ const ManageUser = () => {
     } else {
       return (
         <DataGrid
-       
           rows={userArray}
           columns={columns}
           pageSize={pageSize}
@@ -112,10 +98,12 @@ const ManageUser = () => {
           getRowId={(obj) => {
             return obj._id;
           }}
+          
           checkboxSelection
           getSelectedRows={(d) => {
             console.log(d);
           }}
+          
         />
       );
     }
@@ -145,6 +133,21 @@ const ManageUser = () => {
             >
               <DeleteIcon />
             </IconButton> */}
+            <Accordion>
+        <AccordionSummary
+          expandIcon={<GridExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
             <InputBase
               sx={{ ml: 1, flex: 1 }}
               placeholder="Enter Username to Search"
