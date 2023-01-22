@@ -82,7 +82,9 @@ const SignUp = () => {
     email: Yup.string()
       .email("Email is invalid")
       .required("*Email is required")
-      .test("email", "Email already exists", async (value) => {
+      .test("email", "Email already exists", async (value, obj) => {
+        // console.log(obj);
+        // if(obj.path!=='email') return;
         const response = await fetch(
           app_config.backend_url + "/user/checkemail/" + value
           // {
@@ -93,15 +95,14 @@ const SignUp = () => {
           //   },
           // }
         );
-        const data = await response.json();
         if (response.status === 200) {
-          console.log("email found");
+          // console.log("email found");
           return false;
         } else if (response.status === 404) {
-          console.log("email not found");
+          // console.log("email not found");
           return true;
         } else if (response.status === 402) {
-          console.log("email not found");
+          // console.log("email not found");
           return true;
         }
       }),
@@ -118,15 +119,6 @@ const SignUp = () => {
       .required("Password Confirmation is Required"),
   });
 
-  const validateEmail = async (email) => {
-    if (email) {
-      const res = await fetch(`${url}/user/checkemail/${email}`);
-      const data = await res.json();
-      console.log(data);
-      if (data) return "Email Already Exists";
-    }
-    return "";
-  };
 
   return (
     <div
@@ -211,7 +203,6 @@ const SignUp = () => {
                                 helperText={touched.email ? errors.email : ""}
                                 error={Boolean(errors.email && touched.email)}
                               />
-                              <p>{errors.email}</p>
                             </div>
                             <div class="form-outline ">
                               {/* <TextField
