@@ -18,7 +18,7 @@ function Footer() {
           duration: 0.8,
         }}
       >
-        &copy; Web-X
+       <a href="/home"> &copy; Web-X</a>
       </motion.span>
       <motion.div
         className="footer__social__icons"
@@ -33,7 +33,8 @@ function Footer() {
         <BsFacebook />
         <BsTwitter />
         <BsYoutube />
-        <BsBehance />
+        <a href="/main/signin">Admin</a>
+                {/* <BsBehance /> */}
       </motion.div>
     </Foot>
   );
@@ -46,6 +47,13 @@ const Foot = styled(motion.footer)`
   justify-content: space-between;
   align-items: center;
   padding: 5rem 10rem;
+  a {
+    color:#fff;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
   .footer__social__icons {
     display: flex;
     gap: 2rem;

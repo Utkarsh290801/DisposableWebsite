@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import loadmore from "./assets/loadmore.png";
-import portfolio3 from "./assets/template.jpeg";
-import portfolio4 from "./assets/template1.jpeg";
-import portfolio5 from "./assets/template2.jpeg";
-import portfolio6 from "./assets/template1.jpeg";
-import portfolio7 from "./assets/template2.jpeg";
-import portfolio8 from "./assets/template.jpeg";
-import portfolio9 from "./assets/template.jpeg";
+import portfolio3 from "./assets/temps-3.jpg";
+import portfolio4 from "./assets/hero.png";
+import portfolio5 from "./assets/template14.jpg";
+import portfolio6 from "./assets/template13.jpg";
+import portfolio7 from "./assets/template20.png";
+import portfolio8 from "./assets/template11.jpg";
+import portfolio9 from "./assets/template12.jpg";
 import portfolio10 from "./assets/template.jpeg";
 import { motion } from "framer-motion";
 import { useScroll } from "./useScroll";
@@ -93,7 +93,7 @@ const Section = styled.section`
       cursor: pointer;
       &:nth-of-type(1) {
         grid-area: one;
-        background: url(${portfolio3}) no-repeat right center;
+        background: url(${portfolio3}) no-repeat;
         background-size: cover;
         height: 100%;
         z-index: 10;

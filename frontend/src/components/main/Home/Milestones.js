@@ -14,18 +14,18 @@ function Milestones() {
   const milestone = [
     {
       image: milestone1,
-      data: "Client Served",
-      amount: "877",
+      data: "Client Registered",
+      amount: "181",
     },
     {
       image: milestone2,
-      data: "of raw data",
-      amount: "1.4M",
+      data: "Templates Available",
+      amount: "78",
     },
     {
       image: milestone3,
-      data: "Reviews",
-      amount: "5.4K",
+      data: "Published Websites",
+      amount: "20",
     },
   ];
   return (

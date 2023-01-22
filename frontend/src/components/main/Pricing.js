@@ -1,173 +1,301 @@
-// import React from 'react';
-// import Container from '@mui/material/Container';
-// import Grid from '@mui/material/Grid';
-// import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
-// import Card from '@mui/material/Card';
-// import CardContent from '@mui/material/CardContent';
-// import CardHeader from '@mui/material/CardHeader';
-// import Button from '@mui/material/Button';
-// import Link from '@mui/material/Link';
-// import Switch from '@mui/material/Switch';
-// import styled from '@emotion/styled';
-// import StarIcon from '@mui/icons-material/StarBorder';
-// import app_config from '../../config';
-// // import { makeStyles } from '@mui/material';
+import { Button, TextField } from "@mui/material";
+import { Formik } from "formik";
+import React from "react";
+import "./Pricing.css";
+import app_config from "../../config";
+import Swal from "sweetalert2";
+const Pricing = () => {
+  const url = app_config.backend_url;
+  const [currentUser, setCurrentUser] = React.useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  );
 
-// const useStyles = styled(({theme}) => ({
-//   section: {
-//     backgroundImage: 'url("nereus-assets/img/bg/pattern1.png")',
-//     backgroundRepeat: 'no-repeat',
-//     backgroundSize: 'cover',
-//   },
-//   cardHeader: {
-//     paddingTop: theme.spacing(3),
-//   },
-// }));
+  const priceSubmit = async (planData) => {
+    console.log(planData);
+    if (currentUser) {
+      const res = await fetch(url + "/plan/checkuser/" + currentUser._id);
+      const planData = await res.json();
+      console.log(planData);
+      if (planData) {
+        Swal.fire({
+          icon: "error",
+          title: "Error!!",
+          text: "Something Went Wrong!",
+        });
+        return;
+      }
+    }
+    const response = await fetch(url + "/plan/add", {
+      method: "POST",
+      body: JSON.stringify({
+        plan: planData,
+        user: currentUser._id,
+        createdAt: new Date(),
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.status === 200) {
+      console.log(response.status);
+      console.log("data saved");
+    } else if (response.status) {
+      console.log(response.status);
+      console.log("something went wrong");
+      Swal.error({
+        icon: "error",
+        title: "OOPS",
+        text: "!! something went wrong!!",
+      });
+    }
+  };
+  return (
+    // <div className="pricing-body">
+    //   <main className="pricing-container">
+    //     <h1 className="pricing-title">Web-X Pricing Plan</h1>
+    //     <p className="pricing-subtitle">One tool for your complete workspace</p>
+    //     <div className="pricing-selector">
+    //       <p>Bill Monthly</p>
+    //       <div className="pricing-selector_btn">
+    //         <div className="pricing-switch_button" />
+    //       </div>
+    //       <p>Bill Annually</p>
+    //     </div>
+    //     <div className="pricing-cards">
+    //       <div className="pricing-card">
+    //         <div className="pricing-top_text">
+    //           <h2>Free</h2>
+    //           <p>$0</p>
+    //         </div>
+    //         <ul>
+    //           <li>Unlimited pages &amp; blocks</li>
+    //           <li>Share with 5 guests</li>
+    //           <li>Sync across devices</li>
+    //           <li>API</li>
+    //         </ul>
+    //         <div className="pricing-card_btn">
+    //           <p>Get Started</p>
+    //         </div>
+    //       </div>
+    //       <div className="pricing-card">
+    //         <div className="pricing-top_text">
+    //           <h2>Pro</h2>
+    //           <p>$20</p>
+    //         </div>
+    //         <ul>
+    //           <li className="pricing-bold">Everything from Free +</li>
+    //           <li>Unlimited file uploads</li>
+    //           <li>Unlimited guests</li>
+    //           <li>30 day version history</li>
+    //         </ul>
+    //         <div className="pricing-card_btn1">
+    //           <p>Try 1 month</p>
+    //         </div>
+    //       </div>
+    //       <div className="pricing-card">
+    //         <div className="pricing-top_text">
+    //           <h2>Enterprise</h2>
+    //           <p>$40</p>
+    //         </div>
+    //         <ul>
+    //           <li className="pricing-bold">Everything from Pro +</li>
+    //           <li>Unlimited team members</li>
+    //           <li>Collaborative workspace</li>
+    //           <li>Sharing permissions</li>
+    //           <li>Admin tools</li>
+    //           <li>Advanced security &amp; controls</li>
+    //           <li>Unlimited version history</li>
+    //         </ul>
+    //         <div className="pricing-card_btn2">
+    //           <p>Choose</p>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <img
+    //       className="pricing-img"
+    //       src="https://cdn-icons-png.flaticon.com/512/588/588395.png"
+    //       alt=""
+    //     />
+    //   </main>
+    // </div>
+    <section
+      id="pricing"
+      class="pricing-area bg-gray"
+      style={{ padding: "60px 0", minHeight: "100vh" }}
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="site-heading text-center">
+              <h2>
+                Pricing <span>Plan</span>
+              </h2>
+              <h4>List of our pricing packages</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row pricing pricing-simple text-center">
+          <div class="col-md-4">
+            <div class="pricing-item">
+              <ul className="pricing-ul">
+                <li class="icon">
+                  <i class="fas fa-rocket"></i>
+                </li>
+                <li class="pricing-header">
+                  <h4>Basic Trial Version</h4>
+                  <h2>Free</h2>
+                </li>
+                <li>
+                  Custom Domain{" "}
+                  {/* <span
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Available on pro version"
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </span> */}
+                </li>
+                <li>1GB Storage Space</li>
+                <li>20 Pre-Build Templates</li>
+                <li>30 Email Sends</li>
+                <li>Chat & Email Support</li>
+                <li>
+                  Customer Support{" "}
+                  {/* <span
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Available on pro version"
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </span> */}
+                </li>
+                <strike>Mobile Responsive Designs</strike>
+                <li>
+                  <strike>Phone Support</strike>
+                </li>
+                <li>
+                  <strike>Webpages Unlimited Design</strike>
+                </li>
+                <li>
+                  <strike>24x7 Expert Support </strike>
+                </li>
+                {/* <li>
+                  Documetation{" "}
+                  <span
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Available on pro version"
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </span>
+                </li> */}
+                <li class="footer1">
+                  <a
+                    onClick={() => {
+                      priceSubmit();
+                    }}
+                    class="pricing-btn btn btn-dark border btn-sm"
+                    href="#"
+                  >
+                    Try for free
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="pricing-item active">
+              <ul className="pricing-ul">
+                <li class="icon">
+                  <i class="fas fa-ribbon"></i>
+                </li>
+                <li class="pricing-header">
+                  <h4>Pro</h4>
+                  <h2>
+                    <sup>$</sup>35 <sub>/ Month</sub>
+                  </h2>
+                </li>
+                <li>Custom Domain</li>
+                <li>
+                  10GB Storage Space{" "}
+                  {/* <span
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Only for extended licence"
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </span> */}
+                </li>
+                <li>60 Pre-Build Templates</li>
+                <li>50 Email Sends</li>
+                <li>Chat & Email Support</li>
+                <li>
+                  Customer Support{" "}
+                  {/* <span
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Only for extended licence"
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </span> */}
+                </li>
+                <li>Mobile Responsive Designs</li>
+                <strike>Phone Support</strike>
+                <li>
+                  <strike>Webpages Unlimited Design</strike>
+                </li>
+                <li>
+                  <strike>24x7 Expert Support </strike>
+                </li>
+                <li class="footer1">
+                  <a class="pricing-btn btn-theme effect btn-sm" href="#">
+                    Get Started
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="pricing-item">
+              <ul className="pricing-ul">
+                <li class="icon">
+                  <i class="far fa-gem"></i>
+                </li>
+                <li class="pricing-header">
+                  <h4>Expert</h4>
+                  <h2>
+                    <sup>$</sup>77 <sub>/ Month</sub>
+                  </h2>
+                </li>
+                <li>Custom Domain</li>
+                <li>30GB Storage Space</li>
+                <li>100+ Pre-Build Templates</li>
+                <li>70 Email Sends</li>
+                <li>Chat & Email Support</li>
+                <li>Customer Support</li>
+                <li>Mobile Responsive Designs</li>
+                <li>Phone Support</li>
+                <li>
+                  Webpages Unlimited Design
+                </li>
+                <li>24x7 Expert Support </li>
+                <li class="footer1">
+                  <a class="pricing-btn btn btn-dark border btn-sm" href="#">
+                    Get Started
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <a class="footer1" style={{textDecoration:"none"}}>
+                  <a class="pricing-btn btn-theme effect btn-sm" href="/home">
+                   Back To Home Page
+                  </a>
+                </a>
+        </div>
 
-// export default function Pricing(props) {
-//   const classes = useStyles();
+     
+      </div>
+    </section>
+  );
+};
 
-//   const url = app_config.backend_url;
-
-//   const content = {
-//     'badge': 'Products & Plans',
-//     'header-p1': 'Grow better',
-//     'header-p2': 'with the Right Plan.',
-//     'description': 'Pay for what you need when you need.',
-//     'option1': 'Monthly',
-//     'option2': 'Annual',
-
-//     '01_title': 'Free',
-//     '01_price': '$0',
-//     '01_suffix': ' / mo',
-//     '01_benefit1': '3 Emails',
-//     '01_benefit2': '1 Database',
-//     '01_benefit3': 'Unlimited Domains',
-//     '01_benefit4': '10 GB Storage',
-//     '01_primary-action': 'SignUp for free',
-//     '01_secondary-action': 'Learn more',
-
-//     '02_title': 'Pro',
-//     '02_price': '$49',
-//     '02_suffix': ' / mo',
-//     '02_benefit1': '6 Emails',
-//     '02_benefit2': '2 Database',
-//     '02_benefit3': 'Unlimited Domains',
-//     '02_benefit4': '25 GB Storage',
-//     '02_primary-action': 'Select plan',
-//     '02_secondary-action': 'Learn more',
-
-//     '03_title': 'Enterprice',
-//     '03_price': '$499',
-//     '03_suffix': ' / mo',
-//     '03_benefit1': '9 Emails',
-//     '03_benefit2': '3 Database',
-//     '03_benefit3': 'Unlimited Domains',
-//     '03_benefit4': '50 GB Storage',
-//     '03_primary-action': 'Select plan',
-//     '03_secondary-action': 'Learn more',
-//     ...props.content
-//   };
-
-//   const [state, setState] = React.useState({
-//     checkbox: true,
-//   });
-
-//   const handleChange = (event) => {
-//     setState({ ...state, checkbox: event.target.checked });
-//   };
-
-//   return (
-//     <section className={classes.section}>
-//       <Container maxWidth="lg">
-//         <Box py={8} textAlign="center">
-//           <Box mb={3}>
-//             <Container maxWidth="sm">
-//               <Typography variant="overline" color="textSecondary">{content['badge']}</Typography>
-//               <Typography variant="h3" component="h2" gutterBottom={true}>
-//                 <Typography variant="h3" component="span" color="primary">{content['header-p1']} </Typography>
-//                 <Typography variant="h3" component="span">{content['header-p2']}</Typography>
-//               </Typography>
-//               <Typography variant="subtitle1" color="textSecondary" paragraph={true}>{content['description']}</Typography>
-//               <div>
-//                 <Typography variant="subtitle1" component="span">{content['option1']}</Typography>
-//                 &nbsp; <Switch name="checkbox" color="primary" checked={state.checkbox} onChange={handleChange} /> &nbsp;
-//                 <Typography variant="subtitle1" component="span">{content['option2']}</Typography>
-//               </div>
-//             </Container>
-//           </Box>
-
-//           <Grid container spacing={3}>
-//             <Grid item xs={12} md={4}>
-//               <Card variant="outlined">
-//                 <CardHeader title={content['01_title']} className={classes.cardHeader}></CardHeader>
-//                 <CardContent>
-//                   <Box px={1}>
-//                     <Typography variant="h3" component="h2" gutterBottom={true}>
-//                       {content['01_price']}
-//                       <Typography variant="h6" color="textSecondary" component="span">{content['01_suffix']}</Typography>
-//                     </Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['01_benefit1']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['01_benefit2']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['01_benefit3']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p" paragraph={true}>{content['01_benefit4']}</Typography>
-//                   </Box>
-//                   <Button variant="outlined" color="primary" className={classes.primaryAction}>{content['01_primary-action']}</Button>
-//                   <Box mt={2}>
-//                     <Link href="#" color="primary">{content['03_secondary-action']}</Link>
-//                   </Box>
-//                 </CardContent>
-//               </Card>
-//             </Grid>
-
-//             <Grid item xs={12} md={4}>
-//               <Card variant="outlined">
-//                 <CardHeader title={content['02_title']} className={classes.cardHeader}></CardHeader><StarIcon/><Typography color='textSecondary'>Most Popular</Typography>
-//                 <CardContent>
-//                   <Box px={1}>
-//                     <Typography variant="h3" component="h2" gutterBottom={true}>
-//                       {content['02_price']}
-//                       <Typography variant="h6" color="textSecondary" component="span">{content['02_suffix']}</Typography>
-//                     </Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['02_benefit1']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['02_benefit2']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['02_benefit3']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p" paragraph={true}>{content['02_benefit4']}</Typography>
-//                   </Box>
-//                   <Button variant="contained" color="primary">{content['02_primary-action']}</Button>
-//                   <Box mt={2}>
-//                     <Link href="#" color="primary">{content['03_secondary-action']}</Link>
-//                   </Box>
-//                 </CardContent>
-//               </Card>
-//             </Grid>
-
-//             <Grid item xs={12} md={4}>
-//               <Card variant="outlined">
-//                 <CardHeader title={content['03_title']} className={classes.cardHeader}></CardHeader>
-//                 <CardContent>
-//                   <Box px={1}>
-//                     <Typography variant="h3" component="h2" gutterBottom={true}>
-//                       {content['03_price']}
-//                       <Typography variant="h6" color="textSecondary" component="span">{content['03_suffix']}</Typography>
-//                     </Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['03_benefit1']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['03_benefit2']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p">{content['03_benefit3']}</Typography>
-//                     <Typography color="textSecondary" variant="subtitle1" component="p" paragraph={true}>{content['03_benefit4']}</Typography>
-//                   </Box>
-//                   <Button variant="outlined" color="primary">{content['03_primary-action']}</Button>
-//                   <Box mt={2}>
-//                     <Link href="#" color="primary">{content['03_secondary-action']}</Link>
-//                   </Box>
-//                 </CardContent>
-//               </Card>
-//             </Grid>
-
-//           </Grid>
-//         </Box>
-//       </Container>
-//     </section>
-//   );
-// }
+export default Pricing;

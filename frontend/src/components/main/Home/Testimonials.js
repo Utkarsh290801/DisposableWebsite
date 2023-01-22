@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import loadmore from "./assets/loadmore.png";
+// import loadmore from "./assets/loadmore.png";
+import testimonial1 from "./assets/testimonial5.jpeg";
+import testimonial2 from "./assets/testimonial2.jpeg";
+import testimonial3 from "./assets/testimonial6.jpg";
+import testimonial4 from "./assets/testimonial4.jpeg";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useScroll } from "./useScroll";
@@ -10,21 +14,31 @@ function Testimonials() {
   const [selected, setSelected] = useState(0);
   const testimonials = [
     {
-      designation: "SA",
-      name: "Julie Baker",
-      review: "Perfection is by far on,qqqqqqqqqqqqqqqqqq kmqn",
+      designation: "PC Advisor",
+      name: "Mike Williams      ",
+      review: "Web-X is sincerely great, fully customer-oriented and just perfect for building state-of-the-art web pages just like that!",
+      image:testimonial1,
     },
     {
-      designation: "Full ",
-      name: "Gabreilla",
+      designation: "GizmoEditor",
+      name: "Ric Manning",
       review:
-        "Perfection isn’t jo always deliver something above and beyond ordinary expectations",
+        "Building websites with Web-X is like playing a game to me: it's easy, simple and fun to produce web pages that look best in our mobile universe!",
+        image:testimonial2,
     },
     {
-      designation: "Skin",
-      name: "Natalia",
+      designation: "About.com",
+      name: "Tom Green",
       review:
-        "Perfection is by far one of the ages are a must and worth every penny. Highly worth a visit !",
+        "It is one of the first solutions that come in handy when people like me get to know web design and Bootstrap. I like that I don't have to deal with the code at all!",
+        image:testimonial3,
+    },
+    {
+      designation: "Huffpost",
+      name: "Alex Ivanovs",
+      review:
+        "Web-X is the easiest web design tool for making websites that look flawless on both mobiles and desktops. No wonder why there are so many people that are in love with it!",
+        image:testimonial4,
     },
   ];
   return (
@@ -40,7 +54,7 @@ function Testimonials() {
             duration: 0.8,
           }}
         >
-          {testimonials.map(({ designation, name, review }, index) => {
+          {testimonials.map(({ designation, name, review,image }, index) => {
             return (
               <div
                 className={`testimonial ${
@@ -50,7 +64,8 @@ function Testimonials() {
               >
                 <div className="image">
                   <div className="circle2">
-                    <img src={loadmore} alt="Loadmore" />
+                    {/* <img src={loadmore} alt="Loadmore"> */}
+                    <img className="image circle2" src={image} alt="Loadmore" />
                   </div>
                 </div>
                 <div className="title-container">
@@ -88,6 +103,12 @@ function Testimonials() {
             className={selected === 2 ? "active" : ""}
             onClick={() => {
               setSelected(2);
+            }}
+          ></button>
+          <button
+            className={selected === 3 ? "active" : ""}
+            onClick={() => {
+              setSelected(3);
             }}
           ></button>
         </motion.div>

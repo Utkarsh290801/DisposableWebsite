@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import service1 from "./assets/service1.png";
-import service2 from "./assets/service2.png";
-import service3 from "./assets/service3.png";
+import service1 from "./assets/image.png" ;
+import service2 from "./assets/contactus.jpg";
+import service3 from "./assets/dispose.gif";
 import play from "./assets/play.png";
 import Title from "./Title";
 import { useScroll } from "./useScroll";
@@ -14,18 +14,18 @@ function Services() {
 
   const data = [
     {
-      type: "Blownb out",
-      text: "Snlwdn khsk hdkw jydw yiiewo x yebx wio",
+      type: "PWA",
+      text: "These options enable you to convert your website into a web application. By activating this feature, your website will function as a true Progressive Web Application, allowing users to install it on their devices.",
       image: service1,
     },
     {
-      type: "Olambplex",
-      text: "Haikhkd  If you are khkh ouc ilooking to celebrate your special day with us.",
+      type: "Contact to Design",
+      text: "You Can Contact us to Design a Webpages. Through a virtual chatbot, mail. Or a phone call.",
       image: service2,
     },
     {
-      type: "Retouch",
-      text: "We bring to you ajlj iey u beo u iefw  e  feuu hh u and products.",
+      type: "Automatically Dispose",
+      text: "Websites automatically dispose of or delete on their specified period of time, or the user can also delete them when its purpose is done",
       image: service3,
     },
   ];
@@ -33,6 +33,7 @@ function Services() {
     <Section id="services" ref={element}>
       <Title value="services" />
       <div className="services">
+    
         {data.map(({ type, text, image }, index) => {
           return (
             <motion.div
@@ -46,14 +47,15 @@ function Services() {
               }}
             >
               <div className="services__service__image">
-                <img src={image} alt="Service" />
+                <img className="hg" src={image} alt="Service" />
               </div>
+             
               <div className="services__service__title">
                 <span>0{index + 1}</span>
                 <h2>{type}</h2>
               </div>
               <p className="services__service__description">{text}</p>
-              <img src={play} alt="Readmore" />
+              {/* <img src={play} alt="Readmore" /> */}
             </motion.div>
           );
         })}
@@ -64,14 +66,19 @@ function Services() {
 
 const Section = styled.section`
   min-height: 100vh;
+  .hg{
+    width:100%;
+    height:100%;
+  }
   .services {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     height: 100%;
+    width:80%;
     margin: 0 14rem;
-    margin-top: 10rem;
-    gap: 5rem;
+    margin-top: 5rem;
+    gap: 2rem;
     &__service {
       padding: 2rem;
       &:nth-of-type(2) {
@@ -86,7 +93,8 @@ const Section = styled.section`
         }
       }
       &__image {
-        margin-bottom: 3rem;
+  
+        margin-bottom: 2rem;
       }
       &__title {
         span {
