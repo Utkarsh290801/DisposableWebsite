@@ -70,7 +70,7 @@ function Pricing() {
   ];
 
   return (
-    <Section ref={element}>
+    <Section id="pricing" ref={element}>
       <Title value="pricing" />
       <div className="background">
         <img src={pricing1} alt="background" className="bg1" />
@@ -130,12 +130,15 @@ function Pricing() {
           );
         })}
       </div>
-                <div className="pricing__plan__content__actions">
-                  <a href="/main/pricing1">Read More 
-                  <div style={{marginLeft:"30px"}}>
-                  <img  src={play} alt="Order Now" /></div></a>
-                  {/* <img src={loadmore} alt="Load More" /> */}
-                </div>
+      <div className="pricing__plan__content__actions">
+        <a href="/main/pricing1">
+          Read More
+          <div style={{ marginLeft: "30px" }}>
+            <img src={play} alt="Order Now" />
+          </div>
+        </a>
+        {/* <img src={loadmore} alt="Load More" /> */}
+      </div>
     </Section>
   );
 }
@@ -145,8 +148,8 @@ const Section = styled.section`
   padding: 5rem 0;
   position: relative;
   overflow: hidden;
-   a {
-    color:black;
+  a {
+    color: black;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.2rem;

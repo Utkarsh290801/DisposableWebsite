@@ -207,7 +207,7 @@ export default function Sidebar({ children, options, title }) {
               <IconButton
                 size="large"
                 color="inherit"
-                onClick={(e) => navigate("/main/home")}
+                onClick={(e) => navigate("/home")}
                 sx={{ mr: 2 }}
               >
                 {/* <Home/> */}
@@ -229,6 +229,16 @@ export default function Sidebar({ children, options, title }) {
               onClick={(e) => navigate("/main/preview")}
             >
               Preview
+            </Button>
+          </Box>
+          <Box sx={{ flexGrow: 1 }}>
+            <Button
+              size="large"
+              sx={{ ml: 1, ...boxSX }}
+              color="inherit"
+              onClick={(e) => navigate("/user/webbuild")}
+            >
+              Builder
             </Button>
           </Box>
           <Box sx={{ flexGrow: 30 }}>
