@@ -18,7 +18,30 @@ function Contact() {
     email: "",
     message: "",
   };
-
+  // const sendOTP = (formdata) => {
+  //   fetch("http://localhost:5000/util/sendmail", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       to: formdata.email,
+  //       subject: "Password Reset",
+  //       text:"hhj",
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }).then((res) => {
+  //     console.log(res.status);
+  //     // console.log(otp);
+  //     if (res.status === 200) {
+  //       Swal.fire({
+  //         icon: "success",
+  //         title: "success",
+  //         text: "OTP Sent Successfully",
+  //       });
+  //     }
+  //     return res.json();
+  //   });
+  // };
   const feedbackSubmit = async (formdata, { setSubmitting }) => {
     console.log(formdata);
     setSubmitting(true);
@@ -37,6 +60,7 @@ function Contact() {
         title: "Success",
         text: "send successfully!!",
       });
+      // sendOTP();
       // toast.success("Success Notification !", {
       //   position: toast.POSITION.TOP_RIGHT,
       //   className: 'toast-message'
