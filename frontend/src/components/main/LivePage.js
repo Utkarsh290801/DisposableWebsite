@@ -25,9 +25,27 @@ const LivePage = () => {
 
   const { pageid } = useParams();
 
+  const fetchPageData = async () => {
+    const res = await fetch(url + "/webpage/getbyid/" + pageid);
+    console.log(res.status);
+    const data = await res.json();
+    console.log(data);
+    setPage(data);
+  };
+
+  useEffect(() => {
+    fetchPageData();
+  }, []);
+
   console.log(pageid);
 
-  return <div>{pageid}</div>;
+  const displayPage = () => {
+    if (page) {
+      return page.data.html;
+    }
+  };
+
+  return <div></div>;
 };
 
 export default LivePage;
