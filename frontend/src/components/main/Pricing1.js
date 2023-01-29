@@ -89,6 +89,7 @@ export default function Pricing1() {
       ],
       buttonText: "Sign up for free",
       buttonVariant: "outlined",
+      link: ''
     },
     {
       title: "Pro",
@@ -102,6 +103,7 @@ export default function Pricing1() {
       ],
       buttonText: "Purchase",
       buttonVariant: "contained",
+      link:"https://buy.stripe.com/test_14k5mm6up37K1EYaEF"
     },
     {
       title: "Enterprise",
@@ -114,6 +116,7 @@ export default function Pricing1() {
       ],
       buttonText: "Purchase",
       buttonVariant: "outlined",
+      link:"https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY"
     },
   ];
 
@@ -248,7 +251,7 @@ export default function Pricing1() {
                     // onClick={() => {
                     //   priceSubmit(tier);
                     // }}
-                    href="https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY"
+                    href={tier.link}
                     target="_blank"
                   >
                     {tier.buttonText}

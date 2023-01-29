@@ -226,7 +226,7 @@ const Pricing = () => {
                 </li>
                 <li>60 Pre-Build Templates</li>
                 <li>50 Email Sends</li>
-                <li>Chat & Email Support</li>
+                <li>,</li>
                 <li>
                   Customer Support{" "}
                   {/* <span

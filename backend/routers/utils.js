@@ -17,8 +17,8 @@ router.post("/uploadfile", myStorage.single("myfile"), (req, res) => {
 });
 const initMail = () => {
   return new SMTPClient({
-    user: "srivastavashikhar592@gmail.com",
-    password: "klwvqnkzwycddgkj",
+    user: "testproject2629@gmail.com",
+    password: "xqtruybqmykqmipv",
     host: "smtp.gmail.com",
     ssl: true,
   });

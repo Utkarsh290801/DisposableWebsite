@@ -26,35 +26,27 @@ const LivePage = () => {
 
   const { pageid } = useParams();
 
-  // console.log(pageid);
-
   const fetchPageData = async () => {
-    setLoading(true);
-    const res = await fetch(url+'/webpage/getbyid/'+pageid);
+    const res = await fetch(url + "/webpage/getbyid/" + pageid);
     console.log(res.status);
-    try{
-      if(res.status === 200){
-        const data = await res.json();
-        console.log(data);
-        setPage(data);
-        setLoading(false);
-      }
-      
-    }
-    catch{
-      console.log('some error occured!');
-    }
-  }
+    const data = await res.json();
+    console.log(data);
+    setPage(data);
+  };
 
   useEffect(() => {
     fetchPageData();
-  }, [])
-  
+  }, []);
 
+  console.log(pageid);
 
-  return <div>
+  const displayPage = () => {
+    if (page) {
+      return page.data.html;
+    }
+  };
 
-  </div>;
+  return <div></div>;
 };
 
 export default LivePage;
