@@ -62,7 +62,6 @@ const WebBuilder = () => {
         // color:'white',
         height: "100vh",
         width: "auto",
-
         container: "#gjs",
         fromElement: true,
         plugins: [gsWebpage, gsCustome, gsTap, Basics, BaseReactComponent],
