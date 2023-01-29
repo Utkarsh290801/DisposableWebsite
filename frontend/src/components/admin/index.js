@@ -26,7 +26,7 @@ const Admin = () => {
     {
       name: "Dashboard",
       icon: <DashboardIcon />,
-      link: "/admin/dashboard",
+      link: "/admin/admindashboard",
     },
   ];
 
