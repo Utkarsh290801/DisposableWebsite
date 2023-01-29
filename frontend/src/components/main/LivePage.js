@@ -21,13 +21,40 @@ const LivePage = () => {
   const [pluginLoaded, setPluginLoaded] = useState(false);
   const [editor, setEditor] = useState(null);
   const [page, setPage] = useState(null);
+  const [loading, setLoading] = useState(false);
   let e;
 
   const { pageid } = useParams();
 
-  console.log(pageid);
+  // console.log(pageid);
 
-  return <div>{pageid}</div>;
+  const fetchPageData = async () => {
+    setLoading(true);
+    const res = await fetch(url+'/webpage/getbyid/'+pageid);
+    console.log(res.status);
+    try{
+      if(res.status === 200){
+        const data = await res.json();
+        console.log(data);
+        setPage(data);
+        setLoading(false);
+      }
+      
+    }
+    catch{
+      console.log('some error occured!');
+    }
+  }
+
+  useEffect(() => {
+    fetchPageData();
+  }, [])
+  
+
+
+  return <div>
+
+  </div>;
 };
 
 export default LivePage;
