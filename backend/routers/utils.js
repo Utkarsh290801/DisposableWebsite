@@ -28,7 +28,7 @@ const sendMail = (to, subject, text) => {
   client.send(
     {
       text: text,
-      from: "srivastavashikhar592@gmail.com",
+      from: "testproject2629@gmail.com",
       to: to,
 
       cc: "",
