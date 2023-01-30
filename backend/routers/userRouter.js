@@ -123,4 +123,22 @@ router.post("/authenticate", (req, res) => {
       res.json(err);
     });
 });
+router.post("/changeStatusOfUser", async(req, res, next) => {
+  try {
+    const userId = req.params.userid;
+    const result = await Model.findById(userId);
+    if (!result) {
+        throw new Error("Something went wrong.");
+    }
+    let status = ((result.status).trim() === "Allow") ? "Block" : "Allow";
+    const result_2 = await Model.findByIdAndUpdate(userId, { status: status }, { new: true });
+    if (!result_2) {
+        throw new Error("Something went wrong.");
+    }
+    res.status(201).json({ message: "Status updated successfully.", posts: result_2 });
+} catch (error) {
+    next(error);
+}
+})
+  
 module.exports = router;

@@ -174,6 +174,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Swal from "sweetalert2";
+import Switch from '@mui/material/Switch';
 import { Link } from "react-router-dom";
 
 const ManageUser = () => {
@@ -241,6 +242,7 @@ const ManageUser = () => {
               <i class="fa-solid fa-trash fa-lg"></i>
             </button>
           </TableCell>
+          <TableCell><Switch/></TableCell>
         </TableRow>
       </>
     ));
@@ -259,7 +261,7 @@ const ManageUser = () => {
               <TableCell>Email</TableCell>
               <TableCell>ViewProfile</TableCell>
               <TableCell>Delete</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{isloading ? <p>Loading...</p> : displayUser()}</TableBody>
