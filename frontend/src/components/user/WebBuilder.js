@@ -35,7 +35,11 @@ const WebBuilder = () => {
     const response = await fetch(url + "/webpage/update/" + webpageData._id, {
       method: "PUT",
       body: JSON.stringify({
-        data: editor.getProjectData(),
+        data: {
+          html: editor.getHtml(),
+          css: editor.getCss(),
+          js: editor.getJs()
+        },
       }),
       headers: { "Content-Type": "application/json" },
     });
@@ -58,7 +62,6 @@ const WebBuilder = () => {
         // color:'white',
         height: "100vh",
         width: "auto",
-
         container: "#gjs",
         fromElement: true,
         plugins: [gsWebpage, gsCustome, gsTap, Basics, BaseReactComponent],
@@ -93,42 +96,43 @@ const WebBuilder = () => {
             //   ],
             //   flexGrid: 1,
             // },
-            blockManager:{
-              appendTo: '.myblocks',
-            
-            blocks: [
-              {
-                id: "section", // id is mandatory
-                label: "<b>Section</b>", // You can use HTML/SVG inside labels
-                attributes: { class: "gjs-block-section" },
-                content: `<section>
+            blockManager: {
+              appendTo: ".myblocks",
+
+              blocks: [
+                {
+                  id: "section", // id is mandatory
+                  label: "<b>Section</b>", // You can use HTML/SVG inside labels
+                  attributes: { class: "gjs-block-section" },
+                  content: `<section>
                       <h1>This is a simple title</h1>
                       <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
                     </section>`,
-              },
-              {
-                id: "text",
-                label: "Text",
-                content:
-                  '<div data-gjs-type="text">Insert your text here</div>',
-              },
-              {
-                id: "image",
-                label: "Image",
-                // Select the component once it's dropped
-                media: `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                },
+                {
+                  id: "text",
+                  label: "Text",
+                  content:
+                    '<div data-gjs-type="text">Insert your text here</div>',
+                },
+                {
+                  id: "image",
+                  label: "Image",
+                  // Select the component once it's dropped
+                  media: `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
                 <path d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
             </svg>`,
-                select: true,
-                // You can pass components as a JSON instead of a simple HTML string,
-                // in this case we also use a defined component type `image`
-                content: { type: "image" },
-                // This triggers `active` event on dropped components and the `image`
-                // reacts by opening the AssetManager
-                activate: true,
-              },
-            ],
-          },}
+                  select: true,
+                  // You can pass components as a JSON instead of a simple HTML string,
+                  // in this case we also use a defined component type `image`
+                  content: { type: "image" },
+                  // This triggers `active` event on dropped components and the `image`
+                  // reacts by opening the AssetManager
+                  activate: true,
+                },
+              ],
+            },
+          },
         },
       });
       fetch(url + "/webpage/getbyuser/" + currentUser._id)
@@ -159,6 +163,7 @@ const WebBuilder = () => {
         onClick={() => {
           console.log(editor.getProjectData());
           saveToDB();
+          console.log(editor.getHtml());
         }}
       >
         Save
