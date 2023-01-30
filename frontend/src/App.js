@@ -36,6 +36,7 @@ import Navbar from "./components/main/Home/Navbar";
 import HomePage from "./components/main/Home/HomePage";
 import Portfolio from "./components/main/Home/Portfolio";
 import Preview from "./components/user/Preview";
+import WebBuild from "./components/user/WebBuild";
 
 function App() {
   const [currentUser, setcurrentUser] = useState(
@@ -92,6 +93,7 @@ function App() {
               <Route path="userrprofile" element={<UserrProfile />} />
               <Route path="checkout" element={<Checkout/>} />
               <Route path="webbuild" element={<WebBuilder />} />
+              <Route path="webb" element={<WebBuild/>} />
 
               <Route path="planmanager" element={<PlanManager />} />
               <Route path="preview" element={<Preview />} />
