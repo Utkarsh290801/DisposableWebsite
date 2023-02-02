@@ -131,7 +131,7 @@ function Pricing() {
         })}
       </div>
       <div className="pricing__plan__content__actions">
-        <a href="/main/pricing1">
+        <a href="/main/pricing">
           Read More
           <div style={{ marginLeft: "30px" }}>
             <img src={play} alt="Order Now" />

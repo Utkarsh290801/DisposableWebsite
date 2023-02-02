@@ -189,11 +189,11 @@ const Pricing = () => {
                 </li> */}
                 <li class="footer1">
                   <a
-                    onClick={() => {
-                      priceSubmit();
-                    }}
+                    // onClick={() => {
+                    //   priceSubmit();
+                    // }}
                     class="pricing-btn btn btn-dark border btn-sm"
-                    href="#"
+                    href="/home"
                   >
                     Try for free
                   </a>
@@ -226,7 +226,7 @@ const Pricing = () => {
                 </li>
                 <li>60 Pre-Build Templates</li>
                 <li>50 Email Sends</li>
-                <li>,</li>
+                <li>Chat & Email Support</li>
                 <li>
                   Customer Support{" "}
                   {/* <span
@@ -246,7 +246,11 @@ const Pricing = () => {
                   <strike>24x7 Expert Support </strike>
                 </li>
                 <li class="footer1">
-                  <a class="pricing-btn btn-theme effect btn-sm" href="#">
+                  <a
+                    class="pricing-btn btn-theme effect btn-sm"
+                    href="https://buy.stripe.com/test_14k5mm6up37K1EYaEF"
+                    target="_blank"
+                  >
                     Get Started
                   </a>
                 </li>
@@ -273,26 +277,26 @@ const Pricing = () => {
                 <li>Customer Support</li>
                 <li>Mobile Responsive Designs</li>
                 <li>Phone Support</li>
-                <li>
-                  Webpages Unlimited Design
-                </li>
+                <li>Webpages Unlimited Design</li>
                 <li>24x7 Expert Support </li>
                 <li class="footer1">
-                  <a class="pricing-btn btn btn-dark border btn-sm" href="#">
+                  <a
+                    class="pricing-btn btn btn-dark border btn-sm"
+                    href="https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY"
+                    target="_blank"
+                  >
                     Get Started
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <a class="footer1" style={{textDecoration:"none"}}>
-                  <a class="pricing-btn btn-theme effect btn-sm" href="/home">
-                   Back To Home Page
-                  </a>
-                </a>
+          <a class="footer1" style={{ textDecoration: "none" }}>
+            <a class="pricing-btn btn-theme effect btn-sm" href="/home">
+              Back To Home Page
+            </a>
+          </a>
         </div>
-
-     
       </div>
     </section>
   );

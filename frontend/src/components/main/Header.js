@@ -29,7 +29,7 @@ const pages = [
   { name: "Home", link: "/home" },
   // { name: "Why?", link: "/" },
   { name: "Store-templates", link: "/" },
-  { name: "Pricing", link: "/main/pricing1" },
+  { name: "Pricing", link: "/main/pricing" },
   { name: "Contact Us", link: "/main/contactus" },
   // { name: "Login", link: "/main/signin" },
 ];

@@ -10,6 +10,10 @@ const myschema = new Schema({
   avatar: String,
   isAdmin: { type: Boolean, default: false },
   createdAt: { type: Date, default: new Date() },
+  isBlocked: {
+    type: Boolean,
+    default: false
+  },
 });
 myschema.pre("save", function (next) {
   console.log("hi from inside");
