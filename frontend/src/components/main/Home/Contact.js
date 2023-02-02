@@ -18,7 +18,7 @@ function Contact() {
     email: "",
     message: "",
   };
-  // const sendOTP = (formdata) => {
+  // const sendOTP = (from, text) => {
   //   fetch("http://localhost:5000/util/sendmail", {
   //     method: "POST",
   //     body: JSON.stringify({

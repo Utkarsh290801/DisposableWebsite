@@ -37,6 +37,7 @@ import HomePage from "./components/main/Home/HomePage";
 import Portfolio from "./components/main/Home/Portfolio";
 import Preview from "./components/user/Preview";
 import WebBuild from "./components/user/WebBuild";
+import Toxicity from "./components/main/Toxicity";
 
 function App() {
   const [currentUser, setcurrentUser] = useState(
@@ -56,6 +57,7 @@ function App() {
               <Route path="nav" element={<Navbar/>} />
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
+              <Route path="toxicity" element={<Toxicity/>}/>
               <Route path="contactus" element={<ContactUs />} />
               <Route path="resetpswd" element={<Reset />} />
               <Route path="reset" element={<ResetPassword />} />
