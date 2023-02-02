@@ -5,6 +5,7 @@ const myschema = new Schema({
   email: String,
   password: String,
   norPass: String,
+  isBlocked: { type: Boolean, default: false },
   // newPassword: String,
   // confirmPassword: String,
   avatar: String,

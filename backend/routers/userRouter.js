@@ -28,10 +28,10 @@ router.get("/getall", (req, res) => {
   // res.send('response from user router at getall')
   Model.find({})
     .then((result) => {
-      console.log(result);
-      setTimeout(() => {
-        res.json(result);
-      }, 200);
+      // console.log(result);
+      res.json(result);
+      // setTimeout(() => {
+      // }, 200);
     })
     .catch((err) => {
       console.log(err);
@@ -42,9 +42,8 @@ router.get("/checkemail/:email", (req, res) => {
   console.log(req.params.useremail);
   Model.findOne({ email: req.params.email })
     .then((result) => {
-      if(result)
-      res.status(200).json(result);
-    else res.status(402).json(result)
+      if (result) res.status(200).json(result);
+      else res.status(402).json(result);
     })
     .catch((err) => {
       console.log(err);
@@ -61,7 +60,6 @@ router.get("/getbyid/:userid", (req, res) => {
       res.json(err);
     });
 });
-
 
 router.get("/getbyemail/:email", (req, res) => {
   Model.findOne({ email: req.params.email })
@@ -85,6 +83,7 @@ router.delete("/delete/:userid", (req, res) => {
 });
 router.put("/update/:userid", (req, res) => {
   const formdata = req.body;
+  console.log(formdata);
   let hash;
   if (formdata.password) {
     hash = bcrypt.hashSync(formdata.password, salt);
@@ -105,6 +104,10 @@ router.put("/update/:userid", (req, res) => {
 });
 router.post("/authenticate", (req, res) => {
   // Model.findOne({ email: req.body.email, password: req.body.password })
+  if (req.body.isBlocked) {
+    res.status(405).json({ message: 'user not allowed' })
+    return;
+  }
   Model.findOne({ email: req.body.email })
     .then((userdata) => {
       if (userdata) {
@@ -123,22 +126,28 @@ router.post("/authenticate", (req, res) => {
       res.json(err);
     });
 });
-router.post("/changeStatusOfUser", async(req, res, next) => {
+router.put("/changeStatusOfUser/:userid", async (req, res, next) => {
   try {
-    const userId = req.params.userid;
-    const result = await Model.findById(userId);
+    const userid = req.params.userid;
+    const result = await Model.findById(userid);
     if (!result) {
-        throw new Error("Something went wrong.");
+      throw new Error("Something went wrong.");
     }
-    let status = ((result.status).trim() === "Allow") ? "Block" : "Allow";
-    const result_2 = await Model.findByIdAndUpdate(userId, { status: status }, { new: true });
+    let status = result.status === "Block" ? "Allow" : "Block";
+    const result_2 = await Model.findByIdAndUpdate(
+      userid,
+      { status: status },
+      { new: true }
+    );
     if (!result_2) {
-        throw new Error("Something went wrong.");
+      throw new Error("Something went wrong.");
     }
-    res.status(201).json({ message: "Status updated successfully.", posts: result_2 });
-} catch (error) {
+    res
+      .status(200)
+      .json({ message: "Status updated successfully.", posts: result_2 });
+  } catch (error) {
     next(error);
-}
-})
-  
+  }
+});
+
 module.exports = router;

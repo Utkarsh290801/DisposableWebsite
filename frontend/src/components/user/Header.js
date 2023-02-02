@@ -227,7 +227,7 @@ const Header = () => {
               </NavLink>
             </li>
           ) : (
-            <NavLink onClick={logout} className="btn btn-danger m-3" to="/">          
+            <NavLink onClick={logout} className="btn btn-danger m-3" to="/">
               Logout
             </NavLink>
           )}
@@ -235,7 +235,7 @@ const Header = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* <Avatar alt="Remy Sharp" src={curre "/static/images/avatar/2.jpg"} /> */}
               </IconButton>
             </Tooltip>
             <Menu

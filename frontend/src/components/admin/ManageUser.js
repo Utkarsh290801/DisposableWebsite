@@ -97,12 +97,12 @@
 //           getRowId={(obj) => {
 //             return obj._id;
 //           }}
-          
+
 //           checkboxSelection
 //           getSelectedRows={(d) => {
 //             console.log(d);
 //           }}
-          
+
 //         />
 //       );
 //     }
@@ -131,7 +131,7 @@
 //           aria-controls="panel1a-content"
 //           id="panel1a-header"
 //         >
-          
+
 //         </AccordionSummary>
 //         <AccordionDetails>
 //           <Typography>
@@ -168,18 +168,53 @@ import React, { useEffect, useState } from "react";
 import app_config from "../../config";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Swal from "sweetalert2";
-import Switch from '@mui/material/Switch';
+import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
+import {
+  Box,
+  IconButton,
+  InputBase,
+  Modal,
+  Stack,
+  TablePagination,
+  Typography,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled } from "@mui/material/styles";
 
 const ManageUser = () => {
   const [userArray, setUserArray] = useState([]);
   const [isloading, setIsloading] = useState(true);
+  const [filter, setFilter] = useState("");
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    "&:last-child td, &:last-child th": {
+      border: 0,
+    },
+  }));
+
+  const [pg, setPage] = React.useState(0);
+  const [rpg, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const url = app_config.backend_url;
 
   const getUserfromBackend = async () => {
@@ -189,6 +224,20 @@ const ManageUser = () => {
     setUserArray(data);
     setIsloading(false);
   };
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 500,
+    bgcolor: "white",
+    border: "2px solid #000",
+    boxShadow: 2,
+    p: 4,
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const deleteUser = (id) => {
     fetch(url + "/user/delete/" + id, { method: "Delete" })
@@ -212,13 +261,39 @@ const ManageUser = () => {
     getUserfromBackend();
   }, []);
 
+  const changeStatusOfUser = async (id, v) => {
+    console.log(v);
+    const response = await fetch(url + "/user/update/" + id, {
+      method: "PUT",
+      body: JSON.stringify({ isBlocked: v }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const jsonData = await response.json();
+    if (response.status === 200) {
+      console.log(jsonData.isBlocked);
+      getUserfromBackend();
+    } else {
+      throw new Error(jsonData.message);
+    }
+  };
+  useEffect(() => {
+    getUserfromBackend();
+  }, []);
+
+  const handleFilter = async () => {
+    const response = await fetch(url + "/user/getall");
+    const data = await response.json();
+
+    setUserArray(
+      data.filter((value) => {
+        return value.username.toLowerCase().includes(filter.toLowerCase());
+      })
+    );
+  };
   const displayUser = () => {
-    return userArray.map((user) => (
+    return userArray.slice(pg * rpg, pg * rpg + rpg).map((user) => (
       <>
-        <TableRow
-          key={user.username}
-          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-        >
+        <StyledTableRow key={user._id}>
           <TableCell>{user._id}</TableCell>
           <TableCell component="th" scope="row">
             <img
@@ -227,11 +302,29 @@ const ManageUser = () => {
               className="rounded-circle mr-4"
             />
           </TableCell>
-          <TableCell>
-            {user.username}
-          </TableCell>
+          <TableCell>{user.username}</TableCell>
           <TableCell>{user.email}</TableCell>
-          <TableCell><button className="btn btn-primary">View</button></TableCell>
+          <TableCell>
+            <button onClick={handleOpen} className="btn btn-primary">
+              View
+            </button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Text in a modal
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Duis mollis, est non commodo luctus, nisi erat porttitor
+                  ligula.
+                </Typography>
+              </Box>
+            </Modal>
+          </TableCell>
           <TableCell>
             <button
               className="btn btn-danger"
@@ -242,31 +335,68 @@ const ManageUser = () => {
               <i class="fa-solid fa-trash fa-lg"></i>
             </button>
           </TableCell>
-          <TableCell><Switch/></TableCell>
-        </TableRow>
+          <TableCell>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Typography>Unblock</Typography>
+              <Switch
+                checked={user.isBlocked}
+                onChange={(e, v) => {
+                  changeStatusOfUser(user._id, v);
+                }}
+              />
+              <Typography>Block</Typography>
+            </Stack>
+          </TableCell>
+        </StyledTableRow>
       </>
     ));
   };
 
   return (
-    <div sty>
-      {" "}
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead style={{ backgroundColor: "#80808054" }}>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Avatar</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>ViewProfile</TableCell>
-              <TableCell>Delete</TableCell>
-              <TableCell>Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{isloading ? <p>Loading...</p> : displayUser()}</TableBody>
-        </Table>
-      </TableContainer>
+    <div>
+      <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Enter Name to Search"
+        onChange={(e) => setFilter(e.target.value)}
+        inputProps={{ "aria-label": "Enter Name to Search" }}
+      />
+      <IconButton
+        type="button"
+        sx={{ p: "10px" }}
+        aria-label="search"
+        onClick={handleFilter}
+      >
+        <SearchIcon color="primary" />
+      </IconButton>
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer sx={{ maxHeight: 500 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead style={{ backgroundColor: "#80808054" }}>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Avatar</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>ViewProfile</TableCell>
+                <TableCell>Delete</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {isloading ? <p>Loading...</p> : displayUser()}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={userArray.length}
+          rowsPerPage={rpg}
+          page={pg}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
     </div>
   );
 };
