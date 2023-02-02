@@ -1,4 +1,4 @@
-const { Schema,model} = require('../connection');
+const { Schema, model } = require("../connection");
 
 const myschema = new Schema({
   name: String,
@@ -6,8 +6,11 @@ const myschema = new Schema({
   email: String,
   subject: String,
   message: String,
-   createdAt: { type: Date, default: new Date() },
-  
+  createdAt: { type: Date, default: new Date() },
+  comment: {
+    type: String,
+    required: true,
+  },
 });
 
-module.exports=model("contactcollection", myschema);
+module.exports = model("contactcollection", myschema);

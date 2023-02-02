@@ -58,5 +58,20 @@ router.post("/authenticate", (req, res) => {
       res.status(500).json(err);
     });
 });
+router.post("/api/comments", (req, res) => {
+  const newComment = new Comment({
+    comment: req.body.comment,
+  });
 
+  newComment
+    .save()
+    .then(() => {
+      console.log("Comment stored successfully!");
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error("Error storing comment:", error);
+      res.sendStatus(500);
+    });
+});
 module.exports = router;

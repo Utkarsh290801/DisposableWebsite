@@ -38,7 +38,7 @@ const WebBuilder = () => {
         data: {
           html: editor.getHtml(),
           css: editor.getCss(),
-          js: editor.getJs()
+          js: editor.getJs(),
         },
       }),
       headers: { "Content-Type": "application/json" },

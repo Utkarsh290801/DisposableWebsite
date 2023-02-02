@@ -13,53 +13,22 @@ const User = () => {
   const options = [
     {
       name: "Profile",
-      icon: (
-        <lord-icon
-          src="https://cdn.lordicon.com/hbvyhtse.json"
-          trigger="hover"
-          colors="primary:#e4e4e4"
-          style={{ width: "40px", height: "40px" }}
-        ></lord-icon>
-      ),
-      // <lord-icon
-      //     src="https://cdn.lordicon.com/dqxvvqzi.json"
-      //     trigger="hover"
-      //     style={{width:"40px", height: "40px"}}>
-      // </lord-icon>,
+      icon:<AccountCircle/>,
       link: "/user/userrprofile",
     },
     {
       name: "Preview",
-      icon: (
-        <lord-icon
-          src="https://cdn.lordicon.com/mrjuyheh.json"
-          trigger="hover"
-          colors="outline:#121331,primary:#231e2d,secondary:#4bb3fd,tertiary:#ebe6ef"
-          style={{ width: "40px", height: "40px" }}
-        ></lord-icon>
-      ),
+      icon: <PreviewIcon />,
       link: "/user/preview",
     },
     {
       name: "Edit Site",
-      icon: (
-        <lord-icon
-          src="https://cdn.lordicon.com/alzqexpi.json"
-          trigger="hover"
-          style={{ width: "40px", height: "40px" }}
-        ></lord-icon>
-      ),
+      icon: <EditIcon /> ,
       link: "/user/editsite",
     },
     {
       name: "Monitor",
-      icon: (
-        <lord-icon
-          src="https://cdn.lordicon.com/myroguwc.json"
-          trigger="hover"
-          style={{ width: "40px", height: "40px" }}
-        ></lord-icon>
-      ),
+      icon:<MonitorIcon />,
       link: "/user/monitor",
     },
     {
