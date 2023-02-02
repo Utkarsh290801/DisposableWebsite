@@ -116,7 +116,7 @@
 //               label: "<b>Section</b>", // You can use HTML/SVG inside labels
 //               attributes: { class: "gjs-block-section" },
 //               content: `<section>
-                          
+
 //               <h1>This is a simple title</h1>
 //                           <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
 //                         </section>`,
@@ -324,3 +324,113 @@
 // };
 
 // export default WebBuild;
+// import React, { useState } from "react";
+
+// const templates = [
+//   { id: 1, name: "Template 1", content: ["Header", "Paragraph", "Image"] },
+//   { id: 2, name: "Template 2", content: ["Header", "Paragraph", "Image", "Paragraph"] },
+//   { id: 3, name: "Template 3", content: ["Header", "Paragraph", "Image", "Image"] }
+// ];
+
+// const App = () => {
+//   const [elements, setElements] = useState([]);
+
+//   const handleAddElement = element => {
+//     setElements([...elements, element]);
+//   };
+
+//   const handleAddTemplate = template => {
+//     setElements([...elements, ...template.content]);
+//   };
+
+// return (
+//     <div style={{ display: "flex" }}>
+//       <div style={{ width: "20%", backgroundColor: "lightgray" }}>
+//         <h3>Elements</h3>
+//         <button onClick={() => handleAddElement("Header")}>Add Header</button>
+//         <button onClick={() => handleAddElement("Paragraph")}>
+//           Add Paragraph
+//         </button>
+//         <button onClick={() => handleAddElement("Image")}>Add Image</button>
+//         <hr />
+//         <h3>Templates</h3>
+//         {templates.map(template => (
+//           <button key={template.id} onClick={() => handleAddTemplate(template)}>
+//             {template.name}
+//           </button>
+//         ))}
+//       </div>
+//       <div style={{ width: "80%", backgroundColor: "lightblue" }}>
+//         {elements.map((element, index) => (
+//           <div key={index}>{element}</div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default App;
+import React, { useRef, useEffect, useState } from "react";
+import "grapesjs/dist/css/grapes.min.css";
+import grapesjs from "grapesjs";
+
+const templates = [
+  {
+    name: "Template 1",
+    html: `<h1>Template 1</h1><p>This is template 1</p>`,
+    css: `h1{color: red;} p{color: blue;}`,
+  },
+  {
+    name: "Template 2",
+    html: `<h1>Template 2</h1><p>This is template 2</p>`,
+    css: `h1{color: green;} p{color: yellow;}`,
+  },
+];
+
+const WebsiteBuilder = () => {
+  const editorRef = useRef(null);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [editor, setEditor] = useState(null);
+
+  useEffect(() => {
+    if (!selectedTemplate) {
+      return;
+    }
+    const newEditor = grapesjs.init({
+      container: editorRef.current,
+      components: selectedTemplate.html,
+      style: selectedTemplate.css,
+    });
+
+    setEditor(newEditor);
+
+    return () => {
+      newEditor.destroy();
+    };
+  }, [selectedTemplate]);
+
+  const handleTemplateSelection = (template) => {
+    setSelectedTemplate(template);
+    if (editor) {
+      editor.destroy();
+    }
+  };
+
+  return (
+    <>
+      <div>
+        {templates.map((template) => (
+          <button
+            key={template.name}
+            onClick={() => handleTemplateSelection(template)}
+          >
+            {template.name}
+          </button>
+        ))}
+      </div>
+      <div ref={editorRef} />
+    </>
+  );
+};
+
+export default WebsiteBuilder;
