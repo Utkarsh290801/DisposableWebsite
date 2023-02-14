@@ -38,6 +38,7 @@ import Portfolio from "./components/main/Home/Portfolio";
 import Preview from "./components/user/Preview";
 import WebBuild from "./components/user/WebBuild";
 import Toxicity from "./components/main/Toxicity";
+import PageEditor from "./components/user/PageEditor";
 
 function App() {
   const [currentUser, setcurrentUser] = useState(
