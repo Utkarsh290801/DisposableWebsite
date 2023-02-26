@@ -1,169 +1,3 @@
-// import React, { useRef, useState } from "react";
-// import { useEffect } from "react";
-// import Swal from "sweetalert2";
-// import app_config from "../../config";
-// import { Accordion, AccordionDetails, AccordionSummary, Avatar, IconButton, InputBase, Paper, Typography } from "@mui/material";
-// import SearchIcon from "@mui/icons-material/Search";
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import { UserContext } from "../user/UserContext";
-// import { Link } from "react-router-dom";
-// import { DataGrid, GridExpandMoreIcon } from "@mui/x-data-grid";
-// const url = app_config.backend_url;
-
-// const ManageUser = () => {
-//   // const user = sessionStorage.getItem("user");
-//   const { avatar } = React.useContext(UserContext);
-//   const [userArray, setUserArray] = useState([]);
-//   const [loading, setLoading] = useState(false);
-//   const [filter, setFilter] = useState("");
-//   const [pageSize, setPageSize] = React.useState(5);
-//   const getDataFromBackend = async () => {
-//     setLoading(true);
-//     const response = await fetch(url + "/user/getall");
-//     const data = await response.json();
-//     console.log(data);
-//     setUserArray(data);
-//     setLoading(false);
-//   };
-//   const deleteUser = async (id) => {
-//     console.log(id);
-//     const response = await fetch(url + "/user/delete/" + id, {
-//       method: "DELETE",
-//     });
-//     if (response.status === 200) {
-//       Swal.fire({
-//         icon: "success",
-//         title: "Success",
-//         text: "User deleted successfully",
-//       });
-//       getDataFromBackend();
-//     }
-//   };
-
-//   const handleFilter = async () => {
-//     const response = await fetch(url + "/user/getall");
-//     const data = await response.json();
-
-//     setUserArray(
-//       data.filter((value) => {
-//         return value.username.toLowerCase().includes(filter.toLowerCase());
-//       })
-//     );
-//   };
-
-//   const columns = [
-//     { field: "_id", headerName: "ID", width: 70 },
-//     { field: "avatar", headerName: "Avatar", width: 130 },
-//     { field: "username", headerName: "Username", width: 180 },
-//     {
-//       field: "email",
-//       headerName: "Email",
-//       width: 250,
-//     },
-//     {
-//       field: "password",
-//       headerName: "Password",
-//       width: 150,
-//     },
-//     {
-//       field: "profile",
-//       headerName: "View Profile",
-//       width: 130,
-//     },
-//   ];
-
-//   useEffect(() => {
-//     getDataFromBackend();
-//   }, []);
-
-//   const displayUsers = () => {
-//     if (loading) {
-//       return (
-//         <div class="text-center">
-//           <div class="spinner-border text-primary " role="status">
-//             <span class="visually-hidden">Loading...</span>
-//           </div>
-//         </div>
-//       );
-//     } else {
-//       return (
-//         <DataGrid
-//           rows={userArray}
-//           columns={columns}
-//           pageSize={pageSize}
-//           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-//           rowsPerPageOptions={[5, 10, 20]}
-//           pagination
-//           getRowId={(obj) => {
-//             return obj._id;
-//           }}
-
-//           checkboxSelection
-//           getSelectedRows={(d) => {
-//             console.log(d);
-//           }}
-
-//         />
-//       );
-//     }
-//   };
-
-//   return (
-//     <div style={{ height: 400, width: "100%" }}>
-//       <h1>User Manager</h1>
-//       <div className="row">
-//         <div className="col-md">
-//           <button className="btn btn-danger" onClick={(e) => deleteUser(user._id)}>
-//             <i class="fas fa-trash"></i>
-//           </button>
-//           <Paper
-//             component="form"
-//             className="float-end mb-2"
-//             sx={{
-//               p: "2px 4px",
-//               display: "flex",
-//               width: "30%",
-//             }}
-//           >
-//             {/* <Accordion>
-//         <AccordionSummary
-//           expandIcon={<GridExpandMoreIcon />}
-//           aria-controls="panel1a-content"
-//           id="panel1a-header"
-//         >
-
-//         </AccordionSummary>
-//         <AccordionDetails>
-//           <Typography>
-//             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-//             malesuada lacus ex, sit amet blandit leo lobortis eget.
-//           </Typography>
-//         </AccordionDetails>
-//       </Accordion> */}
-//             <InputBase
-//               sx={{ ml: 1, flex: 1 }}
-//               placeholder="Enter Username to Search"
-//               onChange={(e) => setFilter(e.target.value)}
-//               inputProps={{ "aria-label": "Enter Username to Search" }}
-//             />
-//             <IconButton
-//               type="button"
-//               sx={{ p: "10px" }}
-//               aria-label="search"
-//               onClick={handleFilter}
-//             >
-//               <SearchIcon />
-//             </IconButton>
-//           </Paper>
-//         </div>
-//       </div>
-
-//       {displayUsers()}
-//     </div>
-//   );
-// };
-// export default ManageUser;
-
 import React, { useEffect, useState } from "react";
 import app_config from "../../config";
 import Table from "@mui/material/Table";
@@ -177,6 +11,7 @@ import Swal from "sweetalert2";
 import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
 import {
+  Avatar,
   Box,
   IconButton,
   InputBase,
@@ -187,11 +22,16 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
+ import { TableSortLabel } from '@mui/material';
+import Loader from "../utils/Loader";
 
 const ManageUser = () => {
   const [userArray, setUserArray] = useState([]);
+  const [planArray, setPlanArray] = useState([]);
   const [isloading, setIsloading] = useState(true);
   const [filter, setFilter] = useState("");
+  const [order, setOrder] = useState('ASC');
+  // const [data, setdata] = useState(userArray);
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
@@ -202,7 +42,47 @@ const ManageUser = () => {
       border: 0,
     },
   }));
-
+  //------------------ sorting----------------------
+  const sorting = (col) => {
+    if (order === "ASC") {
+      const sorted = [...userArray].sort((a, b) => a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1);
+      setUserArray(sorted);
+      setOrder("DSC");
+    }if (order === "DSC") {
+      const sorted = [...userArray].sort((a, b) => a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1);
+      setUserArray(sorted);
+      setOrder("ASC");
+    }
+  }
+  // function descendingComparator(a, b, orderBy) {
+  //   if (b[orderBy] < a[orderBy]) {
+  //     return -1;
+  //   }
+  //   if (b[orderBy] > a[orderBy]) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // }
+  
+  // function getComparator(order, orderBy) {
+  //   return order === 'desc'
+  //     ? (a, b) => descendingComparator(a, b, orderBy)
+  //     : (a, b) => -descendingComparator(a, b, orderBy);
+  // }
+  
+  // function applySortFilter(array, comparator, query) {
+  //   const stabilizedThis = array.map((el, index) => [el, index]);
+  //   stabilizedThis.sort((a, b) => {
+  //     const order = comparator(a[0], b[0]);
+  //     if (order !== 0) return order;
+  //     return a[1] - b[1];
+  //   });
+  //   if (query) {
+  //     return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+  //   }
+  //   return stabilizedThis.map((el) => el[0]);
+  // }
+// -------------------pagination-------------------
   const [pg, setPage] = React.useState(0);
   const [rpg, setRowsPerPage] = React.useState(5);
 
@@ -229,9 +109,9 @@ const ManageUser = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
+    width: 800,
     bgcolor: "white",
-    border: "2px solid #000",
+    // border: "2px solid #000",
     boxShadow: 2,
     p: 4,
   };
@@ -259,6 +139,16 @@ const ManageUser = () => {
 
   useEffect(() => {
     getUserfromBackend();
+  }, []);
+  const getPlanfromBackend = async () => {
+    const response = await fetch(url + "/plan/getall");
+    const data = await response.json();
+    console.log(data);
+    setPlanArray(data);
+    
+  };
+  useEffect(() => {
+    getPlanfromBackend();
   }, []);
 
   const changeStatusOfUser = async (id, v) => {
@@ -291,15 +181,14 @@ const ManageUser = () => {
     );
   };
   const displayUser = () => {
-    return userArray.slice(pg * rpg, pg * rpg + rpg).map((user) => (
+    return userArray.slice(pg * rpg, pg * rpg + rpg).map((user,plan) => (
       <>
         <StyledTableRow key={user._id}>
           <TableCell>{user._id}</TableCell>
           <TableCell component="th" scope="row">
-            <img
-              style={{ width: "45px", height: "45px" }}
+            <Avatar
               src={user.avatar}
-              className="rounded-circle mr-4"
+              sx={{ width: 45, height: 45 }}
             />
           </TableCell>
           <TableCell>{user.username}</TableCell>
@@ -313,15 +202,60 @@ const ManageUser = () => {
               onClose={handleClose}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
+              // sx={{ 
+              //   "& > .MuiBackdrop-root" : {
+              //           backdropFilter: "blur(2px)"
+              //         }
+              //   }}
+              BackdropProps={{style: {backgroundColor:'rgba(251,251,251,0.1)',backdropFilter: "blur(1px)"}}}
             >
               <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Text in a modal
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Duis mollis, est non commodo luctus, nisi erat porttitor
-                  ligula.
-                </Typography>
+        <div class="mb-3" style={{borderRadius: "5px"}}>
+          <div class="row g-0">
+            <div class="col-md-4 text-center">
+              {/* // style={{border-top-left-radius: ".5rem", border-bottom-left-radius: ".5rem"}}> */}
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                alt="Avatar" class="img-fluid my-5" style={{width: "80px"}} />
+                      <h3>{user.username}</h3>
+                      <h5>Created at:</h5>
+                      <p>{user.createdAt}</p>
+              
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h3>Information</h3>
+                <hr class="mt-0 mb-4"/>
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-muted">{user.email}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>UserID</h6>
+                            <p class="text-muted">{user._id}</p>
+                  </div>
+                </div>
+                <h6>Payment Details</h6>
+                <hr class="mt-0 mb-4"/>
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Recent Plan Price</h6>
+                            <p class="text-muted">{plan.price}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Expired On:</h6>
+                            <p class="text-muted">{plan.expired}</p>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
               </Box>
             </Modal>
           </TableCell>
@@ -354,6 +288,8 @@ const ManageUser = () => {
 
   return (
     <div>
+      
+      <Paper className="container">
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Enter Name to Search"
@@ -368,22 +304,21 @@ const ManageUser = () => {
       >
         <SearchIcon color="primary" />
       </IconButton>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 500 }}>
-          <Table stickyHeader aria-label="sticky table">
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table" >
             <TableHead style={{ backgroundColor: "#80808054" }}>
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell>Avatar</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
+                <TableCell><TableSortLabel onClick={()=>sorting("username")}>Name</TableSortLabel></TableCell>
+                <TableCell onClick={()=>sorting("email")}>Email</TableCell>
                 <TableCell>ViewProfile</TableCell>
                 <TableCell>Delete</TableCell>
                 <TableCell>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {isloading ? <p>Loading...</p> : displayUser()}
+              {isloading ? <Loader/> : displayUser()}
             </TableBody>
           </Table>
         </TableContainer>
