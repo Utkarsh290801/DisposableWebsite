@@ -18,8 +18,11 @@ function Footer() {
           duration: 0.8,
         }}
       >
-       <a href="/home"> &copy; Web-X</a>
+        <a href="/home"> &copy; Web-X</a>
       </motion.span>
+      <span style={{ textAlign: "center" }}>
+        Created By : UTKARSH ARORA & MANSHA TIWARI
+      </span>
       <motion.div
         className="footer__social__icons"
         variants={footerTextAnimation}
@@ -34,7 +37,7 @@ function Footer() {
         <BsTwitter />
         <BsYoutube />
         <a href="/main/signin">Admin</a>
-                {/* <BsBehance /> */}
+        {/* <BsBehance /> */}
       </motion.div>
     </Foot>
   );
@@ -48,7 +51,7 @@ const Foot = styled(motion.footer)`
   align-items: center;
   padding: 5rem 10rem;
   a {
-    color:#fff;
+    color: #fff;
     text-decoration: none;
     font-weight: 400;
     font-size: 0.9rem;

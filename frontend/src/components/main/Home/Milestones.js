@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useScroll } from "./useScroll";
 import { motion } from "framer-motion";
 import { milestonesAnimations } from "./animation";
-
+import AnimatedNumbers from "react-animated-numbers";
 function Milestones() {
   const [element, controls] = useScroll();
 
@@ -46,7 +46,14 @@ function Milestones() {
                 duration: 0.8,
               }}
             >
-              <p>{amount}</p>
+              {/* <p>{amount}</p> */}
+              <AnimatedNumbers
+                animateToNumber={amount}
+                fontStyle={{ fontSize: 40 }}
+                // configs={(number, index) => {
+                //   return { mass: 1, tension: 230 * (index + 1), friction: 140 };
+                // }}
+              ></AnimatedNumbers>
               <span>{data}</span>
               <img src={image} alt="Milestone" />
             </motion.div>

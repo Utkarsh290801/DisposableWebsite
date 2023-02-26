@@ -184,13 +184,13 @@ function Contact() {
 
 const Section = styled.section`
   min-height: 100vh;
-   .toast-message {
+  .toast-message {
     background: darkblue;
     color: #fff;
     font-size: 20px;
     width: 34vw;
     padding: 30px 20px;
-}
+  }
 
   .contact {
     color: var(--primary-color);

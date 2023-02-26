@@ -9,7 +9,7 @@ const myschema = new Schema({
   createdAt: { type: Date, default: new Date() },
   comment: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 

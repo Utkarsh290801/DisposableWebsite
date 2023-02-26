@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-// import logo from "/assets/logo.png";
+import logo from "./assets/webhook.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 import { useScroll } from "./useScroll";
@@ -8,13 +8,13 @@ import { motion } from "framer-motion";
 import { navAnimation } from "./animation";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../user/UserContext";
+import { style } from "@mui/system";
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [element, controls] = useScroll();
   const navigate = useNavigate();
 
   const { loggedIn, setLoggedIn } = React.useContext(UserContext);
-
 
   const logout = () => {
     //1.destroy session value
@@ -33,8 +33,18 @@ const Navbar = () => {
       state={isNavOpen ? 1 : 0}
     >
       <div className="brand__container">
-        <a href="#" className="brand">
-          {/* <img src={logo} alt="logo" /> */}
+        <a
+          href="/home"
+          className="brand"
+          style={{
+            color: "var(--primary-color)",
+            textDecoration: "none",
+            fontWeight: " 500",
+            fontSize: " 1.6rem",
+            textTransform: "uppercase",
+          }}
+        >
+          <img src={logo} alt="logo" style={{ height: "50px" }} /> Web-X
         </a>
         <div className="toggle">
           {isNavOpen ? (
@@ -64,16 +74,28 @@ const Navbar = () => {
             <a href="#pricing">Pricing</a>
           </li>
           <li>
+            <a href="/main/mainn">About</a>
+          </li>
+          <li>
             <a href="#contact">Contact</a>
           </li>
-             {!loggedIn ? (
+          {!loggedIn ? (
             <li className="">
-              <NavLink className="" to="/main/signin">
+              <NavLink className="btn btn-primary" to="/main/signin">
                 Login Now
               </NavLink>
             </li>
           ) : (
-            <NavLink style={{textDecoration:"none",textTransform: "uppercase",color: "black"}} onClick={logout} className="" to="/">          
+            <NavLink
+              style={{
+                textDecoration: "none",
+                textTransform: "uppercase",
+                // color: "black",
+              }}
+              onClick={logout}
+              className="btn btn-danger"
+              to="/"
+            >
               Log out
             </NavLink>
           )}
@@ -119,7 +141,7 @@ const Nav = styled(motion.nav)`
           color: black;
           text-decoration: none;
           font-weight: 400;
-          font-size: 0.9rem;
+          font-size: 1.2rem;
           text-transform: uppercase;
         }
       }

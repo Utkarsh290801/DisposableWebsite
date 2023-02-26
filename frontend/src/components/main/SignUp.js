@@ -189,7 +189,7 @@ const SignUp = () => {
                               <TextField
                                 label="Email"
                                 variant="standard"
-                                className="w-100"
+                                className="w-100 mb-3"
                                 id="email"
                                 InputProps={{
                                   endAdornment: (

@@ -5,7 +5,7 @@ import styled from "styled-components";
 // import home from "./assets/banner-bg.png";
 import home from "./assets/watercolor6.jpg";
 // import home from "./assets/images.jpeg";
-// import play from "assets/play.png";
+import play from "./assets/play.png";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
 import { homeAnimation, homeInfoAnimation } from "./animation";
@@ -20,6 +20,7 @@ import Skills from "./Skills";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
+import { Button } from "@mui/material";
 
 const HomePage = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -74,32 +75,75 @@ const HomePage = () => {
         variants={homeAnimation}
         transition={{ delay: 0.3, duration: 0.6, type: "tween" }}
       >
-        <div className="content">
-          <span className="tagline">Welcome in Web-X</span>
-          <div className="">
-            {/* <h1>Blossoms Parlour</h1> */}
+        <div className="row">
+          <div className="content">
+            <span className="tagline">Welcome in Web-X</span>
+            <div className="">
+              {/* <h1>Blossoms Parlour</h1> */}
 
-            <h1>
-              {`A Platform for creating a`}{" "}
-              <span
-                className="txt-rotate"
-                dataPeriod="1000"
-                data-rotate='[ "Disposable Website", "Temporary Website", "Websites" ]'
+              <h1>
+                {`A Platform for creating a`}{" "}
+                <span
+                  className="txt-rotate"
+                  dataPeriod="1000"
+                  data-rotate='[ "Disposable Website", "Temporary Website", "Websites" ]'
+                >
+                  <span className="wrap">{text}</span>
+                </span>
+              </h1>
+            </div>
+            <div className="subTitle">
+              <p>
+                It is a No-Code platform. Here you can build the application
+                without using coding knowledge.Web-X is a super easy and simple
+                website builder application - just drag-n-drop site elements to
+                your page, add content, and style it to look the way you like.
+                Here, you create Temporary Websites.
+              </p>
+              <Button
+                type="submit"
+                variant="contained"
+                color="warning"
+                size="large"
+                href="/user/webbuild"
+                style={{ borderRadius: "25px" }}
               >
-                <span className="wrap">{text}</span>
-              </span>
-            </h1>
+                Try for free
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color="secondary"
+                size="large"
+                href="/main/contactus"
+                style={{ borderRadius: "25px", marginLeft: "20px" }}
+              >
+                Talk to us
+              </Button>
+            </div>
+            {/* <img src={play} alt="Play Button" /> */}
+
           </div>
-          <div className="subTitle">
-            <p>
-              It is a No-Code platform. Here you can build the application
-              without using coding knowledge.Web-X is a super easy and simple
-              website builder application - just drag-n-drop site elements to
-              your page, add content, and style it to look the way you like.
-              Here, you create Temporary Websites.
-            </p>
+
+          <div className="col-md-4 mt-5">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{
+                width: "480px",
+                height: "100%",
+                float: "right",
+                borderBottom: " 3px solid black",
+              }}
+            >
+              <source
+                src="https://cdn.builder.io/o/assets%2FYJIGb4i01jvw0SRdL5Bt%2F4b04451f25e748e49e31c1c1eaea185f%2Fcompressed?apiKey=YJIGb4i01jvw0SRdL5Bt&token=4b04451f25e748e49e31c1c1eaea185f&alt=media&optimized=true"
+                type="video/mp4"
+              />
+            </video>
           </div>
-          {/* <img src={play} alt="Play Button" /> */}
         </div>
       </motion.div>
       {/* <motion.div
@@ -126,18 +170,17 @@ const HomePage = () => {
 };
 
 // background: url(${home}) no-repeat center;
-// 
+//
 const Section = styled.section`
-min-height: 100vh;
+  min-height: 100vh;
+  // background: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
 
-background: url(${home}) no-repeat center;
-background-size: cover;
-position: relative;
-.home {
-  height: 100%;
-  
-  .content {
-      
+  background-size: cover;
+  position: relative;
+  .home {
+    height: 100%;
+
+    .content {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -148,7 +191,7 @@ position: relative;
       padding-left: 10rem;
 
       h1 {
-        font-weight: 800;
+        font-weight: 600;
         font-size: 3.5rem;
         line-height: 5.3rem;
       }
@@ -173,8 +216,8 @@ position: relative;
         p {
           width: 100%;
           margin-bottom: 2rem;
-          font-weight: 300;
-          font-size: 1.3rem;
+          font-weight: 400;
+          font-size: 1.1rem;
         }
       }
     }
