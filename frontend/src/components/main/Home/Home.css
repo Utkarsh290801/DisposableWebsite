@@ -6,3 +6,22 @@
   .image{
     width:40px;
   }
+  .video{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    line-height: normal;
+    box-sizing: border-box;
+  }
+  .video_builder{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 1;
+    position: absolute;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+  }
