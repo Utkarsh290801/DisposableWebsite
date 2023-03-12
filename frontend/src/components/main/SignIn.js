@@ -27,6 +27,7 @@ import app_config from "../../config";
 
 const url = app_config.backend_url;
 const SignIn = () => {
+  const navigate = useNavigate();
   const { setAvatar } = useContext(UserContext);
 
   const handleSignOut = (event) => {
@@ -52,6 +53,8 @@ const SignIn = () => {
         avatar: userObject.picture,
       })
     );
+
+    navigate("/");
   };
 
   const { setLoggedIn } = useContext(UserContext);
@@ -70,7 +73,6 @@ const SignIn = () => {
   }, []);
   //If we have no user:sign in button
   //if we have a user: show a logout button
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const loginform = {
     email: "",
@@ -295,12 +297,12 @@ const SignIn = () => {
                                 </button>
                               )}
 
-                              {user && (
+                              {/* {user && (
                                 <div>
                                   <img src={user.picture} alt="" />
                                   <h3>{user.name}</h3>
                                 </div>
-                              )}
+                              )} */}
 
                               {/* <a
                                 className="btn btn-outline-primary btn-floating m-1"
