@@ -27,7 +27,9 @@ const WebBuilder = () => {
     JSON.parse(sessionStorage.getItem("user"))
   );
   const saveToDB = async () => {
-    // console.log(editor.getHtml());
+
+    console.log(editor.getProjectData());
+    // return;
     // console.log(editor.getJs());
     // return;
     // const SubmitWebpage = async (values) => {
@@ -41,6 +43,7 @@ const WebBuilder = () => {
           html: editor.getHtml(),
           css: editor.getCss(),
           js: editor.getJs(),
+          editorData: editor.getProjectData()
         },
       }),
       headers: { "Content-Type": "application/json" },
@@ -54,7 +57,25 @@ const WebBuilder = () => {
     // };
   };
 
+  const fetchPageData = async () => {
+    const res = await fetch(url + "/webpage/getbyuser/" + currentUser._id);
+    console.log(res.status);
+    const data = await res.json();
+    console.log(data);
+    setWebpageData(data);
+
+    // setPage(data);
+    // setPageHTML(data.data.html);
+    // setPageCSS(data.data.css);
+  };
+
   useEffect(() => {
+    // fetchPageData();
+  }, [])
+  
+
+  useEffect(() => {
+    
     if (!pluginLoaded) {
       // addTablePlugin();
       // addChartPlugin();
@@ -142,9 +163,9 @@ const WebBuilder = () => {
         .then((webpage) => {
           console.log(webpage);
           setWebpageData(webpage);
-          if (webpage.data) e.loadProjectData(webpage.data);
+          if (webpage.editorData) e.loadProjectData(webpage.editorData);
           setEditor(e);
-        });
+          });
     }
   });
 
