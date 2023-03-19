@@ -384,7 +384,7 @@
 
 .btn-sm {
   padding: 8px 35px;
-  font-size: 12px;
+  font-size: 20px;
 }
 .btn-dark {
   background-color: #323a45;
@@ -395,17 +395,17 @@
 .btn-dark.border {
   background-color: transparent;
   color: #323a45;
-  border: 2px solid #323a45;
+  border: 5px solid #323a45;
 }
 
 .btn-dark.border:hover {
   background-color: #323a45;
   color: #ffffff !important;
-  border: 2px solid #323a45;
+  border: 5px solid #323a45;
 }
 
 .btn-theme {
   background-color: #ffaf5a;
   color: #ffffff !important;
-  border: 2px solid #ffaf5a;
+  border: 5px solid #ffaf5a;
 }

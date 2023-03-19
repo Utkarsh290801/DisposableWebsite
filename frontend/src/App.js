@@ -1,5 +1,11 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import Main from "./components/main";
 import ContactUs from "./components/main/ContactUs";
 import Reset from "./components/main/Reset";
@@ -38,38 +44,54 @@ import Portfolio from "./components/main/Home/Portfolio";
 import Preview from "./components/user/Preview";
 import WebBuild from "./components/user/WebBuild";
 import Toxicity from "./components/main/Toxicity";
-import PageEditor from "./components/user/PageEditor";
-
+// import GlobalStyle from "./globalStyles";
+import { ThemeProvider } from "styled-components";
+import { AnimatePresence } from "framer-motion";
+import Mains from "./components/main/About/Mains";
+import Intro from "./components/main/About/Intro";
+import BlogPage from "./components/main/About/BlogPage";
+import WorkPage from "./components/main/About/WorkPage";
+import MySkillsPage from "./components/main/About/MySkillsPage";
+import AboutPage from "./components/main/About/AboutPage";
+import { lightTheme } from "./components/main/About/Themes";
+import SoundBar from "./components/main/About/subComponents/SoundBar";
 function App() {
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   );
+
   return (
     <div>
       <UserProvider currentUser={currentUser}>
         <BrowserRouter>
           <Routes>
-              <Route path="home" element={<HomePage/>} />
+            <Route path="home" element={<HomePage />} />
             <Route path="live/:pageid" element={<LivePage />} />
             <Route element={<Main />} path="main">
-              
               {/* <Route path="service" element={<Services/>} /> */}
               {/* <Route path="portfolio" element={<Portfolio/>} /> */}
-              <Route path="nav" element={<Navbar/>} />
+              <Route path="nav" element={<Navbar />} />
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
-              <Route path="toxicity" element={<Toxicity/>}/>
+              <Route path="toxicity" element={<Toxicity />} />
               <Route path="contactus" element={<ContactUs />} />
               <Route path="resetpswd" element={<Reset />} />
               <Route path="reset" element={<ResetPassword />} />
-             
+
               <Route path="updatepswd" element={<UpdatePassword />} />
               <Route path="changepswd" element={<ChangePassword />} />
               <Route path="pricing" element={<Pricing />} />
               <Route path="pricing1" element={<Pricing1 />} />
 
               <Route element={<NotFound></NotFound>} path="notfound" />
+
+              <Route path="mainn" element={<Mains />} />
+              <Route path="skills" element={<MySkillsPage />} />
+              <Route path="work" element={<WorkPage />} />
+              <Route path="blog" element={<BlogPage />} />
+              <Route path="about" element={<AboutPage />} />
             </Route>
+
             <Route
               element={
                 <AdminAuthorisor>
@@ -94,9 +116,9 @@ function App() {
               path="user"
             >
               <Route path="userrprofile" element={<UserrProfile />} />
-              <Route path="checkout" element={<Checkout/>} />
+              <Route path="checkout" element={<Checkout />} />
               <Route path="webbuild" element={<WebBuilder />} />
-              <Route path="webb" element={<WebBuild/>} />
+              <Route path="webb" element={<WebBuild />} />
 
               <Route path="planmanager" element={<PlanManager />} />
               <Route path="preview" element={<Preview />} />

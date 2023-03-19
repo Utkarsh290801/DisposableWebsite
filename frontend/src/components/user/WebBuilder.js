@@ -27,7 +27,9 @@ const WebBuilder = () => {
     JSON.parse(sessionStorage.getItem("user"))
   );
   const saveToDB = async () => {
-    console.log();
+    // console.log(editor.getHtml());
+    // console.log(editor.getJs());
+    // return;
     // const SubmitWebpage = async (values) => {
     //   values.user = currentUser._id;
     //   console.log(values);
@@ -158,14 +160,7 @@ const WebBuilder = () => {
         </a>
       )}
 
-      <button
-        className="btn btn-primary"
-        onClick={() => {
-          console.log(editor.getProjectData());
-          saveToDB();
-          console.log(editor.getHtml());
-        }}
-      >
+      <button className="btn btn-primary" onClick={saveToDB}>
         Save
       </button>
       <div id="gjs" className="h"></div>
