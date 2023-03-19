@@ -134,7 +134,7 @@ function App() {
                 }
                 path="webpagemanager"
               />
-              <Route element={<PageEditor />} path="webbuild" />
+              {/* <Route element={<PageEditor />} path="webbuild" /> */}
             </Route>
 
             <Route element={<Navigate to="/main/notfound" />} path="*" />
