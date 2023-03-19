@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import loadmore from "./assets/loadmore.png";
 import portfolio3 from "./assets/temps-3.jpg";
-import portfolio4 from "./assets/hero.png";
+import portfolio4 from "./assets/hero1.jpg";
 import portfolio5 from "./assets/template14.jpg";
 import portfolio6 from "./assets/template13.jpg";
 import portfolio7 from "./assets/template20.png";
