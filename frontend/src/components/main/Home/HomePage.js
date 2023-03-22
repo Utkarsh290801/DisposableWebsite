@@ -106,7 +106,7 @@ const HomePage = () => {
                 color="warning"
                 size="large"
                 href="/user/webbuild"
-                style={{ borderRadius: "25px" }}
+                style={{ borderRadius: "25px" ,color:"white"}}
               >
                 Try for free
               </Button>
@@ -116,7 +116,7 @@ const HomePage = () => {
                 color="secondary"
                 size="large"
                 href="/main/contactus"
-                style={{ borderRadius: "25px", marginLeft: "20px" }}
+                style={{ borderRadius: "25px", marginLeft: "20px",color:"white" }}
               >
                 Talk to us
               </Button>
@@ -205,6 +205,7 @@ const Section = styled.section`
           rgba(74, 47, 189, 0.5) 111.58%
         );
         border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius:4px;
         font-size: 20px;
         // margin-bottom: 16px;
         display: inline-block;

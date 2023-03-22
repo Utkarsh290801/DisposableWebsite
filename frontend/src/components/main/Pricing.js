@@ -210,7 +210,7 @@ const Pricing = () => {
                 <li class="pricing-header">
                   <h4>Pro</h4>
                   <h2>
-                    <sup>$</sup>35 <sub>/ Month</sub>
+                    <sup>$</sup>15 <sub>/ Month</sub>
                   </h2>
                 </li>
                 <li>Custom Domain</li>
@@ -266,7 +266,7 @@ const Pricing = () => {
                 <li class="pricing-header">
                   <h4>Expert</h4>
                   <h2>
-                    <sup>$</sup>77 <sub>/ Month</sub>
+                    <sup>$</sup>30<sub>/ Month</sub>
                   </h2>
                 </li>
                 <li>Custom Domain</li>

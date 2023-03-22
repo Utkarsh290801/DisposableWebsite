@@ -39,12 +39,12 @@ const Navbar = () => {
           style={{
             color: "var(--primary-color)",
             textDecoration: "none",
-            fontWeight: " 500",
-            fontSize: " 1.6rem",
-            textTransform: "uppercase",
+            fontWeight: "600",
+            fontSize: "1.6rem",
+            // textTransform: "uppercase",
           }}
         >
-          <img src={logo} alt="logo" style={{ height: "50px" }} /> Web-X
+          <img src={logo} alt="logo" style={{ height: "50px" }} />  &nbsp; &nbsp;Web-X
         </a>
         <div className="toggle">
           {isNavOpen ? (
@@ -81,8 +81,8 @@ const Navbar = () => {
           </li>
           {!loggedIn ? (
             <li className="">
-              <NavLink className="btn btn-primary" to="/main/signin">
-                Login Now
+              <NavLink className="btn btn-primary " to="/main/signin"style={{color:"white"}} >
+                LOGIN NOW
               </NavLink>
             </li>
           ) : (
@@ -113,19 +113,23 @@ const Navbar = () => {
     </Nav>
   );
 };
-
+// textTransform: "uppercase",
 const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   margin: 0 2rem;
   color: black;
   padding-top: 2rem;
+  .login-button{
+    color:white,
+  }
   .brand__container {
     margin: 0 2rem;
     .toggle {
       display: none;
     }
   }
+  
   .links {
     ul {
       list-style-type: none;
@@ -140,11 +144,12 @@ const Nav = styled(motion.nav)`
         a {
           color: black;
           text-decoration: none;
-          font-weight: 400;
+          font-weight: 600;
           font-size: 1.2rem;
-          text-transform: uppercase;
+      
         }
       }
+    
     }
   }
   @media screen and (min-width: 280px) and (max-width: 1080px) {

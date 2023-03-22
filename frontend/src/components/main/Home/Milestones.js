@@ -46,14 +46,14 @@ function Milestones() {
                 duration: 0.8,
               }}
             >
-              {/* <p>{amount}</p> */}
-              <AnimatedNumbers
+              <p>{amount}</p>
+              {/* <AnimatedNumbers
                 animateToNumber={amount}
                 fontStyle={{ fontSize: 40 }}
-                // configs={(number, index) => {
-                //   return { mass: 1, tension: 230 * (index + 1), friction: 140 };
-                // }}
-              ></AnimatedNumbers>
+                configs={(number, index) => {
+                  return { mass: 1, tension: 230 * (index + 1), friction: 140 };
+                }}
+              ></AnimatedNumbers> */}
               <span>{data}</span>
               <img src={image} alt="Milestone" />
             </motion.div>

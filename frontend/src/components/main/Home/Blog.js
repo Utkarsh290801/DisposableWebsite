@@ -55,6 +55,7 @@ function Blog() {
               <div className="">
                 <img className="image" src={image} alt="Feature" />
               </div>
+              <br/>
               <div className="title">
                 <h3>{title}</h3>
               </div>
@@ -86,7 +87,7 @@ const Section = styled.section`
     .blog {
       display: flex;
       flex-direction: column;
-      
+      margin-top:2rem;
       gap: 1rem;
       .image {
         height: 13rem;

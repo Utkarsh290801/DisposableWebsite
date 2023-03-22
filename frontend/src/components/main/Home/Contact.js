@@ -10,6 +10,7 @@ import { Formik } from "formik";
 import { Button, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { ToastContainer, toast } from "react-toastify";
+import * as Yup from "yup";
 function Contact() {
   const [element, controls] = useScroll();
   const url = app_config.backend_url;
@@ -42,7 +43,9 @@ function Contact() {
   //     return res.json();
   //   });
   // };
-  const feedbackSubmit = async (formdata, { setSubmitting }) => {
+  const feedbackSubmit = async (formdata, { setSubmitting,resetForm }) => {
+
+    
     console.log(formdata);
     setSubmitting(true);
 
@@ -60,6 +63,7 @@ function Contact() {
         title: "Success",
         text: "send successfully!!",
       });
+       resetForm({values:''});   
       // sendOTP();
       // toast.success("Success Notification !", {
       //   position: toast.POSITION.TOP_RIGHT,
@@ -74,10 +78,24 @@ function Contact() {
         text: "!! something went wrong!!",
       });
     }
+
     setSubmitting(false);
   };
-
-  const formBody = ({ values, handleSubmit, handleChange, isSubmitting }) => {
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "Too Short!")
+      .max(22, "Too Long!")
+      .required("*Name is Required"),
+    email: Yup.string()
+      .email("Email is invalid")
+      .required("*Email is required"),
+      message: Yup.string()
+      .min(2, "Too Short!")
+      .max(222, "Too Long!")
+      .required("*Message is Required"),
+  });
+  const formBody = ({ values, handleSubmit, handleChange, isSubmitting,   errors,
+    touched, }) => {
     return (
       <Section id="contact" ref={element}>
         <Title value="contact" />
@@ -91,11 +109,11 @@ function Contact() {
             duration: 0.8,
           }}
         >
-          <div className="contact__title">
-            <p>Stay in touch with me </p>
+          <div className="row">
+            <div className="col-md-6">
+            <div className="contact__title">
+            {/* <p>Stay in touch with me </p> */}
             <h2>Quick Contact</h2>
-          </div>
-          <div className="contact__data">
             <div className="contact__data__description">
               <h4>Send us a message</h4>
               <p>
@@ -110,9 +128,9 @@ function Contact() {
               details. */}
               </p>
               <div>
-                <p>
+                {/* <p>
                   <strong>Phone:</strong> +91 6386406135 , +91 9336479475
-                </p>
+                </p> */}
                 <p>
                   <strong>Email:</strong> testproject2629@gmail.com
                 </p>
@@ -120,63 +138,81 @@ function Contact() {
                   <strong>Website:</strong> webx.com
                 </p>
               </div>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div className="contact__data__form">
-                {/* <input type="text" placeholder="name" />
-                <input type="email" placeholder="email" />
-                <textarea placeholder="message"></textarea>
-                <button>Send Message</button> */}
-                <TextField
-                  className="w-100"
-                  type="text"
-                  id="name"
-                  label="NAME"
-                  style={{ backgroundColor: "white" }}
-                  varient="standard"
-                  onChange={handleChange}
-                  value={values.name}
-                />
-                <TextField
-                  className="w-100 "
-                  type="email"
-                  id="email"
-                  label="E-MAIL"
-                  varient="standard"
-                  style={{ backgroundColor: "white" }}
-                  onChange={handleChange}
-                  value={values.email}
-                />
-                <TextField
-                  className="w-100 "
-                  type="text"
-                  id="message"
-                  label="MESSAGE"
-                  multiline
-                  rows={5}
-                  style={{ backgroundColor: "white" }}
-                  varient="standard"
-                  onChange={handleChange}
-                  value={values.message}
-                />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  size="large"
-                  endIcon={<SendIcon />}
-                >
-                  Contact Us
-                </Button>
               </div>
-            </form>
-            <ToastContainer />
+            </div>
+            </div>
+            <div className="col-md-6">
+            <div className="contact__title">
+            <div className="contact__data">
+          
+          <form onSubmit={handleSubmit}>
+            <div className="contact__data__form">
+              {/* <input type="text" placeholder="name" />
+              <input type="email" placeholder="email" />
+              <textarea placeholder="message"></textarea>
+              <button>Send Message</button> */}
+              <TextField
+                className="w-100"
+                type="text"
+                id="name"
+                label="Name"
+                style={{ backgroundColor: "white" }}
+                varient="standard"
+                onChange={handleChange}
+                value={values.name}
+                helperText={touched.name ? errors.name : ""}
+                error={Boolean(errors.name && touched.name)}
+              />
+              <TextField
+                className="w-100 "
+                type="email"
+                id="email"
+                label="E-mail"
+                varient="standard"
+                style={{ backgroundColor: "white" }}
+                onChange={handleChange}
+                value={values.email}
+                helperText={touched.email ? errors.email : ""}
+                error={Boolean(errors.email && touched.email)}
+              />
+              <TextField
+                className="w-100 "
+                type="text"
+                id="message"
+                label="Message"
+                multiline
+                rows={5}
+                style={{ backgroundColor: "white" }}
+                varient="standard"
+                onChange={handleChange}
+                value={values.message}
+                helperText={touched.message ? errors.message : ""}
+                error={Boolean(errors.message && touched.message)}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                endIcon={<SendIcon/>}
+              >
+                Contact Us
+              </Button>
+            </div>
+          </form>
+          <ToastContainer />
+        </div>
+        </div>
+            </div>
           </div>
+         
+         
+          
         </motion.div>
       </Section>
     );
   };
   return (
-    <Formik initialValues={userForm} onSubmit={feedbackSubmit}>
+    <Formik initialValues={userForm} onSubmit={feedbackSubmit} validationSchema={SignupSchema}>
       {formBody}
     </Formik>
   );
@@ -188,17 +224,17 @@ const Section = styled.section`
     background: darkblue;
     color: #fff;
     font-size: 20px;
-    width: 34vw;
+    width: 37vw;
     padding: 30px 20px;
   }
 
   .contact {
     color: var(--primary-color);
-    margin: 0 18rem;
+    margin: 0 16rem;
     &__title {
       margin: 6rem 0 2rem 0;
       p {
-        text-transform: uppercase;
+
         color: var(--primary-color);
       }
       h2 {
@@ -208,7 +244,8 @@ const Section = styled.section`
     }
     &__data {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
+      // grid-template-columns: 59fr 1.2fr;
+      padding-left:4rem;
       gap: 4rem;
       &__description {
         display: flex;
@@ -224,7 +261,7 @@ const Section = styled.section`
         div {
           p {
             strong {
-              text-transform: uppercase;
+              // text-transform: uppercase;
             }
           }
         }
@@ -236,7 +273,7 @@ const Section = styled.section`
         gap: 2rem;
         input,
         textarea {
-          text-transform: uppercase;
+          // text-transform: uppercase;
           border: none;
           border-bottom: 0.1rem solid var(--secondary-color);
           width: 100%;
@@ -260,7 +297,7 @@ const Section = styled.section`
           border: 0.1rem solid var(--secondary-color);
           height: 3rem;
           color: var(--secondary-color);
-          text-transform: uppercase;
+          // text-transform: uppercase;
           cursor: pointer;
           transition: 0.5s ease-in-out;
           &:hover {

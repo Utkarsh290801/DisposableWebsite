@@ -68,7 +68,7 @@ function Portfolio() {
         ></motion.div>
       </div>
       <div className="portfolio-more">
-        <span>Load More</span>
+        {/* <span>Load More</span> */}
         <img src={loadmore} alt="Load More" />
       </div>
     </Section>
@@ -149,7 +149,7 @@ const Section = styled.section`
     span {
       color: #fff;
       letter-spacing: 0.1rem;
-      text-transform: uppercase;
+      font-weight: 600;
     }
   }
   @media screen and (min-width: 280px) and (max-width: 1080px) {

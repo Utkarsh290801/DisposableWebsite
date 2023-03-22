@@ -12,7 +12,7 @@ const api_config = require('./config')
 
 app.use(express.static('public')); //2
 
-app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(cors({ origin: ['http://localhost:3000' ,'http://localhost:3001']}))
 app.use(express.json ({limit: "10mb", extended: true}))
 app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
 

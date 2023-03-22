@@ -3,9 +3,11 @@ import styled from "styled-components";
 
 function Title({ value }) {
   return (
+    <div>
     <Div>
       <h1>{value}</h1>
     </Div>
+    </div>
   );
 }
 
@@ -18,6 +20,7 @@ const Div = styled.div`
     text-transform: uppercase;
     color: var(--secondary-color);
     font-weight: 400;
+
     @media screen and (min-width: 280px) and (max-width: 1080px) {
       display: none;
     }
