@@ -6,13 +6,14 @@ const planRouter = require('./routers/planRouter')
 const webpageRouter = require('./routers/webpageRouter')
 const assetRouter = require('./routers/assetRouter')
 const contactRouter = require("./routers/contactRouter");
+const testimonialRouter = require("./routers/testimonialRouter");
 const utilRouter = require("./routers/utils");
 const cors = require('cors')
 const api_config = require('./config')
 
 app.use(express.static('public')); //2
 
-app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(cors({ origin: ['http://localhost:3000' ,'http://localhost:3001']}))
 app.use(express.json ({limit: "10mb", extended: true}))
 app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit: 50000}))
 
@@ -24,6 +25,7 @@ app.use('/plan', planRouter)
 app.use('/webpage', webpageRouter)
 app.use('/asset', assetRouter)
 app.use("/contact", contactRouter);
+app.use("/testimonial",testimonialRouter)
 app.use("/util", utilRouter);
 app.get('/', (req, res) => {
     res.send('response from userRouter')

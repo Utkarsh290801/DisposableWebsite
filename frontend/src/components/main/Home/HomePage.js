@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-// import home from "./assets/istockphoto-516856080-170667a.jpg";
-// import home from "assets/pink-.jpg";
-// import home from "./assets/banner-bg.png";
-import home from "./assets/watercolor6.jpg";
-// import home from "./assets/images.jpeg";
-import play from "./assets/play.png";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
 import { homeAnimation, homeInfoAnimation } from "./animation";
@@ -16,11 +10,12 @@ import Blog from "./Blog";
 import Pricing from "./Pricing";
 import Video from "./Video";
 import Testimonials from "./Testimonials";
-import Skills from "./Skills";
+import { UserContext } from "../../user/UserContext";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import { Button } from "@mui/material";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -30,6 +25,10 @@ const HomePage = () => {
   const [index, setIndex] = useState(1);
   const toRotate = ["Disposable Website", "Temporary Website", "Websites"];
   const period = 2000;
+  const navigate = useNavigate();
+
+  const { loggedIn, setLoggedIn } = React.useContext(UserContext);
+
 
   useEffect(() => {
     let ticker = setInterval(() => {
@@ -79,8 +78,6 @@ const HomePage = () => {
           <div className="content">
             <span className="tagline">Welcome in Web-X</span>
             <div className="">
-              {/* <h1>Blossoms Parlour</h1> */}
-
               <h1>
                 {`A Platform for creating a`}{" "}
                 <span
@@ -100,29 +97,59 @@ const HomePage = () => {
                 your page, add content, and style it to look the way you like.
                 Here, you create Temporary Websites.
               </p>
+              <ul>
+              {!loggedIn ? (
+            <li className="">
               <Button
                 type="submit"
-                variant="contained"
+                variant="outlined"
                 color="warning"
                 size="large"
                 href="/user/webbuild"
-                style={{ borderRadius: "25px" }}
+                sx={{
+                  borderRadius: "25px",
+                  color: "#ed6c02",
+                  border: "2px solid #ed6c02",
+                  transition: "transform .2s ease-in-out",
+                  ":hover": {
+                    transform: "scale(1.04)",
+                    color: "white",
+                    bgcolor: "#ed6c02",
+                  },
+                }}
               >
                 Try for free
               </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                color="secondary"
-                size="large"
-                href="/main/contactus"
-                style={{ borderRadius: "25px", marginLeft: "20px" }}
-              >
-                Talk to us
-              </Button>
+            </li>
+          ) : (
+              
+            <Button
+            type="submit"
+            variant="outlined"
+            color="secondary"
+            size="large"
+            href="/main/contactus"
+           
+            sx={{
+              borderRadius: "25px",
+              color: "#9c27b0",
+              border: "2px solid #9c27b0",
+              transition: "transform .2s ease-in-out",
+              marginLeft: "20px",
+              ":hover": {
+                transform: "scale(1.04)",
+                color: "white",
+                bgcolor: "#9c27b0",
+              },
+            }}
+          >
+            Talk to us
+          </Button>
+          )}
+        </ul>
+          
             </div>
             {/* <img src={play} alt="Play Button" /> */}
-
           </div>
 
           <div className="col-md-4 mt-5">
@@ -161,7 +188,6 @@ const HomePage = () => {
       <Video />
       <Pricing />
       <Testimonials />
-      {/* <Skills/> */}
       <Contact />
       <Footer />
       <ScrollToTop />{" "}
@@ -205,6 +231,7 @@ const Section = styled.section`
           rgba(74, 47, 189, 0.5) 111.58%
         );
         border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 4px;
         font-size: 20px;
         // margin-bottom: 16px;
         display: inline-block;

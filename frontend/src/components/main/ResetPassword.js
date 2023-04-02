@@ -86,7 +86,7 @@ const ResetPassword = () => {
   };
 
   const verifyOTP = (formdata) => {
-    if (otp == formdata.otp) {
+    if (otp === formdata.otp) {
       console.log("otp matched");
       resetPassword(formdata);
     } else {

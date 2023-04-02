@@ -37,7 +37,7 @@ const SignIn = () => {
 
   // Signin with google
   const [user, setUser] = useState({});
-  const handleCallbackResponse = (response) => {
+  const handleCallbackResponse = async (response) => {
     console.log("Encoded jwt id token:" + response.credential);
     var userObject = jwt_decode(response.credential); //converted token into object
     console.log(userObject);
@@ -54,7 +54,26 @@ const SignIn = () => {
       })
     );
 
-    navigate("/");
+    const res = await fetch(url + "/user/checkemail/" + userObject.email);
+    if (res.status === 200) {
+      setLoggedIn(true);
+      navigate("/");
+    } else {
+      const response = await fetch(url + "/user/add", {
+        method: "POST",
+        body: JSON.stringify({
+          username: userObject.name,
+          email: userObject.email,
+          avatar: userObject.picture,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.status === 200) {
+        setLoggedIn(true);
+        navigate("/");
+      }
+    }
   };
 
   const { setLoggedIn } = useContext(UserContext);

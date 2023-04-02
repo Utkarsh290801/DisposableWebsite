@@ -18,11 +18,11 @@ function Pricing() {
     },
     {
       name: "Pro",
-      price: 35,
+      price: 15,
     },
     {
       name: "Expert",
-      price: 77,
+      price: 30,
     },
   ];
 
@@ -169,7 +169,7 @@ const Section = styled.section`
     }
   }
   .pricing__title {
-    margin: 6rem 10rem;
+    margin: 0rem 10rem;
     p {
       color: var(--secondary-color);
       text-transform: uppercase;
@@ -183,7 +183,7 @@ const Section = styled.section`
   .pricing {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding: 0 10rem;
+    padding: 3rem 10rem;
     &__plan {
       display: flex;
       flex-direction: column;

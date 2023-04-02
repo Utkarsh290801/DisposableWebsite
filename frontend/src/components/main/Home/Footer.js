@@ -21,7 +21,7 @@ function Footer() {
         <a href="/home"> &copy; Web-X</a>
       </motion.span>
       <span style={{ textAlign: "center" }}>
-        Created By : UTKARSH ARORA & MANSHA TIWARI
+        Developed By - MANSHA TIWARI & UTKARSH ARORA 
       </span>
       <motion.div
         className="footer__social__icons"
@@ -55,7 +55,7 @@ const Foot = styled(motion.footer)`
     text-decoration: none;
     font-weight: 400;
     font-size: 0.9rem;
-    text-transform: uppercase;
+   
   }
   .footer__social__icons {
     display: flex;

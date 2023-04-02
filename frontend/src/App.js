@@ -4,20 +4,17 @@ import {
   Route,
   Routes,
   Navigate,
-  useLocation,
 } from "react-router-dom";
 import Main from "./components/main";
 import ContactUs from "./components/main/ContactUs";
 import Reset from "./components/main/Reset";
 import ResetPassword from "./components/main/ResetPassword";
-
 import Admin from "./components/admin";
 import ManageUser from "./components/admin/ManageUser";
 import ManageQuery from "./components/admin/ManageQuery";
 import Profile from "./components/admin/Profile";
 import User from "./components/user";
 import NotFound from "./components/main/NotFound";
-// import AddWebpage from "./components/user/AddWebpage";
 import Authorisor from "./components/user/AuthUser";
 import { UserProvider } from "./components/user/UserContext";
 import { useState } from "react";
@@ -41,21 +38,13 @@ import UserManager from "./components/admin/UserManager";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import Navbar from "./components/main/Home/Navbar";
 import HomePage from "./components/main/Home/HomePage";
-import Portfolio from "./components/main/Home/Portfolio";
 import Preview from "./components/user/Preview";
 import WebBuild from "./components/user/WebBuild";
 import Toxicity from "./components/main/Toxicity";
+import Home from "./components/main/AboutContainer/Home/Home";
+
 // import GlobalStyle from "./globalStyles";
-import { ThemeProvider } from "styled-components";
-import { AnimatePresence } from "framer-motion";
-import Mains from "./components/main/About/Mains";
-import Intro from "./components/main/About/Intro";
-import BlogPage from "./components/main/About/BlogPage";
-import WorkPage from "./components/main/About/WorkPage";
-import MySkillsPage from "./components/main/About/MySkillsPage";
-import AboutPage from "./components/main/About/AboutPage";
-import { lightTheme } from "./components/main/About/Themes";
-import SoundBar from "./components/main/About/subComponents/SoundBar";
+
 function App() {
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -69,8 +58,6 @@ function App() {
             <Route path="home" element={<HomePage />} />
             <Route path="live/:pageid" element={<LivePage />} />
             <Route element={<Main />} path="main">
-              {/* <Route path="service" element={<Services/>} /> */}
-              {/* <Route path="portfolio" element={<Portfolio/>} /> */}
               <Route path="nav" element={<Navbar />} />
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
@@ -78,19 +65,12 @@ function App() {
               <Route path="contactus" element={<ContactUs />} />
               <Route path="resetpswd" element={<Reset />} />
               <Route path="reset" element={<ResetPassword />} />
-
               <Route path="updatepswd" element={<UpdatePassword />} />
               <Route path="changepswd" element={<ChangePassword />} />
               <Route path="pricing" element={<Pricing />} />
               <Route path="pricing1" element={<Pricing1 />} />
-
               <Route element={<NotFound></NotFound>} path="notfound" />
-
-              <Route path="mainn" element={<Mains />} />
-              <Route path="skills" element={<MySkillsPage />} />
-              <Route path="work" element={<WorkPage />} />
-              <Route path="blog" element={<BlogPage />} />
-              <Route path="about" element={<AboutPage />} />
+     
             </Route>
 
             <Route
@@ -127,7 +107,6 @@ function App() {
 
               <Route path="sidebar" element={<Sidebar />} />
               <Route path="accounts" element={<Accounts />} />
-              {/* <Route path='addwebpage' element={<AddWebpage/>}/> */}
               <Route
                 element={
                   <Authorisor>
@@ -136,9 +115,8 @@ function App() {
                 }
                 path="webpagemanager"
               />
-              {/* <Route element={<PageEditor />} path="webbuild" /> */}
             </Route>
-
+            <Route path="about" element={<Home/>} />
             <Route element={<Navigate to="/main/notfound" />} path="*" />
             <Route element={<Navigate to="/home" />} path="/" />
           </Routes>

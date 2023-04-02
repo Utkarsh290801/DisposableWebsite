@@ -16,29 +16,30 @@ function Testimonials() {
     {
       designation: "PC Advisor",
       name: "Mike Williams      ",
-      review: "Web-X is sincerely great, fully customer-oriented and just perfect for building state-of-the-art web pages just like that!",
-      image:testimonial1,
+      review:
+        "Web-X is sincerely great, fully customer-oriented and just perfect for building state-of-the-art web pages just like that!",
+      image: testimonial1,
     },
     {
       designation: "GizmoEditor",
       name: "Ric Manning",
       review:
         "Building websites with Web-X is like playing a game to me: it's easy, simple and fun to produce web pages that look best in our mobile universe!",
-        image:testimonial2,
+      image: testimonial2,
     },
     {
       designation: "About.com",
       name: "Tom Green",
       review:
         "It is one of the first solutions that come in handy when people like me get to know web design and Bootstrap. I like that I don't have to deal with the code at all!",
-        image:testimonial3,
+      image: testimonial3,
     },
     {
       designation: "Huffpost",
       name: "Alex Ivanovs",
       review:
         "Web-X is the easiest web design tool for making websites that look flawless on both mobiles and desktops. No wonder why there are so many people that are in love with it!",
-        image:testimonial4,
+      image: testimonial4,
     },
   ];
   return (
@@ -54,7 +55,7 @@ function Testimonials() {
             duration: 0.8,
           }}
         >
-          {testimonials.map(({ designation, name, review,image }, index) => {
+          {testimonials.map(({ designation, name, review, image }, index) => {
             return (
               <div
                 className={`testimonial ${
