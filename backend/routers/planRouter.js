@@ -24,9 +24,7 @@ router.get("/getall", (req, res) => {
   Model.find({})
     .then((result) => {
       console.log(result);
-      setTimeout(() => {
         res.json(result);
-      }, 200);
     })
     .catch((err) => {
       console.log(err);
