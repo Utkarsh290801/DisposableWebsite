@@ -1,6 +1,7 @@
 import React from "react";
 import "./AboutUs.css";
-import { Link } from "react-scroll";
+
+import { NavLink } from "react-router-dom";
 export default function AboutUs() {
   return (
     <div className="about-contanier" id="aboutus">
@@ -32,7 +33,7 @@ export default function AboutUs() {
               <br />
               <br />
               The main objective of the project on the Disposable Website is to
-              build an application without using coading knowledge. Create a
+              build an application without using coding knowledge. Create a
               temporary website that is disposed automatically when its purpose
               is done. The web pages which is developed all are responsive. This
               project is totally built at the administrative end and thus only
@@ -69,20 +70,20 @@ export default function AboutUs() {
             </div>
 
             <div className="about-options">
-              <Link
-                to="contactme"
-                spy={true}
-                smooth={true}
-                offset={50}
-                duration={1000}
-              >
-                <button className="about-btn about-primary-btn"> Pricing </button>
-              </Link>
+              <NavLink to="/main/pricing">
+                <button className="about-btn about-primary-btn">
+                  {" "}
+                  Pricing{" "}
+                </button>
+              </NavLink>
+
               <a
                 href="https://drive.google.com/file/d/1yc1A5zE1JZR23aE_APqFzhmjNm_YxUBy/view?usp=share_link"
                 download="https://drive.google.com/file/d/1yc1A5zE1JZR23aE_APqFzhmjNm_YxUBy/view?usp=share_link"
               >
-                <button className="about-btn highlighted-btn">Documentation</button>
+                <button className="about-btn highlighted-btn">
+                  Documentation
+                </button>
               </a>
             </div>
           </div>

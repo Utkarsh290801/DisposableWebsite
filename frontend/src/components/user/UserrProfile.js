@@ -185,17 +185,17 @@ const UserrProfile = () => {
         <div className="row mt-4">
           <div className="col-12">
             <div
-              className="page-header pt-5 pb-5 border-radius-xl shadow-lg"
+              className="page-header pt-4 pb-4 border-radius-xl shadow-lg"
               style={{
                 backgroundImage:
                   "url('https://www.creative-tim.com/assets/navbar/bg-purchases-5c9fc0930fe5ac15a960ddacd6224025e8eb0479f8f80ffa7e53804fba4b438a.jpg",
               }}
             >
-              <div className="container-fluid px-5">
+              <div className="container-fluid px-3">
                 <div className="row">
                   <div className="col-lg-6 col-sm-9">
                     <h1 className="mb-2 text-primary">Profile Settings</h1>
-                    <p className="mb-4 text-white max-width-500">
+                    <p className="mb-2 text-white max-width-500">
                       Manage your basic profile information here.
                     </p>
                   </div>
@@ -207,7 +207,7 @@ const UserrProfile = () => {
       </div>
 
       <div
-        className="container-fluid py-4 "
+        className="container-fluid py-3 "
         // style={{
         //   backgroundImage:
         //     "url('https://www.creative-tim.com/assets/navbar/bg-purchases-5c9fc0930fe5ac15a960ddacd6224025e8eb0479f8f80ffa7e53804fba4b438a.jpg",
@@ -318,8 +318,8 @@ const UserrProfile = () => {
             </Formik>
           </div>
 
-          <div className="col-md-6">
-            <form className="form-horizontal mt-1">
+          <div className="col-md-6 px-1">
+            <form className="form-horizontal">
               <div className="card">
                 <div className="card-header">
                   <h4 className="mb-0">Social Profiles</h4>

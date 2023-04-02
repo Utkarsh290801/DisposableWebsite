@@ -6,7 +6,7 @@ import { MdClose } from "react-icons/md";
 import { useScroll } from "./useScroll";
 import { motion } from "framer-motion";
 import { navAnimation } from "./animation";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../user/UserContext";
 import { style } from "@mui/system";
 const Navbar = () => {
@@ -66,7 +66,7 @@ const Navbar = () => {
             <a href="#home">Home</a>
           </li>
           <li>
-            <a href="/user/webbuild">Builder</a>
+            <a href="#pricing">Pricing</a>
           </li>
           <li>
             <div class="dropdown">
@@ -80,10 +80,11 @@ const Navbar = () => {
             </div>
           </li>
           <li>
-            <a href="#pricing">Pricing</a>
+            <Link to="/user/webbuild">Builder</Link>
           </li>
           <li>
-            <a href="/about">About</a>
+            <Link to="/about">About</Link>
+            {/* <a href="/about">About</a> */}
           </li>
           <li>
             <a href="#contact">Contact</a>

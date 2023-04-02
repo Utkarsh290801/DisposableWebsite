@@ -80,7 +80,7 @@ const AboutFooter = () => {
                       offset={50}
                       duration={500}
                     >
-                      Contact
+                     Feedback
                     </Link>
                   </li>
                 </ul>

@@ -2,14 +2,15 @@ import {React,useState} from 'react'
 import {Link} from "react-scroll";
 import "./Navbar.css"
 import logo from '../assets/Home/webx.png'
+import { NavLink} from "react-router-dom";
 const Navbar = () => {
     const[isMobile,setIsMoblie]=useState(false);
     
     return (
     <div className='navbar-container'>
         <h3 className='navbar-parent'>
-        <a
-          href="/home"
+        <NavLink
+          to="/home"
           className="brand"
           style={{
            color:"white",
@@ -21,7 +22,7 @@ const Navbar = () => {
         >
           <img src={logo} alt="logo" style={{ height: "45px" }} /> 
           &nbsp;Web-X
-        </a>
+        </NavLink>
             </h3>
         <ul className={isMobile ? 'navbar-links-mobile':'navbar-links'}
         onClick={()=>{setIsMoblie(false)}}

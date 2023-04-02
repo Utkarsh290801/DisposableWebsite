@@ -15,6 +15,7 @@ code {
 :root {
   --primary-color: #180f14;
   --secondary-color: #e47194;
+  /* --secondary-color: #1d1b31; */
   --font-family: "Poppins", sans-serif;
 }
 

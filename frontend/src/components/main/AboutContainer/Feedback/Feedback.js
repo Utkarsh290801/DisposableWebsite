@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import "./Feedback.css";
+import app_config from "../../../../config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { Formik } from "formik";
 export default function Feedback() {
-  const notify = () => {
-    toast.success("Thanks for giving feedback !!", {
-      position: "top-right",
+  const url = app_config.backend_url;
+  const FeedbackForm = {
+    name: "",
+    designation: "",
+    review: "",
+  };
+  const TestimonialSubmit = async (formdata, { setSubmitting, resetForm }) => {
+    console.log(formdata);
+    setSubmitting(true);
+
+    // asynchronous function returns promise
+    const response = await fetch(url + "/testimonial/add", {
+      method: "POST",
+      body: JSON.stringify(formdata),
+      headers: { "Content-Type": "application/json" },
     });
+    if (response.status === 200) {
+      console.log(response.status);
+      console.log("data saved");
+      toast.success("Thanks for giving feedback !!", {
+        position: "top-right",
+      });
+      resetForm({ values: "" });
+    } else if (response.status === 500) {
+      console.log(response.status);
+      console.log("something went wrong");
+      toast.error("Something went Wrong!!", {
+        position: "top-right",
+      });
+    }
+
+    setSubmitting(false);
   };
 
   
+
   return (
     <div className="feedback-main-container" id="contactme">
       <div className="feedback-contactme-container">
@@ -21,8 +51,6 @@ export default function Feedback() {
         <div className="feedback-container-parent">
           <div className="feedback-container">
             <div className="feedback-contactinfo">
-          
-
               <div className="feedback-box">
                 <div className="feedback-icon">
                   <i className="fa fa-phone"></i>
@@ -45,27 +73,52 @@ export default function Feedback() {
             </div>
 
             <div className="feedback-contactform">
-              <form action="">
-                <h2>Send Review</h2>
+              <Formik
+                initialValues={FeedbackForm}
+                onSubmit={TestimonialSubmit}
+          
+              >
+                {({ values, handleChange, handleSubmit,  }) => (
+                  <form onSubmit={handleSubmit}>
+                    <h2>Send Review</h2>
 
-                <div className="feedback-inputbox">
-                  <input type="text" name="from_name" required="required" />
-                  <span>Name</span>
-                </div>
+                    <div className="feedback-inputbox">
+                      <input
+                        type="text"
+                        name="name"
+                        onChange={handleChange}
+                        value={values.name}
+                        required="required"
+                      />
+                      <span>Name</span>
+                    </div>
 
-                <div className="feedback-inputbox">
-                  <input type="text" name="email" required="required" />
-                  <span>Designation</span>
-                </div>
-                <div className="feedback-inputbox">
-                  <textarea name="message" required="required"></textarea>
-                  <span>Review...</span>
-                </div>
+                    <div className="feedback-inputbox">
+                      <input
+                        type="text"
+                        name="designation"
+                        onChange={handleChange}
+                        value={values.designation}
+                        required="required"
+                      />
+                      <span>Designation</span>
+                    </div>
+                    <div className="feedback-inputbox">
+                      <textarea
+                        name="review"
+                        onChange={handleChange}
+                        value={values.review}
+                        required="required"
+                      ></textarea>
+                      <span>Review...</span>
+                    </div>
 
-                <div className="feedback-inputbox">
-                  <input type="submit" onClick={notify} name="" value="Send" />
-                </div>
-              </form>
+                    <div className="feedback-inputbox">
+                      <input type="submit" />
+                    </div>
+                  </form>
+                )}
+              </Formik>
             </div>
           </div>
         </div>
