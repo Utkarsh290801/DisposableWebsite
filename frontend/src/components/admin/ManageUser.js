@@ -203,9 +203,11 @@ const ManageUser = () => {
             <button onClick={(e)=>handleOpen({user})} className="btn btn-primary">
               View
             </button>
+            {selUser &&(
+
             <Modal
               open={open}
-              onClose={handleClose}
+              onClick={handleClose}
               
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
@@ -216,16 +218,16 @@ const ManageUser = () => {
               //   }}
               BackdropProps={{style: {backgroundColor:'rgba(251,251,251,0.1)',backdropFilter: "blur(1px)"}}}
             >
-              <Box sx={style}>
+              <Box sx={style} >
         <div class="mb-3" style={{borderRadius: "5px"}}>
           <div class="row g-0">
             <div class="col-md-4 text-center">
               {/* // style={{border-top-left-radius: ".5rem", border-bottom-left-radius: ".5rem"}}> */}
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                 alt="Avatar" class="img-fluid my-5" style={{width: "80px"}} />
-                      <h3>{user.username}</h3>
+                      <h3>{selUser.username}</h3>
                       <h5>Created at:</h5>
-                      <p>{user.createdAt}</p>
+                      <p>{selUser.createdAt}</p>
               
             </div>
             <div class="col-md-8">
@@ -235,11 +237,11 @@ const ManageUser = () => {
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
                     <h6>Email</h6>
-                    <p class="text-muted">{user.email}</p>
+                    <p class="text-muted">{selUser.email}</p>
                   </div>
                   <div class="col-6 mb-3">
                     <h6>UserID</h6>
-                            <p class="text-muted">{user._id}</p>
+                            <p class="text-muted">{selUser._id}</p>
                   </div>
                 </div>
                 <h6>Payment Details</h6>
@@ -247,11 +249,11 @@ const ManageUser = () => {
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
                     <h6>Recent Plan Price</h6>
-                            <p class="text-muted">{plan.price}</p>
+                            <p class="text-muted">{selUser.price}</p>
                   </div>
                   <div class="col-6 mb-3">
                     <h6>Expired On:</h6>
-                            <p class="text-muted">{plan.expired}</p>
+                            <p class="text-muted">{selUser.expired}</p>
                   </div>
                 </div>
                 <div class="d-flex justify-content-start">
@@ -265,6 +267,7 @@ const ManageUser = () => {
         </div>
               </Box>
             </Modal>
+            )}
           </TableCell>
           <TableCell>
             <button

@@ -19,6 +19,7 @@ const Navbar = () => {
   const logout = () => {
     //1.destroy session value
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("admin");
     //2. set the current user to null
     setLoggedIn(false);
     //3.navigate to login page

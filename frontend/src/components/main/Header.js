@@ -28,7 +28,7 @@ const url = app_config.backend_url;
 const pages = [
   { name: "Home", link: "/home" },
   { name: "Builder", link: "/user/webbuild" },
-  
+
   { name: "Pricing", link: "/main/pricing" },
   { name: "About Us", link: "/about" },
   { name: "Contact Us", link: "/main/contactus" },
@@ -257,9 +257,10 @@ const Header = () => {
       return (
         <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
               <Typography sx={{ color: "white" }}>
-                {currentUser.username}
+                {currentUser.username}&nbsp;&nbsp;
+
               </Typography>
               <Avatar
                 sx={{ width: 50, height: 50 }}
@@ -427,14 +428,19 @@ const Header = () => {
                   Login Now
                 </NavLink>
               </li>
-            ) : (currentAdmin) ? (
-              <NavLink onClick={adminLogout} className="btn btn-danger m-3" to="/">
+            ) : currentAdmin ? (
+              <NavLink
+                onClick={adminLogout}
+                className="btn btn-danger m-3"
+                to="/"
+              >
                 Logout
               </NavLink>
-            ): currentUser ?( <NavLink onClick={logout} className="btn btn-primary m-3" to="/">
-            Logout
-            </NavLink>) : null}
-            
+            ) : currentUser ? (
+              <NavLink onClick={logout} className="btn btn-danger m-3" to="/">
+                Logout
+              </NavLink>
+            ) : null}
           </Box>
 
           {/*------ SearchBar-------- */}
@@ -446,10 +452,8 @@ const Header = () => {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
-          {currentUser?(UserOptions()):(adminOptions())}
-          
-          
+          </Search> */}
+          {currentUser ? UserOptions() : adminOptions()}
 
           {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

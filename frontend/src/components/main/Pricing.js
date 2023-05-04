@@ -188,15 +188,22 @@ const Pricing = () => {
                   </span>
                 </li> */}
                 <li class="footer1">
-                  <a
-                    // onClick={() => {
-                    //   priceSubmit();
-                    // }}
-                    class="pricing-btn btn btn-dark border btn-sm"
-                    href="/home"
-                  >
-                    Try for free
-                  </a>
+                  {!currentUser && (
+                    <a
+                      class="pricing-btn btn btn-dark border btn-sm"
+                      href="/main/signin"
+                    >
+                      Try for free
+                    </a>
+                  )}
+                  {currentUser && (
+                    <a
+                      class="pricing-btn btn btn-dark border btn-sm"
+                      href="/home"
+                    >
+                      Try for free
+                    </a>
+                  )}
                 </li>
               </ul>
             </div>
