@@ -210,7 +210,7 @@ const Pricing = () => {
                 <li class="pricing-header">
                   <h4>Pro</h4>
                   <h2>
-                    <sup>$</sup>15 <sub>/ Month</sub>
+                    <sup>₹</sup>15 <sub>/ Month</sub>
                   </h2>
                 </li>
                 <li>Custom Domain</li>
@@ -246,13 +246,24 @@ const Pricing = () => {
                   <strike>24x7 Expert Support </strike>
                 </li>
                 <li class="footer1">
-                  <a
-                    class="pricing-btn btn-theme effect btn-sm"
-                    href="https://buy.stripe.com/test_14k5mm6up37K1EYaEF"
-                    target="_blank"
-                  >
-                    Get Started
-                  </a>
+                  {!currentUser && (
+                    <a
+                      class="pricing-btn btn-theme effect btn-sm"
+                      href="/main/signin"
+                      target="_self"
+                    >
+                      Get Started
+                    </a>
+                  )}
+                  {currentUser && (
+                    <a
+                      class="pricing-btn btn-theme effect btn-sm"
+                      href="https://buy.stripe.com/test_14k5mm6up37K1EYaEF"
+                      target="_blank"
+                    >
+                      Get Started
+                    </a>
+                  )}
                 </li>
               </ul>
             </div>
@@ -266,7 +277,7 @@ const Pricing = () => {
                 <li class="pricing-header">
                   <h4>Expert</h4>
                   <h2>
-                    <sup>$</sup>30<sub>/ Month</sub>
+                    <sup>₹</sup>30<sub>/ Month</sub>
                   </h2>
                 </li>
                 <li>Custom Domain</li>
@@ -280,13 +291,24 @@ const Pricing = () => {
                 <li>Webpages Unlimited Design</li>
                 <li>24x7 Expert Support </li>
                 <li class="footer1">
-                  <a
-                    class="pricing-btn btn btn-dark border btn-sm"
-                    href="https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY"
-                    target="_blank"
-                  >
-                    Get Started
-                  </a>
+                  {!currentUser && (
+                    <a
+                      class="pricing-btn btn-theme effect btn-sm"
+                      href="/main/signin"
+                      target="_self"
+                    >
+                      Get Started
+                    </a>
+                  )}
+                  {currentUser && (
+                    <a
+                      class="pricing-btn btn-theme effect btn-sm"
+                      href="https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY"
+                      target="_blank"
+                    >
+                      Get Started
+                    </a>
+                  )}
                 </li>
               </ul>
             </div>

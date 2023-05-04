@@ -108,19 +108,16 @@ export default function Details() {
             </div>
               <h2>Work History</h2>
               <div className="one-line">
-                <h3>Duration(4-Month)</h3>
+                <h3>Duration(5-Month)</h3>
               </div>
               <div className="college">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+              The "Disposable Website" project was started on December 1, 2022, and completed on April 30, 2023, with a total duration of 5 months. During this period, we spent an estimated 500 hours working on the project, including planning, implementation, testing, and evaluation. We worked on the project primarily during weekdays and weekends, dedicating an average of 20 hours per week to the project.
+<br/>
+<br/>
+The project was divided into several phases, including project planning, implementation, testing, and evaluation, each of which took a significant amount of time to complete. The project planning phase took approximately 2 weeks, during which we researched various website builder tools and defined the project scope and requirements. The implementation phase took the bulk of our time, lasting for approximately 12 weeks, during which we designed and developed the Web-X tool. The testing and evaluation phase took approximately 2 weeks, during which we tested the Website Builder tool using various methodologies and received feedback from users.
+<br/>
+<br/>
+Overall, the duration of work done on the Website Builder project was significant, requiring a considerable amount of time and effort to complete. However, the skills and knowledge gained during the project, as well as the successful completion of the project, made it a valuable and rewarding experience.
               </div>
             </div>
 

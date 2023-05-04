@@ -30,42 +30,42 @@ function Portfolio() {
           transition={{ delay: 0.03, type: "tween", duration: 0.8 }}
           className="child-two grid-box"
         ></motion.div>
-        <motion.div
+        {/* <motion.div
           variants={portfolioAnimations}
           animate={controls}
           transition={{ delay: 0.03, type: "tween", duration: 0.8 }}
           className="child-three grid-box"
-        ></motion.div>
-        <motion.div
+        ></motion.div> */}
+        {/* <motion.div
           variants={portfolioAnimations}
           animate={controls}
           transition={{ delay: 0.03, type: "tween", duration: 0.8 }}
           className="child-four grid-box"
-        ></motion.div>
-        <motion.div
+        ></motion.div> */}
+        {/* <motion.div
           variants={portfolioAnimations}
           animate={controls}
           transition={{ delay: 0.03, type: "tween", duration: 0.8 }}
           className="child-five grid-box"
-        ></motion.div>
-        <motion.div
+        ></motion.div> */}
+        {/* <motion.div
           variants={portfolioAnimations}
           animate={controls}
           transition={{ delay: 0.03, type: "tween", duration: 0.8 }}
           className="child-six grid-box"
-        ></motion.div>
-        <motion.div
+        ></motion.div> */}
+        {/* <motion.div
           variants={portfolioAnimations}
           animate={controls}
           transition={{ delay: 0.03, type: "tween", duration: 0.8 }}
           className="child-seven grid-box"
-        ></motion.div>
-        <motion.div
+        ></motion.div> */}
+        {/* <motion.div
           variants={portfolioAnimations}
           animate={controls}
           transition={{ delay: 0.03, type: "tween", duration: 0.8 }}
           className="child-eight grid-box"
-        ></motion.div>
+        ></motion.div> */}
       </div>
       <div className="portfolio-more">
         {/* <span>Load More</span> */}
@@ -81,15 +81,16 @@ const Section = styled.section`
   background-color: var(--secondary-color);
   .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(1, 2fr);
     grid-template-areas:
       "one one two two"
       "one one three four"
       "five six seven seven"
       "eight six seven seven";
     .grid-box {
-      height: 15rem;
+      height: 55rem;
       width: 100%;
+       background-size: cover;
       cursor: pointer;
       &:nth-of-type(1) {
         grid-area: one;
@@ -98,46 +99,46 @@ const Section = styled.section`
         height: 100%;
         z-index: 10;
       }
-      &:nth-of-type(2) {
-        grid-area: two;
-        background: url(${portfolio4}) no-repeat center center;
-        background-size: cover;
-        z-index: 10;
-      }
-      &:nth-of-type(3) {
-        grid-area: three;
-        background: url(${portfolio5}) no-repeat right center;
-        background-size: cover;
-      }
-      &:nth-of-type(4) {
-        grid-area: four;
-        background: url(${portfolio10}) no-repeat center center;
-        background-size: cover;
-      }
-      &:nth-of-type(5) {
-        z-index: 10;
-        grid-area: five;
-        background: url(${portfolio7}) no-repeat right center;
-        background-size: cover;
-      }
-      &:nth-of-type(6) {
-        grid-area: six;
-        background: url(${portfolio8}) no-repeat center center;
-        background-size: cover;
-        height: 100%;
-      }
-      &:nth-of-type(7) {
-        grid-area: seven;
-        background: url(${portfolio9}) no-repeat right center;
-        background-size: cover;
-        height: 100%;
-      }
-      &:nth-of-type(8) {
-        grid-area: eight;
-        background: url(${portfolio6}) no-repeat right center;
-        background-size: cover;
-        z-index: 10;
-      }
+      // &:nth-of-type(2) {
+      //   grid-area: two;
+      //   background: url(${portfolio4}) no-repeat center center;
+      //   background-size: cover;
+      //   z-index: 10;
+      // }
+      // &:nth-of-type(3) {
+      //   grid-area: three;
+      //   background: url(${portfolio5}) no-repeat right center;
+      //   background-size: cover;
+      // }
+      // &:nth-of-type(4) {
+      //   grid-area: four;
+      //   background: url(${portfolio10}) no-repeat center center;
+      //   background-size: cover;
+      // }
+      // &:nth-of-type(5) {
+      //   z-index: 10;
+      //   grid-area: five;
+      //   background: url(${portfolio7}) no-repeat right center;
+      //   background-size: cover;
+      // }
+      // &:nth-of-type(6) {
+      //   grid-area: six;
+      //   background: url(${portfolio8}) no-repeat center center;
+      //   background-size: cover;
+      //   height: 100%;
+      // }
+      // &:nth-of-type(7) {
+      //   grid-area: seven;
+      //   background: url(${portfolio9}) no-repeat right center;
+      //   background-size: cover;
+      //   height: 100%;
+      // }
+      // &:nth-of-type(8) {
+      //   grid-area: eight;
+      //   background: url(${portfolio6}) no-repeat right center;
+      //   background-size: cover;
+      //   z-index: 10;
+      // }
     }
   }
   .portfolio-more {

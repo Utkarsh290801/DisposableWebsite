@@ -7,6 +7,7 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
+import {  useNavigate } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -16,7 +17,10 @@ import toast from "react-hot-toast";
 import { UserContext } from "./../user/UserContext";
 import { motion } from "framer-motion";
 const UserrProfile = () => {
+  const navigate = useNavigate();
   const [previewUrl, setPreviewUrl] = useState("");
+  
+  const { loggedIn, setLoggedIn } = React.useContext(UserContext);
   // const handleChange=(e) =>{
   //     console.log(e.target.files);
   //     setFile(URL.createObjectURL(e.target.files[0]));
@@ -38,6 +42,9 @@ const UserrProfile = () => {
     if (res.status === 200) {
       toast.success("Successfully deleted");
       getDataFromBackend();
+      sessionStorage.removeItem("user");
+      setLoggedIn(false);
+      navigate("/");
     }
   };
 
@@ -173,6 +180,14 @@ const UserrProfile = () => {
       }
     });
   };
+
+  const [deleted, setDeleted] = useState(false);
+  const handleDelete = () => {
+    setCurrentUser({ ...currentUser, avatar: null });
+    setPreviewUrl(null);
+    setDeleted(true);
+    // localStorage.removeItem("avatar");
+  };
   return (
     <div
       className="container"
@@ -285,6 +300,7 @@ const UserrProfile = () => {
                             variant="contained"
                             color="error"
                             startIcon={<DeleteIcon />}
+                            onClick={handleDelete}
                           >
                             Remove
                           </Button>
@@ -298,6 +314,7 @@ const UserrProfile = () => {
                         name="username"
                         onChange={handleChange}
                         value={values.username}
+                        disabled={true}
                       />
 
                       <TextField
@@ -307,6 +324,7 @@ const UserrProfile = () => {
                         name="email"
                         onChange={handleChange}
                         value={values.email}
+                        disabled={true}
                       />
                     </div>
                     <Button type="submit" variant="contained">
@@ -322,13 +340,25 @@ const UserrProfile = () => {
             <form className="form-horizontal">
               <div className="card">
                 <div className="card-header">
-                  <h4 className="mb-0">Social Profiles</h4>
+                  <h4 className="mb-0">Change Password</h4>
                   <p className="text-sm mb-0">
-                    Here you can set your social profiles
+                    Here you can update the password
                   </p>
                 </div>
+
                 <div className="card-body">
-                  <div className="form-group">
+                  <div>
+                    <TextField
+                      label="New Password"
+                      className="mt-4 w-100"
+                      name="password"
+                      validate={passwordValidator}
+                      onChange={(e) => setNewPass(e.target.value)}
+                      value={newPass}
+                    />
+                    {/* <button onClick={onChangePassword}>UPdate Password</button> */}
+                  </div>
+                  {/* <div className="form-group">
                     <label className="form-control-label" for="basic-url">
                       <i
                         class="fab fa-twitter fa-lg me-1"
@@ -348,8 +378,8 @@ const UserrProfile = () => {
                         id="user_twitter_username"
                       />
                     </div>
-                  </div>
-                  <div className="form-group mt-4">
+                  </div> */}
+                  {/* <div className="form-group mt-4">
                     <label className="form-control-label" for="basic-url">
                       <i
                         class="fab fa-facebook-f fa-lg me-1"
@@ -369,8 +399,8 @@ const UserrProfile = () => {
                         id="user_facebook_username"
                       />
                     </div>
-                  </div>
-                  <div className="form-group mt-4">
+                  </div> */}
+                  {/* <div className="form-group mt-4">
                     <label className="form-control-label" for="basic-url">
                       <i
                         class="fab fa-github fa-lg me-1"
@@ -390,16 +420,15 @@ const UserrProfile = () => {
                         id="user_github_username"
                       />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="card-footer text-end pt-2">
-                  <input
-                    type="submit"
-                    name="commit"
-                    value="Save"
+                  <button
+                    onClick={onChangePassword}
                     className="btn bg-gradient-dark  mb-0"
-                    data-disable-with="Save"
-                  />
+                  >
+                    Update Password
+                  </button>
                 </div>
               </div>
             </form>
@@ -520,18 +549,6 @@ const UserrProfile = () => {
                 </div>
               </div>
             </form> */}
-
-            <div>
-              <TextField
-                label="New Password"
-                className="mt-4 w-100"
-                name="password"
-                validate={passwordValidator}
-                onChange={(e) => setNewPass(e.target.value)}
-                value={newPass}
-              />
-              <button onClick={onChangePassword}>UPdate Password</button>
-            </div>
           </div>
         </div>
       </div>

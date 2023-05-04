@@ -123,7 +123,7 @@ const SignIn = () => {
         //for admin login
         if (data.isAdmin) {
           sessionStorage.setItem("admin", JSON.stringify(data));
-          navigate("/admin/");
+          navigate("/admin/admindashboard");
         } else {
           navigate("/home");
           sessionStorage.setItem("user", JSON.stringify(data));

@@ -116,14 +116,8 @@ const ManageUser = () => {
     p: 4,
   };
   const [open, setOpen] = React.useState(false);
-  const [selUser, setSelUser] = useState(null);
-  const handleOpen = (curr) => {
-    setOpen(true);
-    console.log(curr.user);
-    setSelUser(curr.user);
-    
-  };
-  const handleClose = () => {setOpen(false);}
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const deleteUser = (id) => {
     fetch(url + "/user/delete/" + id, { method: "Delete" })
@@ -200,13 +194,12 @@ const ManageUser = () => {
           <TableCell>{user.username}</TableCell>
           <TableCell>{user.email}</TableCell>
           <TableCell>
-            <button onClick={(e)=>handleOpen({user})} className="btn btn-primary">
+            <button onClick={handleOpen} className="btn btn-primary">
               View
             </button>
             <Modal
               open={open}
               onClose={handleClose}
-              
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
               // sx={{ 

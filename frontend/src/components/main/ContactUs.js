@@ -181,7 +181,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import { Formik } from "formik";
 import app_config from "../../config";
 import Swal from "sweetalert2";
-
+import * as Yup from "yup";
 import React from "react";
 
 const ContactUs = () => {
@@ -202,7 +202,7 @@ const ContactUs = () => {
     message: "",
   };
 
-  const feedbackSubmit = async (formdata, { setSubmitting }) => {
+  const feedbackSubmit = async (formdata, { setSubmitting, resetForm }) => {
     console.log(formdata);
     setSubmitting(true);
 
@@ -220,6 +220,7 @@ const ContactUs = () => {
         title: "Success",
         text: "send successfully!!",
       });
+      resetForm({ values: "" });
     } else if (response.status === 500) {
       console.log(response.status);
       console.log("something went wrong");
@@ -231,8 +232,27 @@ const ContactUs = () => {
     }
     setSubmitting(false);
   };
-
-  const formBody = ({ values, handleSubmit, handleChange, isSubmitting }) => {
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "Too Short!")
+      .max(22, "Too Long!")
+      .required("*Name is Required"),
+    email: Yup.string()
+      .email("Email is invalid")
+      .required("*Email is required"),
+    message: Yup.string()
+      .min(2, "Too Short!")
+      .max(222, "Too Long!")
+      .required("*Message is Required"),
+  });
+  const formBody = ({
+    values,
+    handleSubmit,
+    handleChange,
+    isSubmitting,
+    errors,
+    touched,
+  }) => {
     return (
       <Container>
         <div className="mb-4 ">
@@ -275,6 +295,8 @@ const ContactUs = () => {
                     varient="outlined"
                     onChange={handleChange}
                     value={values.name}
+                    helperText={touched.name ? errors.name : ""}
+                    error={Boolean(errors.name && touched.name)}
                   />
 
                   <TextField
@@ -285,6 +307,8 @@ const ContactUs = () => {
                     varient="outlined"
                     onChange={handleChange}
                     value={values.email}
+                    helperText={touched.email ? errors.email : ""}
+                    error={Boolean(errors.email && touched.email)}
                   />
                 </Stack>
                 <Stack direction="column" spacing={3}>
@@ -297,6 +321,8 @@ const ContactUs = () => {
                     varient="outlined"
                     onChange={handleChange}
                     value={values.mobile}
+                    helperText={touched.mobile ? errors.mobile : ""}
+                    error={Boolean(errors.name && touched.mobile)}
                   />
                   <TextField
                     className="w-100 "
@@ -306,6 +332,8 @@ const ContactUs = () => {
                     varient="outlined"
                     onChange={handleChange}
                     value={values.subject}
+                    helperText={touched.subject ? errors.subject : ""}
+                    error={Boolean(errors.subject && touched.subject)}
                   />
                   <TextField
                     className="w-100 "
@@ -317,6 +345,8 @@ const ContactUs = () => {
                     varient="outlined"
                     onChange={handleChange}
                     value={values.message}
+                    helperText={touched.message ? errors.message : ""}
+                    error={Boolean(errors.message && touched.message)}
                   />
                 </Stack>
 
@@ -426,7 +456,11 @@ const ContactUs = () => {
     );
   };
   return (
-    <Formik initialValues={userForm} onSubmit={feedbackSubmit}>
+    <Formik
+      initialValues={userForm}
+      onSubmit={feedbackSubmit}
+      validationSchema={SignupSchema}
+    >
       {formBody}
     </Formik>
   );

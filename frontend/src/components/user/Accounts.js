@@ -6,6 +6,9 @@ const Accounts = () => {
 
   const close = () => setModalOpen(false);
   const open = () => setModalOpen(true);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  );
 
   return (
     <div>
@@ -54,7 +57,13 @@ const Accounts = () => {
             console.log("load payment data", paymentRequest);
           }}
         />
-      
+      <a
+          className="btn btn-link"
+          target="_blank"
+          href={"/planmanager/" + currentUser._id}
+        >
+          Visit Live Page
+        </a>
     </div>
   );
 };

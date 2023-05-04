@@ -221,16 +221,7 @@ export default function Sidebar({ children, options, title }) {
               </IconButton>
             </Tooltip>
           </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <Button
-              size="large"
-              sx={{ ml: 1, ...boxSX }}
-              color="inherit"
-              onClick={(e) => navigate("/main/preview")}
-            >
-              Preview
-            </Button>
-          </Box>
+         
           <Box sx={{ flexGrow: 1 }}>
             <Button
               size="large"
@@ -241,6 +232,17 @@ export default function Sidebar({ children, options, title }) {
               Builder
             </Button>
           </Box>
+          <Box sx={{ flexGrow: 1 }}>
+            
+            <Button
+              size="large"
+              sx={{ ml: 1, ...boxSX }}
+              color="inherit"
+              onClick={(e) => navigate("/about")}
+            >
+              About Us
+            </Button>
+          </Box>
           <Box sx={{ flexGrow: 30 }}>
             <Button
               size="large"
@@ -248,7 +250,7 @@ export default function Sidebar({ children, options, title }) {
               color="inherit"
               onClick={(e) => navigate("/main/pricing")}
             >
-              Plans
+              Pricing
             </Button>
           </Box>
 

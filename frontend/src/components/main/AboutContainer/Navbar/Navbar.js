@@ -27,11 +27,11 @@ const Navbar = () => {
         <ul className={isMobile ? 'navbar-links-mobile':'navbar-links'}
         onClick={()=>{setIsMoblie(false)}}
         >
-          <a href="/home" className='home'>Home</a>
+          <NavLink to="/home" className='home'>Home</NavLink>
             <Link to="aboutus" spy={true} smooth={true} offset={-5} duration={500} className='about-me'>
             <li>About Us</li>
             </Link>
-            <a href="/user/webbuild" className='home'>Builder</a>
+            <NavLink to="/user/webbuild" className='home'>Builder</NavLink>
             <Link to="resume" spy={true} smooth={true} offset={10} duration={500} className='resume'>
                 <li>Details</li>
             </Link>

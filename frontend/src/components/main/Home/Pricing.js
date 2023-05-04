@@ -97,7 +97,7 @@ function Pricing() {
               <div className="pricing__plan__name">
                 <h2>{name}</h2>
                 <div className="pricing__plan__name__price">
-                  <span>$</span>
+                  <span>₹</span>
                   <p>{price}</p>
                 </div>
               </div>

@@ -27,9 +27,10 @@ import { useEffect, useState } from "react";
 const url = app_config.backend_url;
 const pages = [
   { name: "Home", link: "/home" },
-  // { name: "Why?", link: "/" },
-  { name: "Store-templates", link: "/" },
+  { name: "Builder", link: "/user/webbuild" },
+  
   { name: "Pricing", link: "/main/pricing" },
+  { name: "About Us", link: "/about" },
   { name: "Contact Us", link: "/main/contactus" },
   // { name: "Login", link: "/main/signin" },
 ];
@@ -432,7 +433,7 @@ const Header = () => {
           </Box>
 
           {/*------ SearchBar-------- */}
-          <Search sx={{ mr: "7px" }}>
+          {/* <Search sx={{ mr: "7px" }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -440,7 +441,7 @@ const Header = () => {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
 
           {UserOptions()}
           {adminOptions()}
