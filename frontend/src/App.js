@@ -11,6 +11,7 @@ import Reset from "./components/main/Reset";
 import ResetPassword from "./components/main/ResetPassword";
 import Admin from "./components/admin";
 import ManageUser from "./components/admin/ManageUser";
+import ManageQuery from "./components/admin/ManageQuery";
 import Profile from "./components/admin/Profile";
 import User from "./components/user";
 import NotFound from "./components/main/NotFound";
@@ -81,6 +82,7 @@ function App() {
               path="admin"
             >
               <Route path="manageuser" element={<ManageUser />} />
+              <Route path="managequery" element={<ManageQuery />} />
               <Route path="admindashboard" element={<AdminDashboard />} />
               <Route path="usermanager" element={<UserManager />} />
               <Route path="profile" element={<Profile />} />

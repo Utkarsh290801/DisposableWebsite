@@ -105,7 +105,9 @@ const Header = () => {
     navigate("/main/signin");
   };
   const adminLogout = () => {
+    setAnchorElUser(null);
     sessionStorage.removeItem("admin");
+    setLoggedIn(false);
     navigate("/main/signin");
   };
 
@@ -145,7 +147,7 @@ const Header = () => {
   };
 
   const adminOptions = () => {
-    if (currentAdmin === null && currentAdmin === null) {
+    if (currentAdmin === null) {
       return (
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Admin Login">
@@ -425,11 +427,14 @@ const Header = () => {
                   Login Now
                 </NavLink>
               </li>
-            ) : (
-              <NavLink onClick={logout} className="btn btn-danger m-3" to="/">
+            ) : (currentAdmin) ? (
+              <NavLink onClick={adminLogout} className="btn btn-danger m-3" to="/">
                 Logout
               </NavLink>
-            )}
+            ): currentUser ?( <NavLink onClick={logout} className="btn btn-primary m-3" to="/">
+            Logout
+            </NavLink>) : null}
+            
           </Box>
 
           {/*------ SearchBar-------- */}
@@ -441,10 +446,10 @@ const Header = () => {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search> */}
-
-          {UserOptions()}
-          {adminOptions()}
+          </Search>
+          {currentUser?(UserOptions()):(adminOptions())}
+          
+          
 
           {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

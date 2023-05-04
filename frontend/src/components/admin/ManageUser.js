@@ -193,7 +193,7 @@ const ManageUser = () => {
           <TableCell>{user._id}</TableCell>
           <TableCell component="th" scope="row">
             <Avatar
-              src={user.avatar}
+              src={url+'/'+user?.avatar}
               sx={{ width: 45, height: 45 }}
             />
           </TableCell>
@@ -295,50 +295,52 @@ const ManageUser = () => {
 
   return (
     <div>
-      
-      <Paper className="container">
-      <InputBase
-        sx={{ ml: 1, flex: 1 }}
-        placeholder="Enter Name to Search"
-        onChange={(e) => setFilter(e.target.value)}
-        inputProps={{ "aria-label": "Enter Name to Search" }}
-      />
-      <IconButton
-        type="button"
-        sx={{ p: "10px" }}
-        aria-label="search"
-        onClick={handleFilter}
-      >
-        <SearchIcon color="primary" />
-      </IconButton>
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table" >
-            <TableHead style={{ backgroundColor: "#80808054" }}>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Avatar</TableCell>
-                <TableCell><TableSortLabel onClick={()=>sorting("username")}>Name</TableSortLabel></TableCell>
-                <TableCell onClick={()=>sorting("email")}>Email</TableCell>
-                <TableCell>ViewProfile</TableCell>
-                <TableCell>Delete</TableCell>
-                <TableCell>Status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {isloading ? <Loader/> : displayUser()}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={userArray.length}
-          rowsPerPage={rpg}
-          page={pg}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+      {isloading ? (<Loader />) : (
+        <Paper className="container">
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Enter Name to Search"
+            onChange={(e) => setFilter(e.target.value)}
+            inputProps={{ "aria-label": "Enter Name to Search" }}
+          />
+          <IconButton
+            type="button"
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={handleFilter}
+          >
+            <SearchIcon color="primary" />
+          </IconButton>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table" >
+              <TableHead style={{ backgroundColor: "#80808054" }}>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Avatar</TableCell>
+                  <TableCell><TableSortLabel onClick={() => sorting("username")}>Name</TableSortLabel></TableCell>
+                  <TableCell onClick={() => sorting("email")}>Email</TableCell>
+                  <TableCell>ViewProfile</TableCell>
+                  <TableCell>Delete</TableCell>
+                  <TableCell>Status</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {/* {isloading ? <Loader/> : displayUser()} */}
+                {displayUser()}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={userArray.length}
+            rowsPerPage={rpg}
+            page={pg}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}
     </div>
   );
 };
