@@ -9,7 +9,22 @@ const contactRouter = require("./routers/contactRouter");
 const testimonialRouter = require("./routers/testimonialRouter");
 const utilRouter = require("./routers/utils");
 const cors = require('cors')
-const api_config = require('./config')
+const api_config = require('./config');
+const executeDisposeScript = require('./disposeScript');
+
+const webpageModel = require('./models/webpageModel');
+
+const disposeExpiredWebpages = () => {
+  // console.log('page disposed');
+  webpageModel.findOneAndUpdate({expiryDate: {$lt: new Date()}}, {disposed: true}, {new: true})
+  .then((result) => {
+    console.log(result);
+  }).catch((err) => {
+    console.log(err);
+  });
+}
+
+// executeDisposeScript(disposeExpiredWebpages , 1000 * 1); // 24 hours
 
 app.use(express.static('public')); //2
 

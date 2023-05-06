@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-//import 'grapesjs/dist/css/grapes.min.css';
 import "grapesjs/dist/css/grapes.min.css";
 import "grapesjs/dist/grapes.min.js";
 import grapesjs from "grapesjs";
@@ -10,14 +9,8 @@ import gsTap from "grapesjs-tabs";
 import Basics from "grapesjs-blocks-basic";
 import BaseReactComponent from "./base-react-component";
 import app_config from "../../config";
-import { useNavigate, useParams } from "react-router-dom";
-// import {TablePluginRef} from "./Table/consts";
-// import addTablePlugin from './Table';
-// import { ChartPluginRef } from "./Chart/consts";
-// import addChartPlugin from './Chart';
 
 const WebBuilder = () => {
-  const navigate = useNavigate();
   const url = app_config.backend_url;
   const [pluginLoaded, setPluginLoaded] = useState(false);
   const [editor, setEditor] = useState(null);
@@ -68,10 +61,6 @@ const WebBuilder = () => {
     // setPageHTML(data.data.html);
     // setPageCSS(data.data.css);
   };
-
-  useEffect(() => {
-    // fetchPageData();
-  }, [])
   
 
   useEffect(() => {
@@ -88,22 +77,22 @@ const WebBuilder = () => {
         container: "#gjs",
         fromElement: true,
         plugins: [gsWebpage, gsCustome, gsTap, Basics, BaseReactComponent],
-        storageManager: {
-          id: "gjs-",
-          type: "local",
-          urlStore:
-            "http://173.249.14.149:3001/api/Dashboards/5ef370de14213070188a41eb/grapes?access_token=B6IES26pZSvpX4J8c8q4wmseASpRtmBOtvXzztH57NDDJXxO94qE7VbtJ7y718GZ",
-          urlLoad:
-            "http://173.249.14.149:3001/api/Dashboards/5ef370de14213070188a41eb/grapes?access_token=B6IES26pZSvpX4J8c8q4wmseASpRtmBOtvXzztH57NDDJXxO94qE7VbtJ7y718GZ",
-          // autosave: true,
-          // autoload: true,
-          contentTypeJson: true,
-          storeComponents: true,
-          allowScripts: 1,
-          storeStyles: true,
-          storeHtml: true,
-          storeCss: true,
-        },
+        // storageManager: {
+        //   id: "gjs-",
+        //   type: "local",
+        //   urlStore:
+        //     "http://173.249.14.149:3001/api/Dashboards/5ef370de14213070188a41eb/grapes?access_token=B6IES26pZSvpX4J8c8q4wmseASpRtmBOtvXzztH57NDDJXxO94qE7VbtJ7y718GZ",
+        //   urlLoad:
+        //     "http://173.249.14.149:3001/api/Dashboards/5ef370de14213070188a41eb/grapes?access_token=B6IES26pZSvpX4J8c8q4wmseASpRtmBOtvXzztH57NDDJXxO94qE7VbtJ7y718GZ",
+        //   // autosave: true,
+        //   // autoload: true,
+        //   contentTypeJson: true,
+        //   storeComponents: true,
+        //   allowScripts: 1,
+        //   storeStyles: true,
+        //   storeHtml: true,
+        //   storeCss: true,
+        // },
         pluginsOpts: {
           "grapesjs-preset-webpage": {
             // blocksBasicOpts: {

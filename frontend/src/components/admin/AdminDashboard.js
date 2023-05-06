@@ -1,13 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -20,9 +11,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Data as UserData } from ".././utils/data";
 import BarChart from "../Graph/BarChart";
 import Deposits from "../Graph/Deposits";
-// import ManageArtist from "./ManageArtist";
-import axios from "axios";
-// import AdminManageSongs from "./ManageSongs";
 import AnimatedNumbers from "react-animated-numbers";
 import DoughnutChart from "../Graph/DoughnutChart";
 import app_config from "../../config";

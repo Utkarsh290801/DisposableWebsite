@@ -14,19 +14,21 @@ import {
   TextField,
 } from "@mui/material";
 import { Field, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
+import jwt_decode from "jwt-decode";
 import app_config from "../../config";
 import * as Yup from "yup";
 // import Image1 from '../img/ab1.jpg'
 import Image2 from "../img/ab2.jpeg";
 import "./sign.css";
+import { UserContext } from "../user/UserContext";
 const url = app_config.backend_url;
 const SignUp = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { setLoggedIn, setAvatar } = useContext(UserContext);
   const userForm = {
     username: "",
     password: "",
@@ -35,7 +37,7 @@ const SignUp = () => {
     avatar: "",
   };
   const userSubmit = async (formdata) => {
-    console.log(formdata);
+    // console.log(formdata);
     const response = await fetch(url + "/user/add", {
       method: "POST",
       body: JSON.stringify(formdata),
@@ -119,6 +121,97 @@ const SignUp = () => {
       .required("Password Confirmation is Required"),
   });
 
+  const handleSignOut = (event) => {
+    setUser({});
+    document.getElementById("signInDiv").hidden = false;
+  };
+
+  const [user, setUser] = useState({});
+
+  const saveGoogleUser = async (googleObj) => {
+    setAvatar(googleObj.picture);
+    const response = await fetch(url + "/user/add", {
+      method: "POST",
+      body: JSON.stringify({
+        username: googleObj.name,
+        email: googleObj.email,
+  avatar: googleObj.picture,
+  createdAt: new Date(),
+  type : 'google'
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.status === 200) {
+      console.log(response.status);
+      const data = await response.json();
+      // console.log("data saved");
+      sessionStorage.setItem("user", JSON.stringify(data));
+      setLoggedIn(true);
+
+      
+      const response2 = await fetch(url + "/webpage/add", {
+        method: "POST",
+        body: JSON.stringify({
+          title: "",
+          description: "",
+          type: "",
+          user: data._id,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response2.status === 200) console.log("page created");
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Registered successfully!!",
+      });
+
+      navigate("/home");
+    } else if (response.status) {
+      console.log(response.status);
+      console.log("something went wrong");
+      Swal.error({
+        icon: "error",
+        title: "OOPS",
+        text: "!! something went wrong!!",
+      });
+    }
+  }
+
+  const handleCallbackResponse = async (response) => {
+    // console.log("Encoded jwt id token:" + response.credential);
+    var userObject = jwt_decode(response.credential);
+        // console.log(userObject);
+    setUser(userObject);
+    // setAvatar(userObject.picture);
+    //after signin the button of "signin with google" hides
+    document.getElementById("signInDiv").hidden = true;
+
+    const res = await fetch(url + "/user/checkemail/" + userObject.email);
+    if (res.status === 200) {
+      const data = await res.json();
+      sessionStorage.setItem("user", JSON.stringify(data));
+      setLoggedIn(true);
+      navigate("/");
+    } else {
+      saveGoogleUser(userObject);
+    }
+  };
+
+  useEffect(() => {
+    /*global google*/
+    google.accounts.id.initialize({
+      client_id:
+        "941149713723-22urp8pss6cdudmhnf9007ak61t6t68j.apps.googleusercontent.com",
+      callback: handleCallbackResponse, //token visible
+    });
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+    google.accounts.id.prompt(); //enable prompt
+  }, [])
+  
 
   return (
     <div
@@ -365,41 +458,21 @@ const SignUp = () => {
                             <div className="d-flex justify-content-center align-items-center mb-1">
                               <h6>Or Signup with</h6>
                             </div>
-
-                            <div className="d-flex justify-content-center">
-                              <a
-                                className="btn btn-outline-info btn-floating m-1"
+                            <a
                                 href="#!"
                                 role="button"
-                              >
-                                <i
-                                  className="fab fa-facebook-f"
-                                  style={{ marginLeft: "6px" }}
-                                ></i>
-                              </a>
-
-                              <a
-                                className="btn btn-outline-secondary btn-floating m-1"
-                                href="#!"
-                                role="button"
+                                id="signInDiv"
                               >
                                 <i
                                   className="fab fa-google"
                                   style={{ marginLeft: "6px" }}
                                 ></i>
                               </a>
-
-                              <a
-                                className="btn btn-outline-primary btn-floating m-1"
-                                href="#!"
-                                role="button"
-                              >
-                                <i
-                                  className="fab fa-linkedin-in"
-                                  style={{ marginLeft: "6px" }}
-                                ></i>
-                              </a>
-                            </div>
+                              {Object.keys(user).length !== 0 && (
+                                <button onClick={(e) => handleSignOut(e)}>
+                                  Signout
+                                </button>
+                              )}
                           </form>
                         )}
                       </Formik>

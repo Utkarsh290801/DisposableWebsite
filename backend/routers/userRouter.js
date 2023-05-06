@@ -4,8 +4,10 @@ const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(12);
 
 router.post("/add", (req, res) => {
-  const hash = bcrypt.hashSync(req.body.password, salt);
-  req.body.password = hash;
+  if(req.body.password){
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    req.body.password = hash;
+  }
 
   //Reading client data from request body
   console.log(req.body);
