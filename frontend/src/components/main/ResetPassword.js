@@ -27,7 +27,8 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   const generateOTP = () => {
-    let tempOtp = parseInt(Math.random().toFixed(4).substr(`-${4}`));
+    let tempOtp = Math.floor(1000 + Math.random() * 9000);
+    // let tempOtp = parseInt(Math.random().toFixed(4).substr(`-${4}`));
     setOTP(tempOtp);
     return tempOtp;
   };
@@ -39,12 +40,14 @@ const ResetPassword = () => {
   };
 
   const sendOTP = () => {
+    const tempOtp = generateOTP();
     fetch("http://localhost:5000/util/sendmail", {
       method: "POST",
       body: JSON.stringify({
         to: email,
         subject: "Password Reset",
-        text: "This is your OTP for password reset " + generateOTP(),
+        // text: "This is your OTP for password reset " + generateOTP(),
+        text: "This is your OTP for password reset " + tempOtp,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -85,8 +88,10 @@ const ResetPassword = () => {
       });
   };
 
+  // const verifyOTP = (formdata) => {
   const verifyOTP = (formdata) => {
-    if (otp === formdata.otp) {
+    if (otp.toString() === formdata.otp.toString()) {
+   
       console.log("otp matched");
       resetPassword(formdata);
     } else {
@@ -166,6 +171,7 @@ const ResetPassword = () => {
             <Formik
               initialValues={passwordForm}
               onSubmit={verifyOTP}
+              // onSubmit={(values) => verifyOTP(values, otp)}
               validationSchema={validationSchema}
             >
               {({ values, handleSubmit, handleChange, errors }) => (

@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import Swal from "sweetalert2";
 import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
+import { MDBBtn } from "mdb-react-ui-kit";
 import {
   Avatar,
   Box,
@@ -22,14 +23,14 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
- import { TableSortLabel } from '@mui/material';
+import { TableSortLabel } from "@mui/material";
 import Loader from "../utils/Loader";
 
 const ManageQuery = () => {
   const [query, setQuery] = useState([]);
   const [isloading, setIsloading] = useState(true);
   const [filter, setFilter] = useState("");
-  const [order, setOrder] = useState('ASC');
+  const [order, setOrder] = useState("ASC");
   // const [data, setdata] = useState(userArray);
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -44,17 +45,22 @@ const ManageQuery = () => {
   //------------------ sorting----------------------
   const sorting = (col) => {
     if (order === "ASC") {
-      const sorted = [...query].sort((a, b) => a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1);
+      const sorted = [...query].sort((a, b) =>
+        a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+      );
       setQuery(sorted);
       setOrder("DSC");
-    }if (order === "DSC") {
-      const sorted = [...query].sort((a, b) => a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1);
+    }
+    if (order === "DSC") {
+      const sorted = [...query].sort((a, b) =>
+        a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+      );
       setQuery(sorted);
       setOrder("ASC");
     }
-  }
- 
-// -------------------pagination-------------------
+  };
+
+  // -------------------pagination-------------------
   const [pg, setPage] = React.useState(0);
   const [rpg, setRowsPerPage] = React.useState(25);
 
@@ -88,7 +94,12 @@ const ManageQuery = () => {
     p: 2,
   };
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [selUser, setSelUser] = useState(null);
+  const handleOpen = (curr) => {
+    setOpen(true);
+    console.log(curr.contact);
+    setSelUser(curr.contact);
+  };
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
@@ -101,7 +112,7 @@ const ManageQuery = () => {
 
     setQuery(
       data.filter((value) => {
-        return value.username.toLowerCase().includes(filter.toLowerCase());
+        return value.name.toLowerCase().includes(filter.toLowerCase());
       })
     );
   };
@@ -110,48 +121,97 @@ const ManageQuery = () => {
       <>
         <StyledTableRow key={contact._id}>
           <TableCell>{contact._id}</TableCell>
-          <TableCell>{contact.mobile}</TableCell>
+          {/* <TableCell>{contact.mobile}</TableCell> */}
           <TableCell>{contact.name}</TableCell>
           <TableCell>{contact.email}</TableCell>
-          <TableCell>{contact.subject}</TableCell>
-                {/* <TableCell>{contact.message}</TableCell> */}
-                <TableCell>
-            <button onClick={handleOpen} className="btn btn-primary">
+          {/* <TableCell>{contact.subject}</TableCell> */}
+          {/* <TableCell>{contact.message}</TableCell> */}
+          <TableCell>
+            <button
+              onClick={(e) => handleOpen({ contact })}
+              className="btn btn-primary"
+            >
               View
             </button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-              // sx={{ 
-              //   "& > .MuiBackdrop-root" : {
-              //           backdropFilter: "blur(2px)"
-              //         }
-              //   }}
-              BackdropProps={{style: {backgroundColor:'rgba(251,251,251,0.1)',backdropFilter: "blur(1px)"}}}
-            >
-             <Box sx={style}>
-        <div class="" style={{borderRadius: "5px",wordWrap:"break-word"}}>
-          <div class="row pt-1">
-            <div class="col-md-12">
-              <div class="card-body p-4">
-                <p>{contact.message}</p>
-                <hr class="mt-0"/>
-                
-                <div class="d-flex justify-content-center">
-                  <button className="btn btn-primary">Reply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-              </Box>
-            </Modal>
+            {selUser && (
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                // sx={{
+                //   "& > .MuiBackdrop-root" : {
+                //           backdropFilter: "blur(2px)"
+                //         }
+                //   }}
+                BackdropProps={{
+                  style: {
+                    backgroundColor: "rgba(251,251,251,0.1)",
+                    backdropFilter: "blur(1px)",
+                  },
+                }}
+              >
+                <Box sx={style}>
+                  <div class="mb-3" style={{ borderRadius: "5px" }}>
+                    <div class="row g-0">
+                      <div class="col-md-4 text-center">
+                        {/* // style={{border-top-left-radius: ".5rem", border-bottom-left-radius: ".5rem"}}> */}
+                        <Avatar
+                          src={url + "/" + selUser?.avatar}
+                          sx={{ width: 96, height: 96, margin:"auto" }}
+                          
+                        />
+
+                        <h3>{selUser.name}</h3>
+                        <div className="d-flex justify-content-between">
+                        <h5>Mobile Number</h5>
+                        <h5>{selUser.mobile}</h5>
+                        </div>
+                        
+                        <h5>Created at:</h5>
+                        <p>{selUser.createdAt}</p>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body p-4">
+                          <h3>Contact Information</h3>
+                          <hr class="mt-0 mb-4" />
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Email</h6>
+                              <p class="text-muted">{selUser.email}</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>UserID</h6>
+                              <p class="text-muted">{selUser._id}</p>
+                            </div>
+                          </div>
+                          <div className="d-flex justify-content-between">
+                            <h6>Subject</h6> <p>{selUser.subject}</p>
+                          </div>
+                          <hr class="mt-0 mb-4" />
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3 d-flex justify-content-between">
+                              <h6>Message</h6>
+                              <p class="text-muted">{selUser.message}</p>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-start">
+                            <MDBBtn rounded size="lg">
+                             Reply
+                            </MDBBtn>
+                           
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Box>
+              </Modal>
+            )}
           </TableCell>
           <TableCell>{contact.createdAt}</TableCell>
-          <TableCell>{contact.comment}</TableCell>
-          
+          {/* <TableCell>{contact.comment}</TableCell> */}
+
           {/* <TableCell>
             <button
               className="btn btn-danger"
@@ -166,10 +226,10 @@ const ManageQuery = () => {
             <Stack direction="row" spacing={1} alignItems="center">
               <Typography>Read</Typography>
               <Switch
-                // checked={contact.isRead}
-                // onChange={(e, v) => {
-                //   changeStatusOfContact(contact._id, v);
-                // }}
+              // checked={contact.isRead}
+              // onChange={(e, v) => {
+              //   changeStatusOfContact(contact._id, v);
+              // }}
               />
               <Typography>UnRead</Typography>
             </Stack>
@@ -181,7 +241,9 @@ const ManageQuery = () => {
 
   return (
     <div>
-      {isloading ? (<Loader />) : (
+      {isloading ? (
+        <Loader />
+      ) : (
         <Paper className="container">
           <InputBase
             sx={{ ml: 1, flex: 1 }}
@@ -198,23 +260,25 @@ const ManageQuery = () => {
             <SearchIcon color="primary" />
           </IconButton>
           <TableContainer>
-            <Table stickyHeader aria-label="sticky table" >
+            <Table stickyHeader aria-label="sticky table">
               <TableHead style={{ backgroundColor: "#80808054" }}>
                 <TableRow>
                   <TableCell>ID</TableCell>
-                  <TableCell>Mobile</TableCell>
-                  <TableCell><TableSortLabel onClick={() => sorting("username")}>Name</TableSortLabel></TableCell>
+                  {/* <TableCell>Mobile</TableCell> */}
+                  <TableCell>
+                    <TableSortLabel onClick={() => sorting("username")}>
+                      Name
+                    </TableSortLabel>
+                  </TableCell>
                   <TableCell onClick={() => sorting("email")}>Email</TableCell>
-                  <TableCell>Subject</TableCell>
+                  {/* <TableCell>Subject</TableCell> */}
                   <TableCell>Message</TableCell>
                   <TableCell>Created At</TableCell>
-                  <TableCell>Comment</TableCell>
+                  {/* <TableCell>Comment</TableCell> */}
                   <TableCell>Status</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {displayQuery()}
-              </TableBody>
+              <TableBody>{displayQuery()}</TableBody>
             </Table>
           </TableContainer>
           <TablePagination

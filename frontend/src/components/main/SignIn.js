@@ -110,14 +110,23 @@ const SignIn = () => {
     if (response.status === 200) {
       console.log(response.status);
       console.log("success");
-
+      response.json().then((data) => {
+        console.log(data);
+        if (data.isBlocked) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Your account has been blocked by the admin.",
+          });
+          setSubmitting(false);
+          return;
+        }
       Swal.fire({
         icon: "success",
         title: "Success",
         text: "Login Success!!👍",
       });
-      response.json().then((data) => {
-        console.log(data);
+      
 
         setLoggedIn(true);
         //for admin login
