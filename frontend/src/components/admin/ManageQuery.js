@@ -11,6 +11,9 @@ import Swal from "sweetalert2";
 import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
 import { MDBBtn } from "mdb-react-ui-kit";
+import emailjs from "emailjs-com";
+import EditIcon from "@mui/icons-material/Edit";
+import { ToastContainer, toast } from "react-toastify";
 import {
   Avatar,
   Box,
@@ -31,7 +34,6 @@ const ManageQuery = () => {
   const [isloading, setIsloading] = useState(true);
   const [filter, setFilter] = useState("");
   const [order, setOrder] = useState("ASC");
-  // const [data, setdata] = useState(userArray);
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
@@ -42,6 +44,7 @@ const ManageQuery = () => {
       border: 0,
     },
   }));
+
   //------------------ sorting----------------------
   const sorting = (col) => {
     if (order === "ASC") {
@@ -62,7 +65,7 @@ const ManageQuery = () => {
 
   // -------------------pagination-------------------
   const [pg, setPage] = React.useState(0);
-  const [rpg, setRowsPerPage] = React.useState(25);
+  const [rpg, setRowsPerPage] = React.useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -73,216 +76,159 @@ const ManageQuery = () => {
     setPage(0);
   };
 
-  const url = app_config.backend_url;
+  const [responseText, setResponseText] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const getUserfromBackend = async () => {
-    const response = await fetch(url + "/contact/getall");
-    const data = await response.json();
-    console.log(data);
-    setQuery(data);
-    setIsloading(false);
+  const handleResponseChange = (event) => {
+    event.persist();
+    setResponseText(event.target.value);
   };
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 800,
-    bgcolor: "white",
-    // border: "2px solid #000",
-    boxShadow: 2,
-    p: 2,
+
+  const sendEmailResponse = (recipientEmail, response) => {
+    fetch("http://localhost:5000/util/sendmail", {
+      method: "POST",
+      body: JSON.stringify({
+        to: recipientEmail,
+        subject: "Response to your query",
+        text:
+          " Thank you for reaching out to us. We have received your query and would like to provide you with the following response" +
+          response,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(res.status);
+        console.log(response);
+        if (res.status === 200) {
+          toast.success("Response Send Successful");
+        }
+        return res.json();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
-  const [open, setOpen] = React.useState(false);
-  const [selUser, setSelUser] = useState(null);
-  const handleOpen = (curr) => {
-    setOpen(true);
-    console.log(curr.contact);
-    setSelUser(curr.contact);
+  const handleReply = () => {
+    if (responseText.trim() === "") {
+      toast.warning("Response message cannot be empty!");
+      return;
+    }
+
+    if (selectedUser) {
+      sendEmailResponse(selectedUser.email, responseText);
+      setResponseText("");
+    }
   };
-  const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    getUserfromBackend();
+    // Fetch query data from API
+    fetch(`${app_config.backend_url}/contact/getall`)
+      .then((response) => response.json())
+      .then((data) => {
+        setQuery(data);
+        setIsloading(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setIsloading(false);
+      });
   }, []);
 
-  const handleFilter = async () => {
-    const response = await fetch(url + "/contact/getall");
-    const data = await response.json();
-
-    setQuery(
-      data.filter((value) => {
-        return value.name.toLowerCase().includes(filter.toLowerCase());
-      })
-    );
-  };
-  const displayQuery = () => {
-    return query.slice(pg * rpg, pg * rpg + rpg).map((contact) => (
-      <>
-        <StyledTableRow key={contact._id}>
-          <TableCell>{contact._id}</TableCell>
-          {/* <TableCell>{contact.mobile}</TableCell> */}
-          <TableCell>{contact.name}</TableCell>
-          <TableCell>{contact.email}</TableCell>
-          {/* <TableCell>{contact.subject}</TableCell> */}
-          {/* <TableCell>{contact.message}</TableCell> */}
-          <TableCell>
-            <button
-              onClick={(e) => handleOpen({ contact })}
-              className="btn btn-primary"
-            >
-              View
-            </button>
-            {selUser && (
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                // sx={{
-                //   "& > .MuiBackdrop-root" : {
-                //           backdropFilter: "blur(2px)"
-                //         }
-                //   }}
-                BackdropProps={{
-                  style: {
-                    backgroundColor: "rgba(251,251,251,0.1)",
-                    backdropFilter: "blur(1px)",
-                  },
-                }}
-              >
-                <Box sx={style}>
-                  <div class="mb-3" style={{ borderRadius: "5px" }}>
-                    <div class="row g-0">
-                      <div class="col-md-4 text-center">
-                        {/* // style={{border-top-left-radius: ".5rem", border-bottom-left-radius: ".5rem"}}> */}
-                        <Avatar
-                          src={url + "/" + selUser?.avatar}
-                          sx={{ width: 96, height: 96, margin:"auto" }}
-                          
-                        />
-
-                        <h3>{selUser.name}</h3>
-                        <div className="d-flex justify-content-between">
-                        <h5>Mobile Number</h5>
-                        <h5>{selUser.mobile}</h5>
-                        </div>
-                        
-                        <h5>Created at:</h5>
-                        <p>{selUser.createdAt}</p>
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body p-4">
-                          <h3>Contact Information</h3>
-                          <hr class="mt-0 mb-4" />
-                          <div class="row pt-1">
-                            <div class="col-6 mb-3">
-                              <h6>Email</h6>
-                              <p class="text-muted">{selUser.email}</p>
-                            </div>
-                            <div class="col-6 mb-3">
-                              <h6>UserID</h6>
-                              <p class="text-muted">{selUser._id}</p>
-                            </div>
-                          </div>
-                          <div className="d-flex justify-content-between">
-                            <h6>Subject</h6> <p>{selUser.subject}</p>
-                          </div>
-                          <hr class="mt-0 mb-4" />
-                          <div class="row pt-1">
-                            <div class="col-6 mb-3 d-flex justify-content-between">
-                              <h6>Message</h6>
-                              <p class="text-muted">{selUser.message}</p>
-                            </div>
-                          </div>
-                          <div class="d-flex justify-content-start">
-                            <MDBBtn rounded size="lg">
-                             Reply
-                            </MDBBtn>
-                           
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Box>
-              </Modal>
-            )}
-          </TableCell>
-          <TableCell>{contact.createdAt}</TableCell>
-          {/* <TableCell>{contact.comment}</TableCell> */}
-
-          {/* <TableCell>
-            <button
-              className="btn btn-danger"
-              onClick={() => {
-                deleteUser(user._id);
-              }}
-            >
-              <i class="fa-solid fa-trash fa-lg"></i>
-            </button>
-          </TableCell> */}
-          <TableCell>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Typography>Read</Typography>
-              <Switch
-              // checked={contact.isRead}
-              // onChange={(e, v) => {
-              //   changeStatusOfContact(contact._id, v);
-              // }}
-              />
-              <Typography>UnRead</Typography>
-            </Stack>
-          </TableCell>
-        </StyledTableRow>
-      </>
-    ));
+  const handleUserSelection = (user) => {
+    setSelectedUser(user);
   };
 
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <Stack direction="row" spacing={2} sx={{ marginBottom: 2 }}>
+        <SearchIcon />
+        <InputBase
+          placeholder="Search..."
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+      </Stack>
+
       {isloading ? (
         <Loader />
       ) : (
-        <Paper className="container">
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Enter Name to Search"
-            onChange={(e) => setFilter(e.target.value)}
-            inputProps={{ "aria-label": "Enter Name to Search" }}
-          />
-          <IconButton
-            type="button"
-            sx={{ p: "10px" }}
-            aria-label="search"
-            onClick={handleFilter}
-          >
-            <SearchIcon color="primary" />
-          </IconButton>
-          <TableContainer>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead style={{ backgroundColor: "#80808054" }}>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  {/* <TableCell>Mobile</TableCell> */}
-                  <TableCell>
-                    <TableSortLabel onClick={() => sorting("username")}>
-                      Name
-                    </TableSortLabel>
-                  </TableCell>
-                  <TableCell onClick={() => sorting("email")}>Email</TableCell>
-                  {/* <TableCell>Subject</TableCell> */}
-                  <TableCell>Message</TableCell>
-                  <TableCell>Created At</TableCell>
-                  {/* <TableCell>Comment</TableCell> */}
-                  <TableCell>Status</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>{displayQuery()}</TableBody>
-            </Table>
-          </TableContainer>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={true}
+                    direction={order}
+                    onClick={() => sorting("name")}
+                  >
+                    Name
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Created At</TableCell>
+                <TableCell>Response</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {query
+                .filter((item) =>
+                  item.name.toLowerCase().includes(filter.toLowerCase())
+                )
+                .slice(pg * rpg, pg * rpg + rpg)
+                .map((item, index) => (
+                  <StyledTableRow key={index}>
+                    <TableCell>{item._id}</TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.email}</TableCell>
+                    <TableCell>{item.createdAt}</TableCell>
+                    <TableCell>
+                      {item.response ? (
+                        <Typography>{item.response}</Typography>
+                      ) : (
+                        <Box>
+                          <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <MDBBtn onClick={() => handleUserSelection(item)}>
+                              Reply
+                            </MDBBtn>
+                          </Box>
+                        </Box>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <Typography>Read</Typography>
+                        <Switch
+                        // checked={contact.isRead}
+                        // onChange={(e, v) => {
+                        //   changeStatusOfContact(contact._id, v);
+                        // }}
+                        />
+                        <Typography>UnRead</Typography>
+                      </Stack>
+                    </TableCell>
+                  </StyledTableRow>
+                ))}
+            </TableBody>
+          </Table>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[10, 25, 50]}
             component="div"
             count={query.length}
             rowsPerPage={rpg}
@@ -290,7 +236,73 @@ const ManageQuery = () => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-        </Paper>
+        </TableContainer>
+      )}
+      {selectedUser && (
+        <Modal open={true} onClose={() => setSelectedUser(null)}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 700,
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography variant="h6" component="div">
+              Respond to Query
+            </Typography>
+            <Box sx={{ mt: 2 }}>
+              <div class="row pt-1">
+                <div class="col-6 mb-3">
+                  <h6>Email</h6>
+                  <p class="text-muted">{selectedUser.email}</p>
+                </div>
+                <div class="col-6 mb-3">
+                  <h6>UserID</h6>
+                  <p class="text-muted">{selectedUser._id}</p>
+                </div>
+              </div>
+              <div className="col-6 mb-3 d-flex justify-content-between">
+                <h6>Subject</h6>{" "}
+                <p class=" font-weight-bold">{selectedUser.subject}</p>
+              </div>
+              <hr class="mt-0 mb-4" />
+              <div class="row pt-1">
+                <div class="col-6 mb-3 d-flex justify-content-between">
+                  <h6>Message</h6>
+                  <p class="text-muted">{selectedUser.message}</p>
+                </div>
+              </div>
+              {/* <Typography variant="body1">
+              <h6>Email</h6>
+                              <p class="text-muted">{selectedUser.email}</p>
+                Email: {selectedUser.email}
+              </Typography> */}
+              {/* <Typography variant="body1">
+                Message: {selectedUser.message}
+              </Typography> */}
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+              <Avatar sx={{ marginRight: 1 }} />
+              <InputBase
+                placeholder="Write a response"
+                multiline
+                rows={4}
+                value={responseText}
+                onChange={handleResponseChange}
+                sx={{
+                  minWidth: 400,
+                  marginRight: 1,
+                }}
+              />
+              <MDBBtn onClick={handleReply}>Send</MDBBtn>
+            </Box>
+          </Box>
+        </Modal>
       )}
     </div>
   );

@@ -74,4 +74,34 @@ router.post("/api/comments", (req, res) => {
       res.sendStatus(500);
     });
 });
+// Assuming you're using Express.js and Mongoose in the backend
+
+// ...
+
+// POST /contact/respond
+router.post("/respond", async (req, res) => {
+  try {
+    const { queryId, response } = req.body;
+
+    // Find the query in the database using the queryId
+    const query = await Query.findById(queryId);
+
+    if (!query) {
+      return res.status(404).json({ message: "Query not found" });
+    }
+
+    // Update the query with the admin's response
+    query.adminResponse = response;
+    query.isRead = true; // Optional: Mark the query as read
+    await query.save();
+
+    res.status(200).json({ message: "Response sent successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// ...
+
 module.exports = router;
