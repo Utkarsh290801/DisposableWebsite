@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
 import { MDBBtn } from "mdb-react-ui-kit";
-import emailjs from "emailjs-com";
+
 import EditIcon from "@mui/icons-material/Edit";
 import { ToastContainer, toast } from "react-toastify";
 import {

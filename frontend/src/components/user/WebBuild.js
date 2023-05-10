@@ -1,436 +1,518 @@
-// import React, { useEffect, useState } from "react";
-// import "grapesjs/dist/css/grapes.min.css";
-// import grapesjs from "grapesjs";
-// // import 'grapesjs-some-plugin';
-// import "./WebBuild.css";
-// const WebBuild = () => {
-//   const [editor, setEditor] = useState(null);
 
-//   useEffect(() => {
-//     setEditor(
-//       grapesjs.init({
-//         // Indicate where to init the editor. You can also pass an HTMLElement
-//         container: "#gjs",
-//         // Get the content for the canvas directly from the element
-//         // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
-//         components: "<h1>Hello World Component!</h1>",
-//         fromElement: true,
-//         // Size of the editor
-//         height: "500px",
-//         width: "auto",
-//         // Disable the storage manager for the moment
-//         storageManager: false,
-//         // Avoid any default panel
-//         layerManager: {
-//           appendTo: ".layers-container",
-//         },
-//         // We define a default panel as a sidebar to contain layers
-//         panels: {
-//           defaults: [
-//             {
-//               id: "layers",
-//               el: ".panel__right",
-//               // Make the panel resizable
-//               resizable: {
-//                 maxDim: 350,
-//                 minDim: 200,
-//                 tc: 0, // Top handler
-//                 cl: 1, // Left handler
-//                 cr: 0, // Right handler
-//                 bc: 0, // Bottom handler
-//                 // Being a flex child we need to change `flex-basis` property
-//                 // instead of the `width` (default)
-//                 keyWidth: "flex-basis",
-//               },
-//             },
-//             {
-//               id: "panel-switcher",
-//               el: ".panel__switcher",
-//               buttons: [
-//                 {
-//                   id: "show-layers",
-//                   active: true,
-//                   label: "Layers",
-//                   command: "show-layers",
-//                   // Once activated disable the possibility to turn it off
-//                   togglable: false,
-//                 },
-//                 {
-//                   id: "show-style",
-//                   active: true,
-//                   label: "Styles",
-//                   command: "show-styles",
-//                   togglable: false,
-//                 },
-//                 {
-//                   id: "show-traits",
-//                   active: true,
-//                   label: "Traits",
-//                   command: "show-traits",
-//                   togglable: false,
-//                 },
-//               ],
-//             },
-//             {
-//               id: "panel-devices",
-//               el: ".panel__devices",
-//               buttons: [
-//                 {
-//                   id: "device-desktop",
-//                   label: "D",
-//                   command: "set-device-desktop",
-//                   active: true,
-//                   togglable: false,
-//                 },
-//                 {
-//                   id: "device-mobile",
-//                   label: "M",
-//                   command: "set-device-mobile",
-//                   togglable: false,
-//                 },
-//               ],
-//             },
-//           ],
-//         },
-//         deviceManager: {
-//           devices: [
-//             {
-//               name: "Desktop",
-//               width: "", // default size
-//             },
-//             {
-//               name: "Mobile",
-//               width: "320px", // this value will be used on canvas width
-//               widthMedia: "480px", // this value will be used in CSS @media
-//             },
-//           ],
-//         },
-//         traitManager: {
-//           appendTo: ".traits-container",
-//         },
-//         blockManager: {
-//           appendTo: "#blocks",
-//           blocks: [
-//             {
-//               id: "section", // id is mandatory
-//               label: "<b>Section</b>", // You can use HTML/SVG inside labels
-//               attributes: { class: "gjs-block-section" },
-//               content: `<section>
 
-//               <h1>This is a simple title</h1>
-//                           <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-//                         </section>`,
-//             },
-//             {
-//               id: "text",
-//               label: "Text",
-//               content: '<div data-gjs-type="text">Insert your text here</div>',
-//             },
-//             {
-//               id: "image",
-//               label: "Image",
-//               // Select the component once it's dropped
-//               select: true,
-//               // You can pass components as a JSON instead of a simple HTML string,
-//               // in this case we also use a defined component type `image`
-//               content: { type: "image" },
-//               // This triggers `active` event on dropped components and the `image`
-//               // reacts by opening the AssetManager
-//               activate: true,
-//             },
-//           ],
-//         },
-//         // The Selector Manager allows to assign classes and
-//         // different states (eg. :hover) on components.
-//         // Generally, it's used in conjunction with Style Manager
-//         // but it's not mandatory
-//         selectorManager: {
-//           appendTo: ".styles-container",
-//         },
-//         styleManager: {
-//           appendTo: ".styles-container",
-//           sectors: [
-//             {
-//               name: "Dimension",
-//               open: false,
-//               // Use built-in properties
-//               buildProps: [
-//                 "width",
-//                 "min-height",
-//                 "padding",
-//                 "margin",
-//                 "height",
-//                 "display",
-//                 "position",
-//               ],
-//               // Use `properties` to define/override single property
-//               properties: [
-//                 {
-//                   // Type of the input,
-//                   // options: integer | radio | select | color | slider | file | composite | stack
-//                   type: "integer",
-//                   name: "The width", // Label for the property
-//                   property: "width", // CSS property (if buildProps contains it will be extended)
-//                   units: ["px", "%"], // Units, available only for 'integer' types
-//                   defaults: "auto", // Default value
-//                   min: 0, // Min value, available only for 'integer' types
-//                 },
-//               ],
-//             },
-//             {
-//               name: "Extra",
-//               open: false,
-//               buildProps: ["background-color", "box-shadow", "custom-prop"],
-//               properties: [
-//                 {
-//                   id: "custom-prop",
-//                   name: "Custom Label",
-//                   property: "font-size",
-//                   type: "select",
-//                   defaults: "32px",
-//                   // List of options, available only for 'select' and 'radio'  types
-//                   options: [
-//                     { value: "12px", name: "Tiny" },
-//                     { value: "18px", name: "Medium" },
-//                     { value: "32px", name: "Big" },
-//                   ],
-//                 },
-//               ],
-//             },
-//           ],
-//         },
-//       })
-//     );
-//     editor.Panels.addPanel({
-//       id: "panel-top",
-//       el: ".panel__top",
-//     });
-//     editor.Panels.addPanel({
-//       id: "basic-actions",
-//       el: ".panel__basic-actions",
-//       buttons: [
-//         {
-//           id: "visibility",
-//           active: true, // active by default
-//           className: "btn-toggle-borders",
-//           label: "<u>B</u>",
-//           command: "sw-visibility", // Built-in command
-//         },
-//         {
-//           id: "export",
-//           className: "btn-open-export",
-//           label: "Exp",
-//           command: "export-template",
-//           context: "export-template", // For grouping context of buttons from the same panel
-//         },
-//         {
-//           id: "show-json",
-//           className: "btn-show-json",
-//           label: "JSON",
-//           context: "show-json",
-//           command(editor) {
-//             editor.Modal.setTitle("Components JSON")
-//               .setContent(
-//                 `<textarea style="width:100%; height: 250px;">
-//                 ${JSON.stringify(editor.getComponents())}
-//               </textarea>`
-//               )
-//               .open();
-//           },
-//         },
-//       ],
-//     });
-//     // Define commands
-//     editor.Commands.add("show-layers", {
-//       getRowEl(editor) {
-//         return editor.getContainer().closest(".editor-row");
-//       },
-//       getLayersEl(row) {
-//         return row.querySelector(".layers-container");
-//       },
 
-//       run(editor, sender) {
-//         const lmEl = this.getLayersEl(this.getRowEl(editor));
-//         lmEl.style.display = "";
-//       },
-//       stop(editor, sender) {
-//         const lmEl = this.getLayersEl(this.getRowEl(editor));
-//         lmEl.style.display = "none";
-//       },
-//     });
-//     editor.Commands.add("show-styles", {
-//       getRowEl(editor) {
-//         return editor.getContainer().closest(".editor-row");
-//       },
-//       getStyleEl(row) {
-//         return row.querySelector(".styles-container");
-//       },
+//  *********************************************************************************************************************************************************************************************************
 
-//       run(editor, sender) {
-//         const smEl = this.getStyleEl(this.getRowEl(editor));
-//         smEl.style.display = "";
-//       },
-//       stop(editor, sender) {
-//         const smEl = this.getStyleEl(this.getRowEl(editor));
-//         smEl.style.display = "none";
-//       },
-//     });
-//     // Define command
-//     // ...
-//     editor.Commands.add("show-traits", {
-//       getTraitsEl(editor) {
-//         const row = editor.getContainer().closest(".editor-row");
-//         return row.querySelector(".traits-container");
-//       },
-//       run(editor, sender) {
-//         this.getTraitsEl(editor).style.display = "";
-//       },
-//       stop(editor, sender) {
-//         this.getTraitsEl(editor).style.display = "none";
-//       },
-//     });
-//     // Commands
-//     editor.Commands.add("set-device-desktop", {
-//       run: (editor) => editor.setDevice("Desktop"),
-//     });
-//     editor.Commands.add("set-device-mobile", {
-//       run: (editor) => editor.setDevice("Mobile"),
-//     });
-//   }, []);
 
-//   return (
-//     <div>
-//       <div class="panel__top">
-//         <div class="panel__basic-actions"></div>
-//         <div class="panel__devices"></div>
-//         <div class="panel__switcher"></div>
-//       </div>
+//                         It is also working page 
 
-//       <div class="editor-row">
-//         <div class="editor-canvas">
-//           <div id="gjs">
-//             <h1>Hello World Component!</h1>
-//           </div>
-//         </div>
-//         <div class="panel__right">
-//           <div class="layers-container"></div>
-//           <div class="styles-container"></div>
-//           <div class="traits-container"></div>
-//         </div>
-//       </div>
-//       <div id="blocks"></div>
-//     </div>
-//   );
-// };
 
-// export default WebBuild;
-// import React, { useState } from "react";
 
-// const templates = [
-//   { id: 1, name: "Template 1", content: ["Header", "Paragraph", "Image"] },
-//   { id: 2, name: "Template 2", content: ["Header", "Paragraph", "Image", "Paragraph"] },
-//   { id: 3, name: "Template 3", content: ["Header", "Paragraph", "Image", "Image"] }
-// ];
 
-// const App = () => {
-//   const [elements, setElements] = useState([]);
+//         its route is   http://localhost:3000/user/webb
 
-//   const handleAddElement = element => {
-//     setElements([...elements, element]);
-//   };
 
-//   const handleAddTemplate = template => {
-//     setElements([...elements, ...template.content]);
-//   };
 
-// return (
-//     <div style={{ display: "flex" }}>
-//       <div style={{ width: "20%", backgroundColor: "lightgray" }}>
-//         <h3>Elements</h3>
-//         <button onClick={() => handleAddElement("Header")}>Add Header</button>
-//         <button onClick={() => handleAddElement("Paragraph")}>
-//           Add Paragraph
-//         </button>
-//         <button onClick={() => handleAddElement("Image")}>Add Image</button>
-//         <hr />
-//         <h3>Templates</h3>
-//         {templates.map(template => (
-//           <button key={template.id} onClick={() => handleAddTemplate(template)}>
-//             {template.name}
-//           </button>
-//         ))}
-//       </div>
-//       <div style={{ width: "80%", backgroundColor: "lightblue" }}>
-//         {elements.map((element, index) => (
-//           <div key={index}>{element}</div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
 
-// export default App;
-import React, { useRef, useEffect, useState } from "react";
+
+
+
+
+
+
+
+import React, { useEffect, useState } from "react";
 import "grapesjs/dist/css/grapes.min.css";
+import "grapesjs/dist/grapes.min.js";
 import grapesjs from "grapesjs";
+import gsWebpage from "grapesjs-preset-webpage";
+import gsCustome from "grapesjs-custom-code";
+import "grapesjs-preset-webpage/dist";
+import gsTap from "grapesjs-tabs";
+import Basics from "grapesjs-blocks-basic";
+import BaseReactComponent from "./base-react-component";
+import app_config from "../../config";
 
-const templates = [
-  {
-    name: "Template 1",
-    html: `<h1>Template 1</h1><p>This is template 1</p>`,
-    css: `h1{color: red;} p{color: blue;}`,
-  },
-  {
-    name: "Template 2",
-    html: `<h1>Template 2</h1><p>This is template 2</p>`,
-    css: `h1{color: green;} p{color: yellow;}`,
-  },
-];
-
-const WebsiteBuilder = () => {
-  const editorRef = useRef(null);
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
+const WebBuild = () => {
+  const url = app_config.backend_url;
+  const [pluginLoaded, setPluginLoaded] = useState(false);
   const [editor, setEditor] = useState(null);
+  const [webpageData, setWebpageData] = useState(null);
+  const currentUser = JSON.parse(sessionStorage.getItem("user"));
 
   useEffect(() => {
-    if (!selectedTemplate) {
+    if (!pluginLoaded) {
+      const editor = grapesjs.init({
+        container: "#gjs",
+        fromElement: true,
+        height: "100vh",
+        width: "auto",
+        storageManager: false, // Disable storage manager for simplicity
+        plugins: [gsWebpage, gsCustome, gsTap, Basics, BaseReactComponent],
+        pluginsOpts: {
+          gsWebpage: {
+            /* options */
+          },
+          gsCustomCode: {
+            /* options */
+          },
+          gsTap: {
+            /* options */
+          },
+          // ...other plugins options
+        },
+      });
+
+      const myTemplate = `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Modern Responsive Template</title>
+        <style>
+        body {
+          margin: 0;
+          font-family: Helvetica, Arial, sans-serif;
+          background: #333;
+          color: #fff;
+          font-size: 1em;
+          line-height: 1.5;
+          text-align: center;
+        }
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+        h1, h2, h3 {
+          margin: 0;
+          padding: 1em 0;
+        }
+        p {
+          margin: 0;
+          padding: 1em 0;
+        }
+        .btn {
+          display: inline-block;
+          background: #333;
+          color: #fff;
+          text-decoration: none;
+          padding: 1em 2em;
+          border: 1px solid #666;
+          margin: .5em 0;
+        }
+        .btn:hover {
+          background: #eaeaea;
+          color: #333;
+        }
+        
+        /* Header */
+        #showcase {
+          min-height: 450px;
+          color: #fff;
+          text-align: center;
+        }
+        #showcase .bg-image {
+          position: absolute;
+          background: #333 url("https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 100%;
+          height: 450px;
+          z-index: -1;
+          opacity: 0.5;
+        }
+        #showcase h1 {
+          padding-top: 100px;
+          padding-bottom: 0;
+        }
+        #showcase .content-wrap,
+        #section-a .content-wrap {
+          padding: 0 1.5em;
+        }
+        
+        /* Section A */
+        #section-a {
+          background: #eaeaea;
+          color: #333;
+          padding-bottom: 2em;
+        }
+        
+        /* Section B */
+        #section-b {
+          padding: 2em 1em 1em;
+        }
+        #section-b ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        #section-b li {
+          margin-bottom: 1em;
+          background: #fff;
+          color: #333;
+        }
+        .card-content {
+          padding: 1.5em;
+        }
+        
+        /* Section C */
+        #section-c {
+          background: #fff;
+          color: #333;
+          padding: 2em;
+        }
+        
+        /* Section D */
+        #section-d .box {
+          padding: 2em;
+          color: #fff;
+        }
+        #section-d .box:first-child {
+          background: #2690d4;
+        }
+        
+        /* Footer */
+        #main-footer {
+          padding: 2em;
+          background: #111;
+          color: #fff;
+          text-align: center;
+        }
+        #main-footer a {
+          color: #2690d4;
+          text-decoration: none;
+        }
+        
+        /* Media Queries */
+        
+        @media(min-width: 700px) {
+          .grid {
+            display: grid;
+            grid-template-columns: 1fr repeat(2, minmax(auto, 25em)) 1fr;
+          }
+          #section-a .content-text {
+            columns: 2;
+            column-gap: 2em;
+          }
+          #section-a .content-text p {
+            padding-top: 0;
+          }
+          .content-wrap,
+          #section-b ul {
+            grid-column: 2/4;
+          }
+          .box,
+          #main-footer div {
+            grid-column: span 2;
+          }
+          #section-b ul {
+            display: flex;
+            justify-content: space-around;
+          }
+          #section-b li {
+            width: 31%;
+          }
+        }
+      
+          @media (max-width: 768px) {
+            h1 {
+              font-size: 32px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+      
+          /* Animation */
+          .fade-in {
+            animation: fadeIn 1s ease-in;
+          }
+      
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+      
+          .slide-in {
+            animation: slideIn 1s ease-out;
+          }
+      
+          @keyframes slideIn {
+            0% {
+              transform: translateY(-100px);
+            }
+            100% {
+              transform: translateY(0);
+            }
+          }
+        </style>
+      </head>
+      <body>
+      <header id="showcase" class="grid">
+  <div class="bg-image"></div>
+  <div class="content-wrap">
+    <h1>Тезис</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+    <a href="#section-b" class="btn">Узнать больше</a>
+  </div>
+</header>
+
+<main id="main">
+  <section id="section-a" class="grid">
+    <div class="content-wrap">
+      <h2 class="content-title"> Возможности</h2>
+      <div class="content-text">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="section-b" class="grid">
+    <ul>
+      <li>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1518714352098-3d0339fb00bc?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" />
+          <div class="card-content">
+            <h3 class="card-title">Услуга 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1529213107127-1fa84f8f0297?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
+          <div class="card-content">
+            <h3 class="card-title">Услуга 2</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1536702781574-773180cb35d4?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ" />
+          <div class="card-content">
+            <h3 class="card-title">Услуга 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="section-c" class="grid">
+    <div class="content-wrap">
+      <h2 class="content-title">О Нас</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </section>
+
+  <section id="section-d" class="grid">
+    <div class="box">
+      <h2 class="content-title">Контакт мэйл.</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>email@email.com</p>
+    </div>
+    <div class="box">
+      <h2 class="content-title">Другие контакты</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </section>
+</main>
+
+<footer id="main-footer" class="grid">
+  <div>Другие контакты</div>
+  <div>Другие контакты&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://vk.com/id482402398">Danil</a></div>
+</footer>
+      </body>
+      </html>
+      `;
+      editor.setComponents(myTemplate); // Set initial template HTML
+
+      editor.on("storage:load", () => {
+        // Triggered when data is loaded from the storage
+        setWebpageData(webpageData); // Save the loaded data
+      });
+
+      setEditor(editor);
+      setPluginLoaded(true);
+    }
+  }, [pluginLoaded]);
+
+  const saveToDB = async () => {
+    if (!webpageData) {
+      console.log("No webpage data available");
       return;
     }
-    const newEditor = grapesjs.init({
-      container: editorRef.current,
-      components: selectedTemplate.html,
-      style: selectedTemplate.css,
+
+    const response = await fetch(url + "/webpage/update/" + webpageData._id, {
+      method: "PUT",
+      body: JSON.stringify({
+        data: {
+          html: editor.getHtml(),
+          css: editor.getCss(),
+          js: editor.getJs(),
+          editorData: webpageData,
+        },
+      }),
+      headers: { "Content-Type": "application/json" },
     });
 
-    setEditor(newEditor);
-
-    return () => {
-      newEditor.destroy();
-    };
-  }, [selectedTemplate]);
-
-  const handleTemplateSelection = (template) => {
-    setSelectedTemplate(template);
-    if (editor) {
-      editor.destroy();
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data);
+      console.log("Webpage data saved successfully");
     }
   };
 
+  const fetchWebpageData = async () => {
+    const res = await fetch(url + "/webpage/getbyuser/" + currentUser._id);
+    const data = await res.json();
+    setWebpageData(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchWebpageData();
+  }, []);
+
   return (
-    <>
-      <div>
-        {templates.map((template) => (
-          <button
-            key={template.name}
-            onClick={() => handleTemplateSelection(template)}
+    <div>
+      <div style={{ textAlign: "center", margin: "20px" }}>
+        {/* {Boolean(webpageData) ? (
+          <a
+            style={{
+              display: "inline-block",
+              padding: "10px 20px",
+              fontSize: "18px",
+              backgroundColor: "#333",
+              color: "#fff",
+              textDecoration: "none",
+              borderRadius: "4px",
+              transition: "background-color 0.3s ease",
+            }}
+            target="_blank"
+            href={"/live/" + webpageData._id}
           >
-            {template.name}
-          </button>
-        ))}
+            Visit Live Page
+          </a>
+        ) : (
+          <p
+            style={{
+              fontSize: "18px",
+              color: "#ff0000",
+              textAlign: "center",
+              marginBottom: "10px",
+            }}
+          >
+            Webpage is not live. Save it first.
+          </p>
+        )} */}
+        {webpageData && webpageData.data ? (
+          <a
+            style={{
+              display: "inline-block",
+              padding: "10px 20px",
+              fontSize: "18px",
+              backgroundColor: "#333",
+              color: "#fff",
+              textDecoration: "none",
+              borderRadius: "4px",
+              transition: "background-color 0.3s ease",
+            }}
+            target="_blank"
+            href={"/live/" + webpageData._id}
+          >
+            Visit Live Page
+          </a>
+        ) : (
+          <p
+            style={{
+              fontSize: "18px",
+              color: "#ff0000",
+              textAlign: "center",
+              marginBottom: "10px",
+            }}
+          >
+            {webpageData && webpageData.data
+              ? "Webpage is not live. Save it first."
+              : "No live page. "}
+          </p>
+        )}
       </div>
-      <div ref={editorRef} />
-    </>
+
+      <div
+        id="gjs"
+        style={{
+          height: "100vh",
+          width: "100%",
+        }}
+      ></div>
+
+      <button
+        style={{
+          display: "block",
+          margin: "0 auto",
+          padding: "12px 24px",
+          fontSize: "18px",
+          backgroundColor: "#333",
+          color: "#fff",
+          textDecoration: "none",
+          borderRadius: "4px",
+          transition: "background-color 0.3s ease",
+        }}
+        onClick={saveToDB}
+      >
+        {Boolean(webpageData) ? "Save" : "Update"}
+      </button>
+    </div>
   );
 };
-
-export default WebsiteBuilder;
+export default WebBuild;

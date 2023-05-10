@@ -7,7 +7,7 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -19,7 +19,7 @@ import { motion } from "framer-motion";
 const UserrProfile = () => {
   const navigate = useNavigate();
   const [previewUrl, setPreviewUrl] = useState("");
-  
+
   const { loggedIn, setLoggedIn } = React.useContext(UserContext);
   // const handleChange=(e) =>{
   //     console.log(e.target.files);

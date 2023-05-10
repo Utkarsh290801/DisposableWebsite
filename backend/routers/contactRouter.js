@@ -102,6 +102,23 @@ router.post("/respond", async (req, res) => {
   }
 });
 
-// ...
+router.put("/update/:id", (req, res) => {
+  const contactId = req.params.id;
+  const { isRead } = req.body;
+
+  // Assuming you have a database or data storage to store contact records
+  // Here, you would update the contact status based on the provided ID
+  // You can replace this code with your own implementation using your preferred database
+
+  // Example: Update contact status in a MongoDB database using Mongoose
+  Model.findByIdAndUpdate(contactId, { isRead }, (err, contact) => {
+    if (err) {
+      console.error("Error updating contact status:", err);
+      res.status(500).json({ error: "Failed to update contact status" });
+    } else {
+      res.status(200).json({ message: "Contact status updated successfully" });
+    }
+  });
+});
 
 module.exports = router;

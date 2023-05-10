@@ -135,9 +135,9 @@ const SignUp = () => {
       body: JSON.stringify({
         username: googleObj.name,
         email: googleObj.email,
-  avatar: googleObj.picture,
-  createdAt: new Date(),
-  type : 'google'
+        avatar: googleObj.picture,
+        createdAt: new Date(),
+        type: "google",
       }),
       headers: { "Content-Type": "application/json" },
     });
@@ -148,7 +148,6 @@ const SignUp = () => {
       sessionStorage.setItem("user", JSON.stringify(data));
       setLoggedIn(true);
 
-      
       const response2 = await fetch(url + "/webpage/add", {
         method: "POST",
         body: JSON.stringify({
@@ -176,12 +175,12 @@ const SignUp = () => {
         text: "!! something went wrong!!",
       });
     }
-  }
+  };
 
   const handleCallbackResponse = async (response) => {
     // console.log("Encoded jwt id token:" + response.credential);
     var userObject = jwt_decode(response.credential);
-        // console.log(userObject);
+    // console.log(userObject);
     setUser(userObject);
     // setAvatar(userObject.picture);
     //after signin the button of "signin with google" hides
@@ -210,8 +209,7 @@ const SignUp = () => {
       size: "large",
     });
     google.accounts.id.prompt(); //enable prompt
-  }, [])
-  
+  }, []);
 
   return (
     <div
@@ -458,11 +456,8 @@ const SignUp = () => {
                             <div className="d-flex justify-content-center align-items-center mb-1">
                               <h6>Or Signup with</h6>
                             </div>
-                            <a
-                                href="#!"
-                                role="button"
-                                id="signInDiv"
-                              >
+                            <div className="d-flex justify-content-center">
+                              <a href="#!" role="button" id="signInDiv">
                                 <i
                                   className="fab fa-google"
                                   style={{ marginLeft: "6px" }}
@@ -473,6 +468,7 @@ const SignUp = () => {
                                   Signout
                                 </button>
                               )}
+                            </div>
                           </form>
                         )}
                       </Formik>
