@@ -35,44 +35,75 @@ const SignIn = () => {
     document.getElementById("signInDiv").hidden = false;
   };
 
-  // Signin with google
-  const [user, setUser] = useState({});
-  const handleCallbackResponse = async (response) => {
-    console.log("Encoded jwt id token:" + response.credential);
-    var userObject = jwt_decode(response.credential); //converted token into object
-    console.log(userObject);
-    setUser(userObject);
-    setAvatar(userObject.picture);
-    //after signin the button of "signin with google" hides
-    document.getElementById("signInDiv").hidden = true;
-    sessionStorage.setItem(
-      "user",
-      JSON.stringify({
-        username: userObject.name,
-        email: userObject.email,
-        avatar: userObject.picture,
-      })
-    );
-
-    const res = await fetch(url + "/user/checkemail/" + userObject.email);
-    if (res.status === 200) {
+  const saveGoogleUser = async (googleObj) => {
+    setAvatar(googleObj.picture);
+    const response = await fetch(url + "/user/add", {
+      method: "POST",
+      body: JSON.stringify({
+        username: googleObj.name,
+        email: googleObj.email,
+  avatar: googleObj.picture,
+  createdAt: new Date(),
+  type : 'google'
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.status === 200) {
+      console.log(response.status);
+      const data = await response.json();
+      // console.log("data saved");
+      sessionStorage.setItem("user", JSON.stringify(data));
       setLoggedIn(true);
-      navigate("/");
-    } else {
-      const response = await fetch(url + "/user/add", {
+
+      
+      const response2 = await fetch(url + "/webpage/add", {
         method: "POST",
         body: JSON.stringify({
-          username: userObject.name,
-          email: userObject.email,
-          avatar: userObject.picture,
+          title: "",
+          description: "",
+          type: "",
+          user: data._id,
         }),
         headers: { "Content-Type": "application/json" },
       });
+      if (response2.status === 200) console.log("page created");
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Registered successfully!!",
+      });
 
-      if (response.status === 200) {
-        setLoggedIn(true);
-        navigate("/");
-      }
+      navigate("/home");
+    } else if (response.status) {
+      console.log(response.status);
+      console.log("something went wrong");
+      Swal.error({
+        icon: "error",
+        title: "OOPS",
+        text: "!! something went wrong!!",
+      });
+    }
+  }
+
+  // Signin with google
+  const [user, setUser] = useState({});
+  const handleCallbackResponse = async (response) => {
+    // console.log("Encoded jwt id token:" + response.credential);
+    var userObject = jwt_decode(response.credential);
+        // console.log(userObject);
+    setUser(userObject);
+    // setAvatar(userObject.picture);
+    //after signin the button of "signin with google" hides
+    document.getElementById("signInDiv").hidden = true;
+
+    const res = await fetch(url + "/user/checkemail/" + userObject.email);
+    if (res.status === 200) {
+      const data = await res.json();
+      sessionStorage.setItem("user", JSON.stringify(data));
+      setLoggedIn(true);
+      navigate("/");
+    } else {
+      saveGoogleUser(userObject);
     }
   };
 
@@ -97,49 +128,134 @@ const SignIn = () => {
     email: "",
     password: "",
   };
+  // const loginSubmit = async (formdata, { setSubmitting }) => {
+  //   console.log(formdata);
+  //   setSubmitting(true);
+  //   const response = await fetch(url + "/user/authenticate", {
+  //     method: "POST",
+  //     body: JSON.stringify(formdata),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.status === 200) {
+  //     console.log(response.status);
+  //     console.log("success");
+  //     response.json().then((data) => {
+  //       console.log(data);
+  //       if (data.isBlocked) {
+  //         Swal.fire({
+  //           icon: "error",
+  //           title: "Error",
+  //           text: "Your account has been blocked by the admin.",
+  //         });
+  //         setSubmitting(false);
+  //         return;
+  //       }
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Success",
+  //       text: "Login Success!!👍",
+  //     });
+      
+
+  //       setLoggedIn(true);
+  //       //for admin login
+  //       if (data.isAdmin) {
+  //         sessionStorage.setItem("admin", JSON.stringify(data));
+  //         navigate("/admin/admindashboard");
+  //       } else {
+  //         navigate("/home");
+  //         sessionStorage.setItem("user", JSON.stringify(data));
+  //       }
+  //     });
+  //   } else if (response.status === 401) {
+  //     console.log(response.status);
+  //     console.log("something went wrong");
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "Invalid Credentials",
+  //     });
+  //   }
+  //   setSubmitting(false);
+  // };
   const loginSubmit = async (formdata, { setSubmitting }) => {
     console.log(formdata);
     setSubmitting(true);
-    const response = await fetch(url + "/user/authenticate", {
-      method: "POST",
-      body: JSON.stringify(formdata),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 200) {
-      console.log(response.status);
-      console.log("success");
-
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Login Success!!👍",
-      });
-      response.json().then((data) => {
-        console.log(data);
-
-        setLoggedIn(true);
-        //for admin login
-        if (data.isAdmin) {
-          sessionStorage.setItem("admin", JSON.stringify(data));
-          navigate("/admin/");
-        } else {
-          navigate("/home");
-          sessionStorage.setItem("user", JSON.stringify(data));
+  
+    const res = await fetch(url + "/user/checkemail/" + formdata.email);
+    if (res.status === 200) {
+      const data = await res.json();
+      if (data.type === "google") {
+        Swal.fire({
+          icon: "info",
+          title: "Already Logged In",
+          text: "You have already logged in with Google. Please sign in using Google.",
+        });
+      } else {
+        const response = await fetch(url + "/user/authenticate", {
+          method: "POST",
+          body: JSON.stringify(formdata),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  
+        if (response.status === 200) {
+          console.log(response.status);
+          console.log("success");
+          response.json().then((data) => {
+            console.log(data);
+            if (data.isBlocked) {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Your account has been blocked by the admin.",
+              });
+              setSubmitting(false);
+              return;
+            }
+  
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: "Login Success!!👍",
+            });
+  
+            setLoggedIn(true);
+  
+            if (data.isAdmin) {
+              sessionStorage.setItem("admin", JSON.stringify(data));
+              navigate("/admin/admindashboard");
+            } else {
+              navigate("/home");
+              sessionStorage.setItem("user", JSON.stringify(data));
+            }
+          });
+        } else if (response.status === 401) {
+          console.log(response.status);
+          console.log("something went wrong");
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Invalid Credentials",
+          });
         }
-      });
-    } else if (response.status === 401) {
-      console.log(response.status);
+      }
+    } else {
+      console.log(res.status);
       console.log("something went wrong");
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Invalid Credentials",
+        text: "Create Your Account First",
       });
     }
+  
     setSubmitting(false);
   };
+  
   return (
     <div
       id="signup"
@@ -288,17 +404,7 @@ const SignIn = () => {
                             </div>
 
                             <div className="d-flex justify-content-center">
-                              {/* <a
-                                className="btn btn-outline-info btn-floating m-1"
-                                href="#!"
-                                role="button"
-                              >
-                                <i
-                                  className="fab fa-facebook-f"
-                                  style={{ marginLeft: "6px" }}
-                                ></i>
-                              </a> */}
-
+                              
                               <a
                                 className="btn btn-outline-secondary btn-floating m-1"
                                 href="#!"
@@ -316,23 +422,6 @@ const SignIn = () => {
                                 </button>
                               )}
 
-                              {/* {user && (
-                                <div>
-                                  <img src={user.picture} alt="" />
-                                  <h3>{user.name}</h3>
-                                </div>
-                              )} */}
-
-                              {/* <a
-                                className="btn btn-outline-primary btn-floating m-1"
-                                href="#!"
-                                role="button"
-                              >
-                                <i
-                                  className="fab fa-linkedin-in"
-                                  style={{ marginLeft: "6px" }}
-                                ></i>
-                              </a> */}
                             </div>
                           </form>
                         )}

@@ -27,11 +27,6 @@ import app_config from "../../config";
 
 const url = app_config.backend_url;
 const drawerWidth = 240;
-const settings = [
-  { name: "Profile", link: "/user/userrprofile" },
-  { name: "Account", link: "/user/accounts" },
-  { name: "Logout", link: "/" },
-];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -143,6 +138,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 // Change Here
 export default function Sidebar({ children, options, title }) {
+  const settings = [
+    { name: "Profile", link: "/user/userrprofile" },
+    // { name: "Account", link: "/user/accounts" },
+    // { name: "Logout", link: "/" },
+  ];
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -221,16 +222,7 @@ export default function Sidebar({ children, options, title }) {
               </IconButton>
             </Tooltip>
           </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <Button
-              size="large"
-              sx={{ ml: 1, ...boxSX }}
-              color="inherit"
-              onClick={(e) => navigate("/main/preview")}
-            >
-              Preview
-            </Button>
-          </Box>
+
           <Box sx={{ flexGrow: 1 }}>
             <Button
               size="large"
@@ -241,6 +233,16 @@ export default function Sidebar({ children, options, title }) {
               Builder
             </Button>
           </Box>
+          <Box sx={{ flexGrow: 1 }}>
+            <Button
+              size="large"
+              sx={{ ml: 1, ...boxSX }}
+              color="inherit"
+              onClick={(e) => navigate("/about")}
+            >
+              About Us
+            </Button>
+          </Box>
           <Box sx={{ flexGrow: 30 }}>
             <Button
               size="large"
@@ -248,7 +250,7 @@ export default function Sidebar({ children, options, title }) {
               color="inherit"
               onClick={(e) => navigate("/main/pricing")}
             >
-              Plans
+              Pricing
             </Button>
           </Box>
 

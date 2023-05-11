@@ -86,7 +86,7 @@ const Header = () => {
     //2. set the current user to null
     setLoggedIn(false);
     //3.navigate to login page
-    navigate("/main/login");
+    navigate("/main/signin");
   };
 
   const handleOpenNavMenu = (event) => {

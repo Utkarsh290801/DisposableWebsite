@@ -137,7 +137,7 @@ export default function Sidebar({ children, options, title }) {
               <IconButton
                 size="large"
                 color="inherit"
-                onClick={(e) => navigate("/main/home")}
+                onClick={(e) => navigate("/home")}
                 sx={{ mr: 2 }}
               >
                 <Home />

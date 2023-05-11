@@ -102,7 +102,7 @@ function App() {
               <Route path="webbuild" element={<WebBuilder />} />
               <Route path="webb" element={<WebBuild />} />
 
-              <Route path="planmanager" element={<PlanManager />} />
+              <Route path="planmanager/:currentUser._id" element={<PlanManager />} />
               <Route path="preview" element={<Preview />} />
 
               <Route path="sidebar" element={<Sidebar />} />

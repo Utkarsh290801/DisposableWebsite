@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
- import { TableSortLabel } from '@mui/material';
+import { TableSortLabel } from "@mui/material";
 import Loader from "../utils/Loader";
 
 const ManageUser = () => {
@@ -30,7 +30,7 @@ const ManageUser = () => {
   const [planArray, setPlanArray] = useState([]);
   const [isloading, setIsloading] = useState(true);
   const [filter, setFilter] = useState("");
-  const [order, setOrder] = useState('ASC');
+  const [order, setOrder] = useState("ASC");
   // const [data, setdata] = useState(userArray);
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -45,15 +45,20 @@ const ManageUser = () => {
   //------------------ sorting----------------------
   const sorting = (col) => {
     if (order === "ASC") {
-      const sorted = [...userArray].sort((a, b) => a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1);
+      const sorted = [...userArray].sort((a, b) =>
+        a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+      );
       setUserArray(sorted);
       setOrder("DSC");
-    }if (order === "DSC") {
-      const sorted = [...userArray].sort((a, b) => a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1);
+    }
+    if (order === "DSC") {
+      const sorted = [...userArray].sort((a, b) =>
+        a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+      );
       setUserArray(sorted);
       setOrder("ASC");
     }
-  }
+  };
   // function descendingComparator(a, b, orderBy) {
   //   if (b[orderBy] < a[orderBy]) {
   //     return -1;
@@ -63,13 +68,13 @@ const ManageUser = () => {
   //   }
   //   return 0;
   // }
-  
+
   // function getComparator(order, orderBy) {
   //   return order === 'desc'
   //     ? (a, b) => descendingComparator(a, b, orderBy)
   //     : (a, b) => -descendingComparator(a, b, orderBy);
   // }
-  
+
   // function applySortFilter(array, comparator, query) {
   //   const stabilizedThis = array.map((el, index) => [el, index]);
   //   stabilizedThis.sort((a, b) => {
@@ -82,7 +87,7 @@ const ManageUser = () => {
   //   }
   //   return stabilizedThis.map((el) => el[0]);
   // }
-// -------------------pagination-------------------
+  // -------------------pagination-------------------
   const [pg, setPage] = React.useState(0);
   const [rpg, setRowsPerPage] = React.useState(5);
 
@@ -116,8 +121,15 @@ const ManageUser = () => {
     p: 4,
   };
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [selUser, setSelUser] = useState(null);
+  const handleOpen = (curr) => {
+    setOpen(true);
+    console.log(curr.user);
+    setSelUser(curr.user);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const deleteUser = (id) => {
     fetch(url + "/user/delete/" + id, { method: "Delete" })
@@ -145,7 +157,6 @@ const ManageUser = () => {
     const data = await response.json();
     console.log(data);
     setPlanArray(data);
-    
   };
   useEffect(() => {
     getPlanfromBackend();
@@ -181,83 +192,107 @@ const ManageUser = () => {
     );
   };
   const displayUser = () => {
-    return userArray.slice(pg * rpg, pg * rpg + rpg).map((user,plan) => (
+    return userArray.slice(pg * rpg, pg * rpg + rpg).map((user, plan) => (
       <>
         <StyledTableRow key={user._id}>
           <TableCell>{user._id}</TableCell>
           <TableCell component="th" scope="row">
             <Avatar
-              src={url+'/'+user?.avatar}
+              src={url + "/" + user?.avatar}
               sx={{ width: 45, height: 45 }}
             />
           </TableCell>
           <TableCell>{user.username}</TableCell>
           <TableCell>{user.email}</TableCell>
           <TableCell>
-            <button onClick={handleOpen} className="btn btn-primary">
+            <button
+              onClick={(e) => handleOpen({ user })}
+              className="btn btn-primary"
+            >
               View
             </button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-              // sx={{ 
-              //   "& > .MuiBackdrop-root" : {
-              //           backdropFilter: "blur(2px)"
-              //         }
-              //   }}
-              BackdropProps={{style: {backgroundColor:'rgba(251,251,251,0.1)',backdropFilter: "blur(1px)"}}}
-            >
-              <Box sx={style}>
-        <div class="mb-3" style={{borderRadius: "5px"}}>
-          <div class="row g-0">
-            <div class="col-md-4 text-center">
-              {/* // style={{border-top-left-radius: ".5rem", border-bottom-left-radius: ".5rem"}}> */}
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                alt="Avatar" class="img-fluid my-5" style={{width: "80px"}} />
-                      <h3>{user.username}</h3>
-                      <h5>Created at:</h5>
-                      <p>{user.createdAt}</p>
-              
-            </div>
-            <div class="col-md-8">
-              <div class="card-body p-4">
-                <h3>Information</h3>
-                <hr class="mt-0 mb-4"/>
-                <div class="row pt-1">
-                  <div class="col-6 mb-3">
-                    <h6>Email</h6>
-                    <p class="text-muted">{user.email}</p>
+            {selUser && (
+              <Modal
+                open={open}
+                onClick={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                // sx={{
+                //   "& > .MuiBackdrop-root" : {
+                //           backdropFilter: "blur(2px)"
+                //         }
+                //   }}
+                BackdropProps={{
+                  style: {
+                    backgroundColor: "rgba(251,251,251,0.1)",
+                    backdropFilter: "blur(1px)",
+                  },
+                }}
+              >
+                <Box sx={style}>
+                  <div class="mb-3" style={{ borderRadius: "5px" }}>
+                    <div class="row g-0">
+                      <div class="col-md-4 text-center">
+                        {/* // style={{border-top-left-radius: ".5rem", border-bottom-left-radius: ".5rem"}}> */}
+                        {/* <img
+                           src={url + "/" + user?.avatar}
+                          alt="Avatar"
+                          class="img-fluid my-5"
+                          style={{ width: "80px" }}
+                        /> */}
+                        <Avatar
+                          src={url + "/" + selUser?.avatar}
+                          sx={{ width: 96, height: 96, margin:"auto" }}
+                          
+                        />
+                        <h3>{selUser.username}</h3>
+                        <h5>Created at:</h5>
+                        <p>{selUser.createdAt}</p>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body p-4">
+                          <h3>Information</h3>
+                          <hr class="mt-0 mb-4" />
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Email</h6>
+                              <p class="text-muted">{selUser.email}</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>UserID</h6>
+                              <p class="text-muted">{selUser._id}</p>
+                            </div>
+                          </div>
+                          <h6>Payment Details</h6>
+                          <hr class="mt-0 mb-4" />
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Recent Plan Price</h6>
+                              <p class="text-muted">{selUser.price}</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>Expired On:</h6>
+                              <p class="text-muted">{selUser.expired}</p>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-start">
+                            <a href="#!">
+                              <i class="fab fa-facebook-f fa-lg me-3"></i>
+                            </a>
+                            <a href="#!">
+                              <i class="fab fa-twitter fa-lg me-3"></i>
+                            </a>
+                            <a href="#!">
+                              <i class="fab fa-instagram fa-lg"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-6 mb-3">
-                    <h6>UserID</h6>
-                            <p class="text-muted">{user._id}</p>
-                  </div>
-                </div>
-                <h6>Payment Details</h6>
-                <hr class="mt-0 mb-4"/>
-                <div class="row pt-1">
-                  <div class="col-6 mb-3">
-                    <h6>Recent Plan Price</h6>
-                            <p class="text-muted">{plan.price}</p>
-                  </div>
-                  <div class="col-6 mb-3">
-                    <h6>Expired On:</h6>
-                            <p class="text-muted">{plan.expired}</p>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-              </Box>
-            </Modal>
+                </Box>
+              </Modal>
+            )}
           </TableCell>
           <TableCell>
             <button
@@ -288,7 +323,9 @@ const ManageUser = () => {
 
   return (
     <div>
-      {isloading ? (<Loader />) : (
+      {isloading ? (
+        <Loader />
+      ) : (
         <Paper className="container">
           <InputBase
             sx={{ ml: 1, flex: 1 }}
@@ -305,12 +342,16 @@ const ManageUser = () => {
             <SearchIcon color="primary" />
           </IconButton>
           <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table" >
+            <Table stickyHeader aria-label="sticky table">
               <TableHead style={{ backgroundColor: "#80808054" }}>
                 <TableRow>
                   <TableCell>ID</TableCell>
                   <TableCell>Avatar</TableCell>
-                  <TableCell><TableSortLabel onClick={() => sorting("username")}>Name</TableSortLabel></TableCell>
+                  <TableCell>
+                    <TableSortLabel onClick={() => sorting("username")}>
+                      Name
+                    </TableSortLabel>
+                  </TableCell>
                   <TableCell onClick={() => sorting("email")}>Email</TableCell>
                   <TableCell>ViewProfile</TableCell>
                   <TableCell>Delete</TableCell>

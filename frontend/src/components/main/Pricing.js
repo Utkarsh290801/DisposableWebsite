@@ -10,43 +10,157 @@ const Pricing = () => {
     JSON.parse(sessionStorage.getItem("user"))
   );
 
+  // const priceSubmit = async (planData) => {
+  //   console.log(planData);
+  //   if (currentUser) {
+  //     const res = await fetch(url + "/plan/checkuser/" + currentUser._id);
+  //     const existingPlan = await res.json();
+  //     console.log(existingPlan);
+  //     if (existingPlan) {
+  //       const confirmUpgrade = await Swal.fire({
+  //         icon: "warning",
+  //         title: "Upgrade Plan",
+  //         text: "You already have an existing plan. Do you want to upgrade your plan?",
+  //         showCancelButton: true,
+  //         confirmButtonText: "Upgrade",
+  //         cancelButtonText: "Cancel",
+  //         reverseButtons: true,
+  //       });
+  //       if (confirmUpgrade.isConfirmed) {
+  //         // Redirect to the appropriate plan upgrade page based on the selected plan
+  //         if (planData === "Pro") {
+  //           window.location.href =
+  //             "https://buy.stripe.com/test_14k5mm6up37K1EYaEF";
+  //         } else if (planData === "Expert") {
+  //           window.location.href =
+  //             "https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY";
+  //         }
+  //       }
+  //       return;
+  //     }
+  //   }
+  //   const response = await fetch(url + "/plan/add", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       plan: planData,
+  //       user: currentUser._id,
+  //       createdAt: new Date(),
+  //     }),
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+
+  //   if (response.ok) {
+  //     console.log("Plan added successfully");
+
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Success!",
+  //       text: "Plan added successfully.",
+  //     });
+  //   } else {
+  //     console.log("Something went wrong");
+
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error!!",
+  //       text: "Something went wrong. Please try again later.",
+  //     });
+  //   }
+  // };
   const priceSubmit = async (planData) => {
     console.log(planData);
     if (currentUser) {
       const res = await fetch(url + "/plan/checkuser/" + currentUser._id);
-      const planData = await res.json();
-      console.log(planData);
-      if (planData) {
-        Swal.fire({
-          icon: "error",
-          title: "Error!!",
-          text: "Something Went Wrong!",
-        });
-        return;
+      const existingPlan = await res.json();
+      console.log(existingPlan);
+      if (existingPlan) {
+              const confirmUpgrade = await Swal.fire({
+                icon: "warning",
+                title: "Upgrade Plan",
+                text: "You already have an existing plan. Do you want to upgrade your plan?",
+                showCancelButton: true,
+                confirmButtonText: "Upgrade",
+                cancelButtonText: "Cancel",
+                reverseButtons: true,
+              });
+              if (confirmUpgrade.isConfirmed) {
+        // Redirect to the appropriate plan upgrade page based on the selected plan
+        if (planData === "Pro" && existingPlan.plan !== "Pro") {
+          window.location.href =
+            "https://buy.stripe.com/test_14k5mm6up37K1EYaEF";
+        } else if (planData === "Expert" && existingPlan.plan !== "Expert") {
+          window.location.href =
+            "https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY";
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error!!",
+            text: "Invalid plan selected or already upgraded to the selected plan.",
+          });
+          return;
+        }
       }
+              return;
+            }
     }
-    const response = await fetch(url + "/plan/add", {
-      method: "POST",
-      body: JSON.stringify({
-        plan: planData,
-        user: currentUser._id,
-        createdAt: new Date(),
-      }),
-      headers: { "Content-Type": "application/json" },
+
+    Swal.fire({
+      title: "Confirmation",
+      text: `Are you sure you want to subscribe to the ${planData} plan?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (planData === "Pro") {
+          window.location.href =
+            "https://buy.stripe.com/test_14k5mm6up37K1EYaEF";
+        } else if (planData === "Expert") {
+          window.location.href =
+            "https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY";
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error!!",
+            text: "Invalid plan selected.",
+          });
+          return;
+        }
+
+        const addPlan = async () => {
+          const response = await fetch(url + "/plan/add", {
+            method: "POST",
+            body: JSON.stringify({
+              plan: planData,
+              user: currentUser._id,
+              createdAt: new Date(),
+            }),
+            headers: { "Content-Type": "application/json" },
+          });
+
+          if (response.ok) {
+            console.log("Plan added successfully");
+            Swal.fire({
+              icon: "success",
+              title: "Success!",
+              text: "Plan added successfully.",
+            });
+          } else {
+            console.log("Something went wrong");
+            Swal.fire({
+              icon: "error",
+              title: "Error!!",
+              text: "Something went wrong. Please try again later.",
+            });
+          }
+        };
+
+        addPlan();
+      }
     });
-    if (response.status === 200) {
-      console.log(response.status);
-      console.log("data saved");
-    } else if (response.status) {
-      console.log(response.status);
-      console.log("something went wrong");
-      Swal.error({
-        icon: "error",
-        title: "OOPS",
-        text: "!! something went wrong!!",
-      });
-    }
   };
+
   return (
     // <div className="pricing-body">
     //   <main className="pricing-container">
@@ -188,15 +302,22 @@ const Pricing = () => {
                   </span>
                 </li> */}
                 <li class="footer1">
-                  <a
-                    // onClick={() => {
-                    //   priceSubmit();
-                    // }}
-                    class="pricing-btn btn btn-dark border btn-sm"
-                    href="/home"
-                  >
-                    Try for free
-                  </a>
+                  {!currentUser && (
+                    <a
+                      class="pricing-btn btn btn-dark border btn-sm"
+                      href="/main/signin"
+                    >
+                      Try for free
+                    </a>
+                  )}
+                  {currentUser && (
+                    <a
+                      class="pricing-btn btn btn-dark border btn-sm"
+                      href="/home"
+                    >
+                      Try for free
+                    </a>
+                  )}
                 </li>
               </ul>
             </div>
@@ -210,7 +331,7 @@ const Pricing = () => {
                 <li class="pricing-header">
                   <h4>Pro</h4>
                   <h2>
-                    <sup>$</sup>15 <sub>/ Month</sub>
+                    <sup>₹</sup>15 <sub>/ Month</sub>
                   </h2>
                 </li>
                 <li>Custom Domain</li>
@@ -246,13 +367,25 @@ const Pricing = () => {
                   <strike>24x7 Expert Support </strike>
                 </li>
                 <li class="footer1">
-                  <a
-                    class="pricing-btn btn-theme effect btn-sm"
-                    href="https://buy.stripe.com/test_14k5mm6up37K1EYaEF"
-                    target="_blank"
-                  >
-                    Get Started
-                  </a>
+                  {!currentUser && (
+                    <a
+                      class="pricing-btn btn-theme effect btn-sm"
+                      href="/main/signin"
+                      target="_self"
+                    >
+                      Get Started
+                    </a>
+                  )}
+                  {currentUser && (
+                    <a
+                      class="pricing-btn btn-theme effect btn-sm"
+                      // href="https://buy.stripe.com/test_14k5mm6up37K1EYaEF"
+                      target="_blank"
+                      onClick={() => priceSubmit("Pro")}
+                    >
+                      Get Started
+                    </a>
+                  )}
                 </li>
               </ul>
             </div>
@@ -266,7 +399,7 @@ const Pricing = () => {
                 <li class="pricing-header">
                   <h4>Expert</h4>
                   <h2>
-                    <sup>$</sup>30<sub>/ Month</sub>
+                    <sup>₹</sup>30<sub>/ Month</sub>
                   </h2>
                 </li>
                 <li>Custom Domain</li>
@@ -280,13 +413,25 @@ const Pricing = () => {
                 <li>Webpages Unlimited Design</li>
                 <li>24x7 Expert Support </li>
                 <li class="footer1">
-                  <a
-                    class="pricing-btn btn btn-dark border btn-sm"
-                    href="https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY"
-                    target="_blank"
-                  >
-                    Get Started
-                  </a>
+                  {!currentUser && (
+                    <a
+                      class="pricing-btn btn-theme effect btn-sm"
+                      href="/main/signin"
+                      target="_self"
+                    >
+                      Get Started
+                    </a>
+                  )}
+                  {currentUser && (
+                    <a
+                      class="pricing-btn btn-theme effect btn-sm"
+                      // href="https://buy.stripe.com/test_dR63ee2e9fUwgzSfYY"
+                      target="_blank"
+                      onClick={() => priceSubmit("Expert")}
+                    >
+                      Get Started
+                    </a>
+                  )}
                 </li>
               </ul>
             </div>

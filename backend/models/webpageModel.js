@@ -6,7 +6,7 @@ const myschema = new Schema({
   type: {type: String,default:"unspecified"},
   data: { type: Object, default: null },
   forms: Array,
-  disposed: Boolean,
+  disposed: { type: Boolean, default: false },
   user: { type: Types.ObjectId, ref: "usercollection" },
 });
 module.exports = model("webpagecollection", myschema);

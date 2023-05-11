@@ -5,18 +5,16 @@ const myschema = new Schema({
   email: String,
   password: String,
   norPass: String,
-  // newPassword: String,
-  // confirmPassword: String,
   avatar: String,
   isAdmin: { type: Boolean, default: false },
-  createdAt: { type: Date, default: new Date() },
+  createdAt: { type: Date },
+  type : {type : String, default : "normal"},
   isBlocked: {
     type: Boolean,
     default: false
   },
 });
 myschema.pre("save", function (next) {
-  console.log("hi from inside");
   if (this.isModified("password")) {
     this.password = bcrypt.hash(this.password, 12);
   }

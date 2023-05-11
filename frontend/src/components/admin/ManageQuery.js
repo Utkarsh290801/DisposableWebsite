@@ -10,6 +10,10 @@ import Paper from "@mui/material/Paper";
 import Swal from "sweetalert2";
 import Switch from "@mui/material/Switch";
 import { Link } from "react-router-dom";
+import { MDBBtn } from "mdb-react-ui-kit";
+
+import EditIcon from "@mui/icons-material/Edit";
+import { ToastContainer, toast } from "react-toastify";
 import {
   Avatar,
   Box,
@@ -22,15 +26,14 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
- import { TableSortLabel } from '@mui/material';
+import { TableSortLabel } from "@mui/material";
 import Loader from "../utils/Loader";
 
 const ManageQuery = () => {
   const [query, setQuery] = useState([]);
   const [isloading, setIsloading] = useState(true);
   const [filter, setFilter] = useState("");
-  const [order, setOrder] = useState('ASC');
-  // const [data, setdata] = useState(userArray);
+  const [order, setOrder] = useState("ASC");
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
@@ -41,22 +44,28 @@ const ManageQuery = () => {
       border: 0,
     },
   }));
+
   //------------------ sorting----------------------
   const sorting = (col) => {
     if (order === "ASC") {
-      const sorted = [...query].sort((a, b) => a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1);
+      const sorted = [...query].sort((a, b) =>
+        a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+      );
       setQuery(sorted);
       setOrder("DSC");
-    }if (order === "DSC") {
-      const sorted = [...query].sort((a, b) => a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1);
+    }
+    if (order === "DSC") {
+      const sorted = [...query].sort((a, b) =>
+        a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+      );
       setQuery(sorted);
       setOrder("ASC");
     }
-  }
- 
-// -------------------pagination-------------------
+  };
+
+  // -------------------pagination-------------------
   const [pg, setPage] = React.useState(0);
-  const [rpg, setRowsPerPage] = React.useState(25);
+  const [rpg, setRowsPerPage] = React.useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -67,158 +76,159 @@ const ManageQuery = () => {
     setPage(0);
   };
 
-  const url = app_config.backend_url;
+  const [responseText, setResponseText] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const getUserfromBackend = async () => {
-    const response = await fetch(url + "/contact/getall");
-    const data = await response.json();
-    console.log(data);
-    setQuery(data);
-    setIsloading(false);
+  const handleResponseChange = (event) => {
+    event.persist();
+    setResponseText(event.target.value);
   };
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 800,
-    bgcolor: "white",
-    // border: "2px solid #000",
-    boxShadow: 2,
-    p: 2,
+
+  const sendEmailResponse = (recipientEmail, response) => {
+    fetch("http://localhost:5000/util/sendmail", {
+      method: "POST",
+      body: JSON.stringify({
+        to: recipientEmail,
+        subject: "Response to your query",
+        text:
+          " Thank you for reaching out to us. We have received your query and would like to provide you with the following response" +
+          response,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(res.status);
+        console.log(response);
+        if (res.status === 200) {
+          toast.success("Response Send Successful");
+        }
+        return res.json();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleReply = () => {
+    if (responseText.trim() === "") {
+      toast.warning("Response message cannot be empty!");
+      return;
+    }
+
+    if (selectedUser) {
+      sendEmailResponse(selectedUser.email, responseText);
+      setResponseText("");
+    }
+  };
 
   useEffect(() => {
-    getUserfromBackend();
+    // Fetch query data from API
+    fetch(`${app_config.backend_url}/contact/getall`)
+      .then((response) => response.json())
+      .then((data) => {
+        setQuery(data);
+        setIsloading(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setIsloading(false);
+      });
   }, []);
 
-  const handleFilter = async () => {
-    const response = await fetch(url + "/contact/getall");
-    const data = await response.json();
-
-    setQuery(
-      data.filter((value) => {
-        return value.username.toLowerCase().includes(filter.toLowerCase());
-      })
-    );
-  };
-  const displayQuery = () => {
-    return query.slice(pg * rpg, pg * rpg + rpg).map((contact) => (
-      <>
-        <StyledTableRow key={contact._id}>
-          <TableCell>{contact._id}</TableCell>
-          <TableCell>{contact.mobile}</TableCell>
-          <TableCell>{contact.name}</TableCell>
-          <TableCell>{contact.email}</TableCell>
-          <TableCell>{contact.subject}</TableCell>
-                {/* <TableCell>{contact.message}</TableCell> */}
-                <TableCell>
-            <button onClick={handleOpen} className="btn btn-primary">
-              View
-            </button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-              // sx={{ 
-              //   "& > .MuiBackdrop-root" : {
-              //           backdropFilter: "blur(2px)"
-              //         }
-              //   }}
-              BackdropProps={{style: {backgroundColor:'rgba(251,251,251,0.1)',backdropFilter: "blur(1px)"}}}
-            >
-             <Box sx={style}>
-        <div class="" style={{borderRadius: "5px",wordWrap:"break-word"}}>
-          <div class="row pt-1">
-            <div class="col-md-12">
-              <div class="card-body p-4">
-                <p>{contact.message}</p>
-                <hr class="mt-0"/>
-                
-                <div class="d-flex justify-content-center">
-                  <button className="btn btn-primary">Reply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-              </Box>
-            </Modal>
-          </TableCell>
-          <TableCell>{contact.createdAt}</TableCell>
-          <TableCell>{contact.comment}</TableCell>
-          
-          {/* <TableCell>
-            <button
-              className="btn btn-danger"
-              onClick={() => {
-                deleteUser(user._id);
-              }}
-            >
-              <i class="fa-solid fa-trash fa-lg"></i>
-            </button>
-          </TableCell> */}
-          <TableCell>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Typography>Read</Typography>
-              <Switch
-                // checked={contact.isRead}
-                // onChange={(e, v) => {
-                //   changeStatusOfContact(contact._id, v);
-                // }}
-              />
-              <Typography>UnRead</Typography>
-            </Stack>
-          </TableCell>
-        </StyledTableRow>
-      </>
-    ));
+  const handleUserSelection = (user) => {
+    setSelectedUser(user);
   };
 
   return (
     <div>
-      {isloading ? (<Loader />) : (
-        <Paper className="container">
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Enter Name to Search"
-            onChange={(e) => setFilter(e.target.value)}
-            inputProps={{ "aria-label": "Enter Name to Search" }}
-          />
-          <IconButton
-            type="button"
-            sx={{ p: "10px" }}
-            aria-label="search"
-            onClick={handleFilter}
-          >
-            <SearchIcon color="primary" />
-          </IconButton>
-          <TableContainer>
-            <Table stickyHeader aria-label="sticky table" >
-              <TableHead style={{ backgroundColor: "#80808054" }}>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>Mobile</TableCell>
-                  <TableCell><TableSortLabel onClick={() => sorting("username")}>Name</TableSortLabel></TableCell>
-                  <TableCell onClick={() => sorting("email")}>Email</TableCell>
-                  <TableCell>Subject</TableCell>
-                  <TableCell>Message</TableCell>
-                  <TableCell>Created At</TableCell>
-                  <TableCell>Comment</TableCell>
-                  <TableCell>Status</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {displayQuery()}
-              </TableBody>
-            </Table>
-          </TableContainer>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <Stack direction="row" spacing={2} sx={{ marginBottom: 2 }}>
+        <SearchIcon />
+        <InputBase
+          placeholder="Search..."
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+      </Stack>
+
+      {isloading ? (
+        <Loader />
+      ) : (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={true}
+                    direction={order}
+                    onClick={() => sorting("name")}
+                  >
+                    Name
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Created At</TableCell>
+                <TableCell>Response</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {query
+                .filter((item) =>
+                  item.name.toLowerCase().includes(filter.toLowerCase())
+                )
+                .slice(pg * rpg, pg * rpg + rpg)
+                .map((item, index) => (
+                  <StyledTableRow key={index}>
+                    <TableCell>{item._id}</TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.email}</TableCell>
+                    <TableCell>{item.createdAt}</TableCell>
+                    <TableCell>
+                      {item.response ? (
+                        <Typography>{item.response}</Typography>
+                      ) : (
+                        <Box>
+                          <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <MDBBtn onClick={() => handleUserSelection(item)}>
+                              Reply
+                            </MDBBtn>
+                          </Box>
+                        </Box>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <Typography>Read</Typography>
+                        <Switch
+                        // checked={contact.isRead}
+                        // onChange={(e, v) => {
+                        //   changeStatusOfContact(contact._id, v);
+                        // }}
+                        />
+                        <Typography>UnRead</Typography>
+                      </Stack>
+                    </TableCell>
+                  </StyledTableRow>
+                ))}
+            </TableBody>
+          </Table>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[10, 25, 50]}
             component="div"
             count={query.length}
             rowsPerPage={rpg}
@@ -226,7 +236,73 @@ const ManageQuery = () => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-        </Paper>
+        </TableContainer>
+      )}
+      {selectedUser && (
+        <Modal open={true} onClose={() => setSelectedUser(null)}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 700,
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography variant="h6" component="div">
+              Respond to Query
+            </Typography>
+            <Box sx={{ mt: 2 }}>
+              <div class="row pt-1">
+                <div class="col-6 mb-3">
+                  <h6>Email</h6>
+                  <p class="text-muted">{selectedUser.email}</p>
+                </div>
+                <div class="col-6 mb-3">
+                  <h6>UserID</h6>
+                  <p class="text-muted">{selectedUser._id}</p>
+                </div>
+              </div>
+              <div className="col-6 mb-3 d-flex justify-content-between">
+                <h6>Subject</h6>{" "}
+                <p class=" font-weight-bold">{selectedUser.subject}</p>
+              </div>
+              <hr class="mt-0 mb-4" />
+              <div class="row pt-1">
+                <div class="col-6 mb-3 d-flex justify-content-between">
+                  <h6>Message</h6>
+                  <p class="text-muted">{selectedUser.message}</p>
+                </div>
+              </div>
+              {/* <Typography variant="body1">
+              <h6>Email</h6>
+                              <p class="text-muted">{selectedUser.email}</p>
+                Email: {selectedUser.email}
+              </Typography> */}
+              {/* <Typography variant="body1">
+                Message: {selectedUser.message}
+              </Typography> */}
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+              <Avatar sx={{ marginRight: 1 }} />
+              <InputBase
+                placeholder="Write a response"
+                multiline
+                rows={4}
+                value={responseText}
+                onChange={handleResponseChange}
+                sx={{
+                  minWidth: 400,
+                  marginRight: 1,
+                }}
+              />
+              <MDBBtn onClick={handleReply}>Send</MDBBtn>
+            </Box>
+          </Box>
+        </Modal>
       )}
     </div>
   );

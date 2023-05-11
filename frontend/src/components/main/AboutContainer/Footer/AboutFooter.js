@@ -2,6 +2,7 @@ import React from "react";
 import "./AboutFooter.css";
 import { Link } from "react-scroll";
 import logo from "../assets/Home/webx.png";
+import {  NavLink, useNavigate } from "react-router-dom";
 const AboutFooter = () => {
   return (
     <footer>
@@ -99,16 +100,16 @@ const AboutFooter = () => {
                 <br />
                 <ul>
                   <li>
-                    <a href="">Instagram</a>
+                    <NavLink to="">Instagram</NavLink>
                   </li>
                   <li>
-                    <a href="">YouTube</a>
+                    <NavLink to="">YouTube</NavLink>
                   </li>
                   <li>
-                    <a href="">LinkedIn</a>
+                    <NavLink to="">LinkedIn</NavLink>
                   </li>
                   <li>
-                    <a href="">Github</a>
+                    <NavLink to="">Github</NavLink>
                   </li>
                 </ul>
               </div>

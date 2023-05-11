@@ -74,4 +74,51 @@ router.post("/api/comments", (req, res) => {
       res.sendStatus(500);
     });
 });
+// Assuming you're using Express.js and Mongoose in the backend
+
+// ...
+
+// POST /contact/respond
+router.post("/respond", async (req, res) => {
+  try {
+    const { queryId, response } = req.body;
+
+    // Find the query in the database using the queryId
+    const query = await Query.findById(queryId);
+
+    if (!query) {
+      return res.status(404).json({ message: "Query not found" });
+    }
+
+    // Update the query with the admin's response
+    query.adminResponse = response;
+    query.isRead = true; // Optional: Mark the query as read
+    await query.save();
+
+    res.status(200).json({ message: "Response sent successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.put("/update/:id", (req, res) => {
+  const contactId = req.params.id;
+  const { isRead } = req.body;
+
+  // Assuming you have a database or data storage to store contact records
+  // Here, you would update the contact status based on the provided ID
+  // You can replace this code with your own implementation using your preferred database
+
+  // Example: Update contact status in a MongoDB database using Mongoose
+  Model.findByIdAndUpdate(contactId, { isRead }, (err, contact) => {
+    if (err) {
+      console.error("Error updating contact status:", err);
+      res.status(500).json({ error: "Failed to update contact status" });
+    } else {
+      res.status(200).json({ message: "Contact status updated successfully" });
+    }
+  });
+});
+
 module.exports = router;

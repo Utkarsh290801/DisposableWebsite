@@ -19,6 +19,8 @@ const initMail = () => {
   return new SMTPClient({
     user: "testproject2629@gmail.com",
     password: "xqtruybqmykqmipv",
+    // user: "utkarsh290801@gmail.com",
+    // password: "elgtypaussmfkozr",
     host: "smtp.gmail.com",
     ssl: true,
   });
