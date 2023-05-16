@@ -48,6 +48,31 @@ const UserrProfile = () => {
     }
   };
 
+
+{/*-----------------Remove Avatar---------------------------------*/}
+  const handleAvatarRemove = async (e) => {
+    try {
+      const updatedUser = { ...userArray, avatar: null };
+      const response = await fetch(url+'/user/update/'+ currentUser._id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser),
+      });
+      if (response.status===200) {
+        setUserArray(updatedUser);
+        console.log("successful remove");
+        e.preventDefault();
+        getDataFromBackend();
+      } else {
+        console.error('Error update profile:', response.status);
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  }
+
   const { setAvatar } = useContext(UserContext);
   const [updateForm, setUpdateForm] = useState({});
   const [newPass, setNewPass] = useState("");
@@ -69,7 +94,7 @@ const UserrProfile = () => {
 
   const onFormSubmit = (value, { setSubmitting }) => {
     value.avatar = selImage;
-    fetch("http://localhost:5000/user/update/" + currentUser._id, {
+    fetch(url+"/user/update/" + currentUser._id, {
       method: "PUT",
       body: JSON.stringify(value),
       // body : JSON.stringify({
@@ -101,7 +126,7 @@ const UserrProfile = () => {
       });
       return;
     }
-    fetch("http://localhost:5000/user/update/" + currentUser._id, {
+    fetch(url+"/user/update/" + currentUser._id, {
       method: "PUT",
       body: JSON.stringify({
         password: newPass,

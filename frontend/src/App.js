@@ -42,6 +42,9 @@ import Preview from "./components/user/Preview";
 import WebBuild from "./components/user/WebBuild";
 import Toxicity from "./components/main/Toxicity";
 import Home from "./components/main/AboutContainer/Home/Home";
+import ViewTestimonial from "./components/admin/ViewTestimonial";
+import ViewBlockedUsers from "./components/admin/ViewBlockedUsers";
+import AllUserList from "./components/admin/AllUserList";
 
 // import GlobalStyle from "./globalStyles";
 
@@ -87,6 +90,9 @@ function App() {
               <Route path="usermanager" element={<UserManager />} />
               <Route path="profile" element={<Profile />} />
               <Route path="managesites" element={<ManageSites />} />
+              <Route path="viewtestimonial" element={<ViewTestimonial />} />
+              <Route path="viewBlockedUsers" element={<ViewBlockedUsers />} />
+              <Route path="allUserList" element={<AllUserList />} />
             </Route>
 
             <Route
