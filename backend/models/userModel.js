@@ -7,11 +7,11 @@ const myschema = new Schema({
   norPass: String,
   avatar: String,
   isAdmin: { type: Boolean, default: false },
-  createdAt: { type: Date },
-  type : {type : String, default : "normal"},
+  createdAt: { type: Date, default: new Date() },
+  type: { type: String, default: "normal" },
   isBlocked: {
     type: Boolean,
-    default: false
+    default: false,
   },
 });
 myschema.pre("save", function (next) {
