@@ -19,15 +19,16 @@ function Video() {
           duration: 0.8,
         }}
       >
-        <iframe
+        {/* <iframe
           width="960"
           height="515"
-          src="https://www.youtube.com/"
+          src="https://drive.google.com/file/d/1P1ZeAO4NhwBrzYCUu-PLpgR4uKz9yOGT/view?usp=share_link"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-        ></iframe>
+        ></iframe> */}
+        <iframe src="https://www.example.com" width="960" height="515"></iframe>
       </motion.div>
     </Section>
   );

@@ -81,7 +81,7 @@ const Navbar = () => {
             </div>
           </li>
           <li>
-            <Link to="/user/webbuild">Builder</Link>
+            <Link to="/user/webb">Builder</Link>
           </li>
           <li>
             <Link to="/about">About</Link>

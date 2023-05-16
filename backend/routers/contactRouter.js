@@ -84,7 +84,7 @@ router.post("/respond", async (req, res) => {
     const { queryId, response } = req.body;
 
     // Find the query in the database using the queryId
-    const query = await Query.findById(queryId);
+    const query = await Model.findById(queryId);
 
     if (!query) {
       return res.status(404).json({ message: "Query not found" });

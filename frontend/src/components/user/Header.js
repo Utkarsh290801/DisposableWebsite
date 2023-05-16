@@ -21,7 +21,7 @@ import Sidebar from "./Sidebar";
 
 const pages = [
   { name: "Home", link: "/user" },
-  { name: "Preview", link: "/preview" },
+  // { name: "Preview", link: "/preview" },
   { name: "Pricing", link: "/main/plan" },
 ];
 const settings = [

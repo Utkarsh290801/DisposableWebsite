@@ -29,7 +29,6 @@ const HomePage = () => {
 
   const { loggedIn, setLoggedIn } = React.useContext(UserContext);
 
-
   useEffect(() => {
     let ticker = setInterval(() => {
       tick();
@@ -98,56 +97,53 @@ const HomePage = () => {
                 Here, you create Temporary Websites.
               </p>
               <ul>
-              {!loggedIn ? (
-            <li className="">
-              <Button
-                type="submit"
-                variant="outlined"
-                color="warning"
-                size="large"
-                href="/user/webbuild"
-                sx={{
-                  borderRadius: "25px",
-                  color: "#ed6c02",
-                  border: "2px solid #ed6c02",
-                  transition: "transform .2s ease-in-out",
-                  ":hover": {
-                    transform: "scale(1.04)",
-                    color: "white",
-                    bgcolor: "#ed6c02",
-                  },
-                }}
-              >
-                Try for free
-              </Button>
-            </li>
-          ) : (
-              
-            <Button
-            type="submit"
-            variant="outlined"
-            color="secondary"
-            size="large"
-            href="/main/contactus"
-           
-            sx={{
-              borderRadius: "25px",
-              color: "#9c27b0",
-              border: "2px solid #9c27b0",
-              transition: "transform .2s ease-in-out",
-              marginLeft: "20px",
-              ":hover": {
-                transform: "scale(1.04)",
-                color: "white",
-                bgcolor: "#9c27b0",
-              },
-            }}
-          >
-            Talk to us
-          </Button>
-          )}
-        </ul>
-          
+                {!loggedIn ? (
+                  <li className="">
+                    <Button
+                      type="submit"
+                      variant="outlined"
+                      color="warning"
+                      size="large"
+                      href="/user/webbuild"
+                      sx={{
+                        borderRadius: "25px",
+                        color: "#ed6c02",
+                        border: "2px solid #ed6c02",
+                        transition: "transform .2s ease-in-out",
+                        ":hover": {
+                          transform: "scale(1.04)",
+                          color: "white",
+                          bgcolor: "#ed6c02",
+                        },
+                      }}
+                    >
+                      Try for free
+                    </Button>
+                  </li>
+                ) : (
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    color="secondary"
+                    size="large"
+                    href="/main/contactus"
+                    sx={{
+                      borderRadius: "25px",
+                      color: "#9c27b0",
+                      border: "2px solid #9c27b0",
+                      transition: "transform .2s ease-in-out",
+                      marginLeft: "20px",
+                      ":hover": {
+                        transform: "scale(1.04)",
+                        color: "white",
+                        bgcolor: "#9c27b0",
+                      },
+                    }}
+                  >
+                    Talk to us
+                  </Button>
+                )}
+              </ul>
             </div>
             {/* <img src={play} alt="Play Button" /> */}
           </div>

@@ -211,7 +211,7 @@ export default function Sidebar({ children, options, title }) {
                 onClick={(e) => navigate("/home")}
                 sx={{ mr: 2 }}
               >
-                {/* <Home/> */}
+                <Home />
                 <lord-icon
                   src="https://cdn.lordicon.com/etqbfrgp.json"
                   trigger="hover"
@@ -228,7 +228,7 @@ export default function Sidebar({ children, options, title }) {
               size="large"
               sx={{ ml: 1, ...boxSX }}
               color="inherit"
-              onClick={(e) => navigate("/user/webbuild")}
+              onClick={(e) => navigate("/user/webb")}
             >
               Builder
             </Button>
