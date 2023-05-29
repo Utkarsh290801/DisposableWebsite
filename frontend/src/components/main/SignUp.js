@@ -147,7 +147,7 @@ const SignUp = () => {
       // console.log("data saved");
       sessionStorage.setItem("user", JSON.stringify(data));
       setLoggedIn(true);
-
+      let dt = new Date();
       const response2 = await fetch(url + "/webpage/add", {
         method: "POST",
         body: JSON.stringify({
@@ -155,6 +155,7 @@ const SignUp = () => {
           description: "",
           type: "",
           user: data._id,
+          expiryDate: dt.setDate(dt.getDate() + 30)
         }),
         headers: { "Content-Type": "application/json" },
       });

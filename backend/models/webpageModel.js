@@ -8,5 +8,6 @@ const myschema = new Schema({
   forms: Array,
   disposed: { type: Boolean, default: false },
   user: { type: Types.ObjectId, ref: "usercollection" },
+  expiryDate: { type: Date, default: new Date()}
 });
 module.exports = model("webpagecollection", myschema);
