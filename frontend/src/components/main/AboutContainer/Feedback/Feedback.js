@@ -4,6 +4,8 @@ import app_config from "../../../../config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Formik } from "formik";
+import Swal from 'sweetalert2';
+
 export default function Feedback() {
   const url = app_config.backend_url;
   const FeedbackForm = {
@@ -14,8 +16,20 @@ export default function Feedback() {
   const TestimonialSubmit = async (formdata, { setSubmitting, resetForm }) => {
     console.log(formdata);
     setSubmitting(true);
-
-    // asynchronous function returns promise
+    getToxicity(formdata.review, async (result) => {
+      console.log(result);
+      const isToxic = result.filter((obj) => obj.results[0].match);
+      // console.log(isToxic);
+      let status = "Not Toxic";
+      if (isToxic.length > 0) {
+        Swal.fire({
+          title: "Oops",
+          icon: "error",
+          text: "Your comment is toxic",
+        });
+        status = "Toxic";
+      } else {
+        // asynchronous function returns promise
     const response = await fetch(url + "/testimonial/add", {
       method: "POST",
       body: JSON.stringify(formdata),
@@ -37,8 +51,30 @@ export default function Feedback() {
     }
 
     setSubmitting(false);
+      }
+        
+    });
+    
   };
 
+  const getToxicity = (text, cb) => {
+    const threshold = 0.9;
+    // Load the model. Users optionally pass in a threshold and an array of
+    // labels to include.
+    window.toxicity.load(threshold).then((model) => {
+      const sentences = [text];
+
+      model
+        .classify(sentences)
+        .then(async (result) => {
+          // console.log(result);
+          await cb(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  };
   
 
   return (
