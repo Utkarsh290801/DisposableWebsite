@@ -155,8 +155,6 @@ const HomePage = () => {
               loop
               playsInline
               style={{
-                width: "480px",
-                height: "100%",
                 float: "right",
                 borderBottom: " 3px solid black",
               }}
@@ -199,6 +197,10 @@ const Section = styled.section`
 
   background-size: cover;
   position: relative;
+  video {
+    height: auto;
+    width: 480px;
+  }
   .home {
     height: 100%;
 
@@ -258,6 +260,7 @@ const Section = styled.section`
       color: black;
     }
   }
+
   @media screen and (min-width: 280px) and (max-width: 1080px) {
     .home {
       .content {
@@ -276,6 +279,55 @@ const Section = styled.section`
       position: initial;
       .grid {
         grid-template-columns: 1fr;
+      }
+    }
+    video {
+      width: 100%;
+      height: auto;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .home {
+      .row {
+        flex-direction: column-reverse;
+      }
+      .content {
+        width: 100%;
+        padding: 2rem;
+        text-align: center;
+        align-items: center;
+        gap: 2rem;
+
+        h1 {
+          font-size: 2.5rem;
+          line-height: 3.5rem;
+        }
+      }
+      .col-md-4 {
+        margin-top: 2rem;
+      }
+    }
+
+    .col-md-4 {
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+    }
+
+    .subTitle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      p {
+        width: 100%;
+        margin-bottom: 2rem;
+        font-weight: 400;
+        font-size: 1.1rem;
       }
     }
   }

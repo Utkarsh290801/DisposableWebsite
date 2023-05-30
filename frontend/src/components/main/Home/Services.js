@@ -119,7 +119,15 @@ const Section = styled.section`
       margin: 2rem 0;
       grid-template-columns: 1fr;
       gap: 2rem;
-      padding: 0 2rem;
+      // padding: 0 2rem;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .services {
+      grid-template-columns: repeat(1, 1fr);
+      width: 100%;
+      margin: 2rem 0;
+      // padding: 0 2rem;
     }
   }
 `;

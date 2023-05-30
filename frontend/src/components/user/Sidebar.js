@@ -149,7 +149,7 @@ export default function Sidebar({ children, options, title }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
   const { loggedIn, setLoggedIn } = React.useContext(UserContext);
-  const {avatar} = React.useContext(UserContext);
+  const { avatar } = React.useContext(UserContext);
 
   const logout = () => {
     //1.destroy session value
@@ -283,11 +283,13 @@ export default function Sidebar({ children, options, title }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {currentUser.avatar && <Avatar
-                  alt=""
-                  // src={currentUser.avatar ? url + "/" + currentUser.avatar : ""}
-                  src={avatar}
-                />}
+                {currentUser.avatar && (
+                  <Avatar
+                    alt=""
+                    src={currentUser.avatar ? url + "/" + currentUser.avatar : ""}
+                    // src={currentUser.avatar}
+                  />
+                )}
               </IconButton>
             </Tooltip>
             <Menu

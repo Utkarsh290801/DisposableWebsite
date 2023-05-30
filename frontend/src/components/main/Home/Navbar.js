@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { navAnimation } from "./animation";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../user/UserContext";
-import { style } from "@mui/system";
+// import { style } from "@mui/system";
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [element, controls] = useScroll();

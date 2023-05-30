@@ -363,7 +363,7 @@ const SignIn = () => {
                                 value={values.password}
                               />
                             </div>
-                            <div className="d-flex justify-content-between align-items-center ">
+                            <div className="d-flex justify-content-between align-items-center mb-3 ">
                               <div class="form-check">
                                 <FormControlLabel
                                   value="end"
@@ -379,27 +379,27 @@ const SignIn = () => {
                                 Forgot password?
                               </Link>
                             </div>
-                            <div className="d-flex justify-content-between align-items-center mb-4 ">
+                            <div className="d-flex justify-content-between align-items-center mb-3 ">
                               <Button
                                 disabled={isSubmitting}
                                 type="submit"
                                 variant="contained"
                                 className=" btn btn-primary btn-lg btn-block"
-                                style={{ width: "38%" }}
+                                style={{ width: "48%" }}
                               >
                                 Sign In
                               </Button>
                               <p
-                                class="mt-4"
+                                class="mt-2"
                                 style={{ color: "#393f81", float: "right" }}
                               >
                                 I'm New User
                               </p>
-                              <p class="mt-4" style={{ color: "#393f81" }}>
+                              <p class="mt-2" style={{ color: "#393f81" }}>
                                 <Link to="/main/signup">Create Account</Link>
                               </p>
                             </div>
-                            <div className="d-flex justify-content-center align-items-center mb-1">
+                            <div className="d-flex justify-content-center align-items-center mb-3">
                               <h6>Or Signup with</h6>
                             </div>
 
