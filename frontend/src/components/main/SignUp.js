@@ -155,7 +155,7 @@ const SignUp = () => {
           description: "",
           type: "",
           user: data._id,
-          expiryDate: dt.setDate(dt.getDate() + 30)
+          // expiryDate: dt.setDate(dt.getDate() + 30)
         }),
         headers: { "Content-Type": "application/json" },
       });

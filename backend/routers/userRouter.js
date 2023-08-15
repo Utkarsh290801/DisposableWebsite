@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(12);
 
 router.post("/add", (req, res) => {
-  if(req.body.password){
+  if (req.body.password) {
     const hash = bcrypt.hashSync(req.body.password, salt);
     req.body.password = hash;
   }
@@ -104,10 +104,42 @@ router.put("/update/:userid", (req, res) => {
       res.json(err);
     });
 });
+// router.put("/update/:userid", async (req, res) => {
+//   try {
+//     const { userid } = req.params;
+//     const formdata = req.body;
+//     let hash;
+
+//     if (formdata.password) {
+//       hash = bcrypt.hashSync(formdata.password, salt);
+//       formdata.password = hash;
+//     }
+
+//     const user = await Model.findById(userid);
+
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Update the isBlocked value based on user type
+//     if (user.type === "normal" || user.type === "google") {
+//       user.isBlocked = formdata.isBlocked;
+//       await user.save();
+//     } else {
+//       return res.status(400).json({ message: "Invalid user type" });
+//     }
+
+//     return res.json(user);
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ message: "Server error" });
+//   }
+// });
+
 router.post("/authenticate", (req, res) => {
   // Model.findOne({ email: req.body.email, password: req.body.password })
   if (req.body.isBlocked) {
-    res.status(405).json({ message: 'user not allowed' })
+    res.status(405).json({ message: "user not allowed" });
     return;
   }
   Model.findOne({ email: req.body.email })

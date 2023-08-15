@@ -220,12 +220,13 @@ const AdminDashboard = () => {
           </div>
           <div>
             <AnimatedNumbers
-              animateToNumber={artistList.length}
+              animateToNumber={8}
               fontStyle={{ fontSize: 32 }}
               configs={(number, index) => {
                 return { mass: 1, tension: 230 * (index + 1), friction: 140 };
               }}
             ></AnimatedNumbers>
+            {/* <p style={{fontSize:"32px"}}> 8</p> */}
           </div>
         </div>
       </div>
@@ -292,7 +293,7 @@ const AdminDashboard = () => {
           </div>
           <div>
             <AnimatedNumbers
-              animateToNumber={artistList.length}
+              animateToNumber={2}
               fontStyle={{ fontSize: 32 }}
               configs={(number, index) => {
                 return { mass: 1, tension: 230 * (index + 1), friction: 140 };

@@ -16,6 +16,7 @@ import Basics from "grapesjs-blocks-basic";
 import BaseReactComponent from "./base-react-component";
 import app_config from "../../config";
 import Templates from "./Templates";
+import Disabled from "../main/Disabled";
 
 const WebBuild = () => {
   const url = app_config.backend_url;
@@ -105,15 +106,32 @@ const WebBuild = () => {
 
       setEditor(editor);
       setPluginLoaded(true);
+    } else if (webpageData && editor) {
+      // Set the user's webpage data as the initial content in the editor
+      if (webpageData.data) {
+        editor.setComponents(webpageData.data.html);
+        editor.setStyle(webpageData.data.css);
+        // editor.setComponents(webpageData.data.js);
+      }
     }
-  }, [pluginLoaded]);
+  }, [pluginLoaded, webpageData]);
 
   const saveToDB = async () => {
     if (!webpageData) {
       console.log("No webpage data available");
       return;
     }
+    const shouldSave = window.confirm(
+      "Do you want to save the webpage data and make it live?"
+    );
 
+    if (!shouldSave) {
+      console.log("Webpage data not saved");
+      return;
+    }
+    // Update the expiryDate to the current date plus 5 minutes
+    const newExpiryDate = new Date();
+    newExpiryDate.setMinutes(newExpiryDate.getMinutes() + 2);
     const response = await fetch(url + "/webpage/update/" + webpageData._id, {
       method: "PUT",
       body: JSON.stringify({
@@ -123,6 +141,7 @@ const WebBuild = () => {
           js: editor.getJs(),
           editorData: webpageData,
         },
+        expiryDate: newExpiryDate, // Update the expiryDate
       }),
       headers: { "Content-Type": "application/json" },
     });
@@ -148,35 +167,7 @@ const WebBuild = () => {
   return (
     <div>
       <div style={{ textAlign: "center", margin: "20px" }}>
-        {/* {Boolean(webpageData) ? (
-          <a
-            style={{
-              display: "inline-block",
-              padding: "10px 20px",
-              fontSize: "18px",
-              backgroundColor: "#333",
-              color: "#fff",
-              textDecoration: "none",
-              borderRadius: "4px",
-              transition: "background-color 0.3s ease",
-            }}
-            target="_blank"
-            href={"/live/" + webpageData._id}
-          >
-            Visit Live Page
-          </a>
-        ) : (
-          <p
-            style={{
-              fontSize: "18px",
-              color: "#ff0000",
-              textAlign: "center",
-              marginBottom: "10px",
-            }}
-          >
-            Webpage is not live. Save it first.
-          </p>
-        )} */}
+      
         {webpageData && webpageData.data ? (
           <a
             style={{
@@ -209,7 +200,43 @@ const WebBuild = () => {
           </p>
         )}
       </div>
-
+      {/* <div style={{ textAlign: "center", margin: "20px" }}>
+        {webpageData && webpageData.data ? (
+          new Date() < new Date(webpageData.expiryDate) ? (
+            <a
+              style={{
+                display: "inline-block",
+                padding: "10px 20px",
+                fontSize: "18px",
+                backgroundColor: "#333",
+                color: "#fff",
+                textDecoration: "none",
+                borderRadius: "4px",
+                transition: "background-color 0.3s ease",
+              }}
+              target="_blank"
+              href={"/live/" + webpageData._id}
+            >
+              Visit Live Page
+            </a>
+          ) : (
+            <Disabled />
+          )
+        ) : (
+          <p
+            style={{
+              fontSize: "18px",
+              color: "#ff0000",
+              textAlign: "center",
+              marginBottom: "10px",
+            }}
+          >
+            {webpageData && webpageData.data
+              ? "Webpage is not live. Save it first."
+              : "No live page. "}
+          </p>
+        )}
+      </div> */}
       <div
         id="gjs"
         style={{

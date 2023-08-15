@@ -16,26 +16,26 @@ const User = () => {
       icon:<AccountCircle/>,
       link: "/user/userrprofile",
     },
-    {
-      name: "Preview",
-      icon: <PreviewIcon />,
-      link: "/user/preview",
-    },
-    {
-      name: "Edit Site",
-      icon: <EditIcon /> ,
-      link: "/user/editsite",
-    },
-    {
-      name: "Monitor",
-      icon:<MonitorIcon />,
-      link: "/user/monitor",
-    },
-    {
-      name: "Manage Plans",
-      icon: <ManageHistoryIcon />,
-      link: "/user/planManager",
-    },
+    // {
+    //   name: "Preview",
+    //   icon: <PreviewIcon />,
+    //   link: "/user/preview",
+    // },
+    // {
+    //   name: "Edit Site",
+    //   icon: <EditIcon /> ,
+    //   link: "/user/editsite",
+    // },
+    // {
+    //   name: "Monitor",
+    //   icon:<MonitorIcon />,
+    //   link: "/user/monitor",
+    // },
+    // {
+    //   name: "Manage Plans",
+    //   icon: <ManageHistoryIcon />,
+    //   link: "/user/planManager",
+    // },
   ];
 
   return (

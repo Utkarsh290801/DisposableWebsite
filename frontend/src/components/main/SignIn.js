@@ -188,11 +188,26 @@ const SignIn = () => {
     if (res.status === 200) {
       const data = await res.json();
       if (data.type === "google") {
+          if (data.isBlocked) {
         Swal.fire({
-          icon: "info",
-          title: "Already Logged In",
-          text: "You have already logged in with Google. Please sign in using Google.",
+          icon: "error",
+          title: "Error",
+          text: "Your account has been blocked by the admin.",
         });
+        setSubmitting(false);
+        return;
+      }
+
+      Swal.fire({
+        icon: "info",
+        title: "Already Logged In",
+        text: "You have already logged in with Google. Please sign in using Google.",
+      });
+        // Swal.fire({
+        //   icon: "info",
+        //   title: "Already Logged In",
+        //   text: "You have already logged in with Google. Please sign in using Google.",
+        // });
       } else {
         const response = await fetch(url + "/user/authenticate", {
           method: "POST",

@@ -13,7 +13,9 @@ const utilRouter = require("./routers/utils");
 const cors = require("cors");
 const api_config = require("./config");
 const executeDisposeScript = require("./disposeScript");
-
+require("dotenv").config();
+const port = process.env.PORT || 5000;
+const allowedOrigin = process.env.ALLOWED_ORIGIN;
 const webpageModel = require("./models/webpageModel");
 
 const disposeExpiredWebpages = () => {
@@ -34,7 +36,7 @@ const disposeExpiredWebpages = () => {
               { new: true }
             )
             .then((webpData) => {
-              console.log("page disposed");
+              console.log("page disposed", webpData._id);
               console.log(webpData.disposed);
             })
             .catch((err) => {
@@ -47,12 +49,40 @@ const disposeExpiredWebpages = () => {
       console.log(err);
     });
 };
-
+// const disposeExpiredWebpages = () => {
+//   webpageModel
+//     .find({ disposed: false }) // Only check webpages that are not disposed
+//     .then((result) => {
+//       const currentTime = new Date();
+//       result.forEach((webpage) => {
+//         if (webpage.expiryDate < currentTime) {
+//           webpageModel
+//             .findByIdAndUpdate(
+//               webpage._id,
+//               {
+//                 disposed: true, // Mark as disposed
+//               },
+//               { new: true }
+//             )
+//             .then((webpData) => {
+//               console.log("Page disposed:", webpData._id);
+//             })
+//             .catch((err) => {
+//               console.log(err);
+//             });
+//         }
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 executeDisposeScript(disposeExpiredWebpages, 10000 * 1); // 24 hours
 
 app.use(express.static("public")); //2
 
-app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001"] }));
+app.use(cors({ origin: allowedOrigin }));
+
 app.use(express.json({ limit: "10mb", extended: true }));
 app.use(
   express.urlencoded({ limit: "10mb", extended: true, parameterLimit: 50000 })
@@ -60,7 +90,7 @@ app.use(
 
 // app.use(express.json())
 
-const port = api_config.port;
+// const port = api_config.port;
 app.use("/user", userRouter);
 app.use("/plan", planRouter);
 app.use("/webpage", webpageRouter);
